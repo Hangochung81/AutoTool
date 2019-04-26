@@ -1,0 +1,9 @@
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\bin\Debug\AutoTool.exe.config
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\bin\Debug\AutoTool.exe
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\bin\Debug\AutoTool.pdb
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.csprojResolveAssemblyReference.cache
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.Form1.resources
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.Properties.Resources.resources
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.csproj.GenerateResource.Cache
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.exe
+c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.pdb
