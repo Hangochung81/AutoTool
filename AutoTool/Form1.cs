@@ -18,6 +18,8 @@ namespace AutoTool
         }
 
         FolderBrowserDialog fbd = new FolderBrowserDialog();
+        OpenFileDialog ofd = new OpenFileDialog();
+        //FileDialogCustomPlace ppp = new FileDialogCustomPlace();
         private void Open_Click(object sender, EventArgs e)
         {
             if (fbd.ShowDialog() == DialogResult.OK)
@@ -31,13 +33,18 @@ namespace AutoTool
 
         private void OpenButton2_Click(object sender, EventArgs e)
         {
-            if (fbd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                txtExcelPath.Text = fbd.SelectedPath;
+                txtExcelPath.Text = ofd.FileName;
             }
         }
 
-
-
+        private void ExecuteBtn_Click(object sender, EventArgs e)
+        {
+            CollectDataFromHTML cldt = new CollectDataFromHTML();
+            //string abc = txtPath.Text;
+            //cldt.collectData(txtPath.Text);
+            cldt.UpdateExcel("Sheet1", txtPath.Text, txtExcelPath.Text);
+        }
     }
 }

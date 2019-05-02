@@ -89,6 +89,7 @@
             this.ExecuteBtn.TabIndex = 5;
             this.ExecuteBtn.Text = "Execute";
             this.ExecuteBtn.UseVisualStyleBackColor = true;
+            this.ExecuteBtn.Click += new System.EventHandler(this.ExecuteBtn_Click);
             // 
             // OpenButton2
             // 
