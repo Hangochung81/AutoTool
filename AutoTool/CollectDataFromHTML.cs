@@ -30,7 +30,8 @@ namespace AutoTool
                 foreach (FileInfo file in Files)
                 {
                     var filePath = "file:///C:/temp/testresults/" + file.Name;
-                    string page = webClient.DownloadString(filePath);
+                    var fileDemo = "file:///" + resultPath.Replace("\\","/") +"/" + file.Name;
+                    string page = webClient.DownloadString(fileDemo);
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(page);
 
@@ -72,7 +73,7 @@ namespace AutoTool
             //sw.Close();
         }
 
-        public void UpdateExcel(string sheetName, string resultPath, string excelPath)
+        public void UpdateExcel(string sheetName, string resultPath, string excelPath, string [] columnName)
         {
             List<string[]> listResult = collectData(resultPath);
             Microsoft.Office.Interop.Excel.Application oXL = null;
@@ -85,56 +86,84 @@ namespace AutoTool
                 oWB = oXL.Workbooks.Open(excelPath);
                 oSheet = String.IsNullOrEmpty(sheetName) ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets[sheetName];
 
+                int i;
+                for (i = 0 ; i < columnName.Length; i++)
+                {
+                    int col = 0;
+                    int row = 1;
+                    for (row = 1; row <= oSheet.Rows.Count; row++)
+                    {
+                        for (int j = 1; j <= 0; j++)
+                        {
+                            if (oSheet.Cells[row, j].Text == columnName[i])
+                            {
+                                col += j;
+                                break;
+                            }
+                        }
+                        if (col != 0)
+                        {
+                            break;
+                        }
+                    } 
+                    for (int j = 0; j < listResult.Count; j++)
+                    {
+                        row ++;
+                        oSheet.Cells[row, col] = listResult[j][i];
+                    }
+                   
+                }
+
                 //int a = oSheet.Columns.Count;
                 //string abc = oSheet.Cells[1,1].Text;
-                int nameRow = 1;
-                int nameCol = 0;
-                int dateRow = 1;
-                int dateCol = 0;
-                int resultRow = 1;
-                int resultCol = 0;
-                //string columnname = oSheet.Columns[1].Text;
-                for (int i = 1; i <= oSheet.Columns.Count; i++)
-                {
-                    if (oSheet.Cells[1, i].Text == "Name")
-                    {
-                        nameCol += i;
-                        break;
-                    }
-                }
-                for (int i = 0; i < listResult.Count; i++)
-                {
-                    nameRow += 1;
-                    oSheet.Cells[nameRow, nameCol] = listResult[i][0];
-                }
+                //int nameRow = 1;
+                //int nameCol = 0;
+                //int dateRow = 1;
+                //int dateCol = 0;
+                //int resultRow = 1;
+                //int resultCol = 0;
+                ////string columnname = oSheet.Columns[1].Text;
+                //for (int i = 1; i <= oSheet.Columns.Count; i++)
+                //{
+                //    if (oSheet.Cells[1, i].Text == "Name")
+                //    {
+                //        nameCol += i;
+                //        break;
+                //    }
+                //}
+                //for (int i = 0; i < listResult.Count; i++)
+                //{
+                //    nameRow += 1;
+                //    oSheet.Cells[nameRow, nameCol] = listResult[i][0];
+                //}
 
-                for (int i = 1; i <= oSheet.Columns.Count; i++)
-                {
-                    if (oSheet.Cells[1, i].Text == "Date")
-                    {
-                        dateCol += i;
-                        break;
-                    }
-                }
-                for (int i = 0; i < listResult.Count; i++)
-                {
-                    dateRow += 1;
-                    oSheet.Cells[dateRow, dateCol] = listResult[i][1];
-                }
+                //for (int i = 1; i <= oSheet.Columns.Count; i++)
+                //{
+                //    if (oSheet.Cells[1, i].Text == "Date")
+                //    {
+                //        dateCol += i;
+                //        break;
+                //    }
+                //}
+                //for (int i = 0; i < listResult.Count; i++)
+                //{
+                //    dateRow += 1;
+                //    oSheet.Cells[dateRow, dateCol] = listResult[i][1];
+                //}
 
-                for (int i = 1; i <= oSheet.Columns.Count; i++)
-                {
-                    if (oSheet.Cells[1, i].Text == "Result")
-                    {
-                        resultCol += i;
-                        break;
-                    }
-                }
-                for (int i = 0; i < listResult.Count; i++)
-                {
-                    resultRow += 1;
-                    oSheet.Cells[resultRow, resultCol] = listResult[i][2];
-                }
+                //for (int i = 1; i <= oSheet.Columns.Count; i++)
+                //{
+                //    if (oSheet.Cells[1, i].Text == "Result")
+                //    {
+                //        resultCol += i;
+                //        break;
+                //    }
+                //}
+                //for (int i = 0; i < listResult.Count; i++)
+                //{
+                //    resultRow += 1;
+                //    oSheet.Cells[resultRow, resultCol] = listResult[i][2];
+                //}
 
 
                 oWB.Save();

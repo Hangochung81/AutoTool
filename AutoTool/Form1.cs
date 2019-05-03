@@ -42,9 +42,8 @@ namespace AutoTool
         private void ExecuteBtn_Click(object sender, EventArgs e)
         {
             CollectDataFromHTML cldt = new CollectDataFromHTML();
-            //string abc = txtPath.Text;
-            //cldt.collectData(txtPath.Text);
-            cldt.UpdateExcel("Sheet1", txtPath.Text, txtExcelPath.Text);
+            string[] ColumnName = { "Name", "Date", "Result"};
+            cldt.UpdateExcel("Sheet1", txtPath.Text, txtExcelPath.Text, ColumnName);
         }
     }
 }
