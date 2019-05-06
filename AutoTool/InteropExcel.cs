@@ -66,26 +66,7 @@ namespace AutoTool
         
         private Range GetRange(string rangeType, object rangeDefine)
         {
-            /*
-             * From cell to cell ---
-             * Range range = ws.Range[ws.Cells[2, 2], ws.Cells[5, 6]];
-             * 
-             * For Rows ---
-             * Range range = ws.Rows[6];
-             * Range range = ws.Rows["2:4"];
-             * 
-             * For Columns ---
-             * Range range = ws.Columns["B"];
-             * Range range = ws.Columns[3];
-             * Range range = ws.Columns["F:I"];
-             * 
-             * For Multiple range
-             * Range range = ws.Range["7:9,12:12,14:14"];
-             * Range range = ws.Range["B:C,E:E,G:G"];
-            */
-
             range = ws.Cells[1, 1]; // default range sets to cell A1
-
             try
             {
                 switch (rangeType)
