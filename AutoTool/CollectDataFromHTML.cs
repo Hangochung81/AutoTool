@@ -93,7 +93,7 @@ namespace AutoTool
                     int row = 1;
                     for (row = 1; row <= oSheet.Rows.Count; row++)
                     {
-                        for (int j = 1; j <= 0; j++)
+                        for (int j = 1; j <= 100; j++)
                         {
                             if (oSheet.Cells[row, j].Text == columnName[i])
                             {
