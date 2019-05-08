@@ -19,7 +19,7 @@ namespace AutoTool
 
         public void InsertNewReport(string sheetName)
         {
-            CleanExcelProcess();
+            //CleanExcelProcess();
             LoadExcelSheet(filePath, sheetName);
 
             // Insert copied Range.
@@ -66,7 +66,7 @@ namespace AutoTool
         
         private Range GetRange(string rangeType, object rangeDefine)
         {
-            range = ws.Cells[1, 1]; // default range sets to cell A1
+            range = null; // default range sets to cell A1
             try
             {
                 switch (rangeType)
