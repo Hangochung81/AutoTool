@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -25,8 +26,6 @@ namespace AutoTool
 
             try
             {
-
-              
                 Dictionary<string, string[]> results = new Dictionary<string, string[]>();
 
                 WebClient webClient = new WebClient();
@@ -65,6 +64,48 @@ namespace AutoTool
 
                 throw e;
             }
+        }
+
+        public DataSet ConvertXMLtoDataset(string xmlPathFile)
+        {
+            //string filePath = string.Empty;
+            DataSet objDataSet = new DataSet();
+            objDataSet.ReadXml(xmlPathFile);
+            return objDataSet;
+        }
+
+        public Dictionary<string, string[]> colectDataFromXmlFile(string xmlPathFile)
+        {
+            try
+            {
+                Dictionary<string, string[]> results = new Dictionary<string, string[]>();
+                DataSet ds = ConvertXMLtoDataset(xmlPathFile);
+
+                for (int i = 1; i < ds.Tables[4].Rows.Count; i++)
+                {
+                    string testID = ds.Tables[4].Rows[i].ItemArray[4].ToString().Trim();
+                    string executeDate = ds.Tables[4].Rows[i].ItemArray[8].ToString().Trim();
+                    string executeResult = ds.Tables[4].Rows[i].ItemArray[2].ToString().Trim();
+                    if (results.ContainsKey(testID))
+                    {
+                        if (results[testID][0].ToString().CompareTo(executeDate) == -1)
+                        {
+                            results[testID] = new string[] { executeDate, executeResult };
+                        }
+                    }
+                    else
+                    {
+                        results[testID] = new string[] { executeDate, executeResult };
+                    }
+                }
+                return results;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
         }
 
         public List<string> GetSheetName(string excelPath)
