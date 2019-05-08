@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,16 +13,21 @@ namespace AutoTool
 {
     public class CollectDataFromHTML
     {
-        public List<string[]> collectData(string resultPath)
+        Microsoft.Office.Interop.Excel.Application oXL = null;
+        Microsoft.Office.Interop.Excel._Workbook oWB = null;
+        Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
+
+        
+        //}
+
+        public Dictionary<string, string[]> collectData(string resultPath)
         {
-            //var filePath = "D:\test.xlsx";
-            //var helper = (ExcelHelper)ExcelDriver.getExcelHelper(filePath);
-            //helper.UpdateCellValue(filePath, "test", );
 
             try
             {
 
-                List<string[]> results = new List<string[]>();
+              
+                Dictionary<string, string[]> results = new Dictionary<string, string[]>();
 
                 WebClient webClient = new WebClient();
 
@@ -29,18 +36,27 @@ namespace AutoTool
 
                 foreach (FileInfo file in Files)
                 {
-                    var filePath = "file:///C:/temp/testresults/" + file.Name;
-                    var fileDemo = "file:///" + resultPath.Replace("\\","/") +"/" + file.Name;
-                    string page = webClient.DownloadString(fileDemo);
+                    var filePath = "file:///" + resultPath.Replace("\\", "/") + "/" + file.Name;
+                    string page = webClient.DownloadString(filePath);
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(page);
 
                     var table = doc.DocumentNode.SelectNodes("(//div[@class='test-heading'])[2]").ToList();
                     string testID = table[0].ChildNodes[1].InnerText.Trim();
                     string executeDate = table[0].ChildNodes[3].InnerText.Trim();
-                    string executeResult = table[0].ChildNodes[5].InnerText.Trim();
+                    string executeResult = table[0].ChildNodes[5].InnerText.Trim() + "ed";
 
-                    results.Add(new string[3] { testID, executeDate, executeResult });
+                    if (results.ContainsKey(testID))
+                    {
+                        if (results[testID][0].ToString().CompareTo(executeDate) == -1)
+                        {
+                            results[testID] = new string[] { executeDate, executeResult };
+                        }
+                    }
+                    else
+                    {
+                        results[testID] = new string[] { executeDate, executeResult };
+                    }
                 }
                 return results;
             }
@@ -49,123 +65,63 @@ namespace AutoTool
 
                 throw e;
             }
-
-
-            //StreamWriter sw = new StreamWriter("D:\\TempResult.txt");
-
-            //foreach (string[] item in results)
-            //{
-            //    try
-            //    {
-            //        var line = "";
-            //        for (int i = 0; i < item.Count(); i++)
-            //        {
-            //            line += item[i] + " | ";
-            //        }
-            //        sw.WriteLine(line);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //sw.Close();
         }
 
-        public void UpdateExcel(string sheetName, string resultPath, string excelPath, string [] columnName)
+        public List<string> GetSheetName(string excelPath)
         {
-            List<string[]> listResult = collectData(resultPath);
-            Microsoft.Office.Interop.Excel.Application oXL = null;
-            Microsoft.Office.Interop.Excel._Workbook oWB = null;
-            Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
+            oXL = new Microsoft.Office.Interop.Excel.Application();
+            oWB = oXL.Workbooks.Open(excelPath);
+            var sheetNames = new List<string>();
+            foreach (Microsoft.Office.Interop.Excel.Worksheet worksheet in oXL.Worksheets)
+            {
+                if (worksheet.Visible == XlSheetVisibility.xlSheetVisible)
+                {
+                    sheetNames.Add(worksheet.Name);
+                }
+            }
+            oWB.Close();
+            return sheetNames;
+        }
 
+        public void UpdateExcel(string sheetName, string resultPath, string excelPath, DateTime date)
+        {
+            oWB = oXL.Workbooks.Open(excelPath);
+            Dictionary<string, string[]> listResult = collectData(resultPath);
+            int dateRow = 7;
+            int dateCol = 6;
+            int statusCol = 0;
+            int tcNameRow = 10;
+            int tcNameCol = 2;
             try
             {
-                oXL = new Microsoft.Office.Interop.Excel.Application();
-                oWB = oXL.Workbooks.Open(excelPath);
                 oSheet = String.IsNullOrEmpty(sheetName) ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets[sheetName];
-
-                int i;
-                for (i = 0 ; i < columnName.Length; i++)
+               
+                for (int i = dateCol; i < oSheet.Columns.Count; i++)
                 {
-                    int col = 0;
-                    int row = 1;
-                    for (row = 1; row <= oSheet.Rows.Count; row++)
+                    if (String.IsNullOrEmpty(oSheet.Cells[dateRow, i].Text)) continue;
+                    DateTime rawValue = DateTime.FromOADate(oSheet.Cells[dateRow, i].Value2);
+
+                    if (rawValue.Date == date.Date)
                     {
-                        for (int j = 1; j <= 0; j++)
-                        {
-                            if (oSheet.Cells[row, j].Text == columnName[i])
-                            {
-                                col += j;
-                                break;
-                            }
-                        }
-                        if (col != 0)
-                        {
-                            break;
-                        }
-                    } 
-                    for (int j = 0; j < listResult.Count; j++)
-                    {
-                        row ++;
-                        oSheet.Cells[row, col] = listResult[j][i];
+                        statusCol = i;
+                        break;
                     }
-                   
+                    
                 }
+                for (int i = tcNameRow; i < oSheet.Rows.Count; i++)
+                {
+                    if (String.IsNullOrEmpty(oSheet.Cells[i, tcNameCol].Text))
+                    {
+                        break;
+                    }
+                    string tcVal = oSheet.Cells[i, tcNameCol].Text.Trim();
+                    if (listResult.ContainsKey(tcVal))
+                    {
+                        oSheet.Cells[i, statusCol] = listResult[tcVal][1];
+                    }
 
-                //int a = oSheet.Columns.Count;
-                //string abc = oSheet.Cells[1,1].Text;
-                //int nameRow = 1;
-                //int nameCol = 0;
-                //int dateRow = 1;
-                //int dateCol = 0;
-                //int resultRow = 1;
-                //int resultCol = 0;
-                ////string columnname = oSheet.Columns[1].Text;
-                //for (int i = 1; i <= oSheet.Columns.Count; i++)
-                //{
-                //    if (oSheet.Cells[1, i].Text == "Name")
-                //    {
-                //        nameCol += i;
-                //        break;
-                //    }
-                //}
-                //for (int i = 0; i < listResult.Count; i++)
-                //{
-                //    nameRow += 1;
-                //    oSheet.Cells[nameRow, nameCol] = listResult[i][0];
-                //}
-
-                //for (int i = 1; i <= oSheet.Columns.Count; i++)
-                //{
-                //    if (oSheet.Cells[1, i].Text == "Date")
-                //    {
-                //        dateCol += i;
-                //        break;
-                //    }
-                //}
-                //for (int i = 0; i < listResult.Count; i++)
-                //{
-                //    dateRow += 1;
-                //    oSheet.Cells[dateRow, dateCol] = listResult[i][1];
-                //}
-
-                //for (int i = 1; i <= oSheet.Columns.Count; i++)
-                //{
-                //    if (oSheet.Cells[1, i].Text == "Result")
-                //    {
-                //        resultCol += i;
-                //        break;
-                //    }
-                //}
-                //for (int i = 0; i < listResult.Count; i++)
-                //{
-                //    resultRow += 1;
-                //    oSheet.Cells[resultRow, resultCol] = listResult[i][2];
-                //}
-
-
+                }
+               
                 oWB.Save();
 
                 MessageBox.Show("Done!");

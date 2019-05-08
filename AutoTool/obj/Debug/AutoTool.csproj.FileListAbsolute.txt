@@ -7,3 +7,27 @@ c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Deb
 c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.csproj.GenerateResource.Cache
 c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.exe
 c:\users\hung.ha\documents\visual studio 2015\Projects\AutoTool\AutoTool\obj\Debug\AutoTool.pdb
+D:\ATT\AutoTool\AutoTool\bin\Debug\AutoTool.exe.config
+D:\ATT\AutoTool\AutoTool\obj\Debug\AutoTool.exe
+D:\ATT\AutoTool\AutoTool\obj\Debug\AutoTool.pdb
+D:\ATT\AutoTool\AutoTool\bin\Debug\AutoTool.exe
+D:\ATT\AutoTool\AutoTool\bin\Debug\AutoTool.pdb
+D:\ATT\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.dll
+D:\ATT\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.pdb
+D:\ATT\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.xml
+D:\ATT\AutoTool\AutoTool\obj\Debug\AutoTool.csprojResolveAssemblyReference.cache
+D:\ATT\AutoTool\AutoTool\obj\Debug\AutoTool.Form1.resources
+D:\ATT\AutoTool\AutoTool\obj\Debug\AutoTool.Properties.Resources.resources
+D:\ATT\AutoTool\AutoTool\obj\Debug\AutoTool.csproj.GenerateResource.Cache
+D:\Backup\AutoTool\AutoTool\bin\Debug\AutoTool.exe.config
+D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.exe
+D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.pdb
+D:\Backup\AutoTool\AutoTool\bin\Debug\AutoTool.exe
+D:\Backup\AutoTool\AutoTool\bin\Debug\AutoTool.pdb
+D:\Backup\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.dll
+D:\Backup\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.pdb
+D:\Backup\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.xml
+D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.csprojResolveAssemblyReference.cache
+D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.Form1.resources
+D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.Properties.Resources.resources
+D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.csproj.GenerateResource.Cache
