@@ -31,3 +31,15 @@ D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.csprojResolveAssemblyReference.ca
 D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.Form1.resources
 D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.Properties.Resources.resources
 D:\Backup\AutoTool\AutoTool\obj\Debug\AutoTool.csproj.GenerateResource.Cache
+D:\Project\BreezeOJT\AutoTool\AutoTool\bin\Debug\AutoTool.exe.config
+D:\Project\BreezeOJT\AutoTool\AutoTool\obj\Debug\AutoTool.exe
+D:\Project\BreezeOJT\AutoTool\AutoTool\obj\Debug\AutoTool.pdb
+D:\Project\BreezeOJT\AutoTool\AutoTool\bin\Debug\AutoTool.exe
+D:\Project\BreezeOJT\AutoTool\AutoTool\bin\Debug\AutoTool.pdb
+D:\Project\BreezeOJT\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.dll
+D:\Project\BreezeOJT\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.pdb
+D:\Project\BreezeOJT\AutoTool\AutoTool\bin\Debug\HtmlAgilityPack.xml
+D:\Project\BreezeOJT\AutoTool\AutoTool\obj\Debug\AutoTool.csprojResolveAssemblyReference.cache
+D:\Project\BreezeOJT\AutoTool\AutoTool\obj\Debug\AutoTool.Form1.resources
+D:\Project\BreezeOJT\AutoTool\AutoTool\obj\Debug\AutoTool.Properties.Resources.resources
+D:\Project\BreezeOJT\AutoTool\AutoTool\obj\Debug\AutoTool.csproj.GenerateResource.Cache
