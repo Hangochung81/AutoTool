@@ -19,6 +19,7 @@ namespace AutoTool
 
         FolderBrowserDialog fbd = new FolderBrowserDialog();
         OpenFileDialog ofd = new OpenFileDialog();
+        CollectDataFromHTML cldt = new CollectDataFromHTML();
         //FileDialogCustomPlace ppp = new FileDialogCustomPlace();
         private void Open_Click(object sender, EventArgs e)
         {
@@ -31,6 +32,8 @@ namespace AutoTool
 
         }
 
+ 
+
         private void OpenButton2_Click(object sender, EventArgs e)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -41,9 +44,56 @@ namespace AutoTool
 
         private void ExecuteBtn_Click(object sender, EventArgs e)
         {
-            CollectDataFromHTML cldt = new CollectDataFromHTML();
+         
             string[] ColumnName = { "Name", "Date", "Result"};
-            cldt.UpdateExcel("Sheet1", txtPath.Text, txtExcelPath.Text, ColumnName);
+            string sheetName = platformSheet.Text;
+            //cldt.GetSheetName(txtExcelPath.Text);
+            cldt.UpdateExcel(sheetName, txtPath.Text, txtExcelPath.Text, dateTimePicker.Value);
+
         }
+
+        private void txtPath_Validating(object sender, CancelEventArgs e)
+        {
+            //if (txtPath.Text == string.Empty)
+            //{
+            //    errorProvider1.SetError(txtPath, MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ToString());
+            //    e.Cancel = true;
+            //}
+        }
+
+        private void ExecuteBtn_Validating(object sender, CancelEventArgs e)
+        {
+            //if (txtPath.Text == "")
+            //{
+            //    errorProvider1.SetError(txtPath, MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ToString());
+            //    e.Cancel = true;
+            //}
+        }
+
+        private void txtExcelPath_TextChanged(object sender, EventArgs e)
+        {
+            
+            platformSheet.Items.Clear();
+            var listSheetName = cldt.GetSheetName(txtExcelPath.Text);
+            
+            foreach (var item in listSheetName)
+            {
+                platformSheet.Items.Add(item);
+            }
+            platformSheet.Text = listSheetName[0];
+        }
+
+        //public bool ValidateFolder()
+        //{
+        //    if (txtPath.Text == "")
+        //    {
+        //        txtPath.Focus();
+        //        errorProvider1.SetError(txtPath, MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ToString());
+        //        return false;
+        //    }
+        //    return true;
+        //}
+
+
     }
 }
