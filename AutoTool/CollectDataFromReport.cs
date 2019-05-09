@@ -151,12 +151,9 @@ namespace AutoTool
                 int lastRow = oSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Row;
                 int testCaseColumn = TitleToNumber(template.TestCaseColumnName);
 
-                for (int i = template.FillableRowStartIndex; i < lastRow; i++)
+                for (int i = template.FillableRowStartIndex; i <= lastRow; i++)
                 {
-                    if (String.IsNullOrEmpty(oSheet.Cells[i, testCaseColumn].Text))
-                    {
-                        break;
-                    }
+                    if (String.IsNullOrEmpty(oSheet.Cells[i, testCaseColumn].Text)) continue;
 
                     string tcVal = oSheet.Cells[i, testCaseColumn].Text.Trim();
 
@@ -201,7 +198,7 @@ namespace AutoTool
             int lastColumn = oSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Column;
             int fillableColumnStartIndex = TitleToNumber(template.FillableColumnStartName);
 
-            for (int i = fillableColumnStartIndex; i < lastColumn; i++)
+            for (int i = fillableColumnStartIndex; i <= lastColumn; i++)
             {
                 if (String.IsNullOrEmpty(oSheet.Cells[template.DateRowIndex, i].Text)) continue;
                 DateTime rawValue = DateTime.FromOADate(oSheet.Cells[template.DateRowIndex, i].Value2);
@@ -308,7 +305,7 @@ namespace AutoTool
                 int lastRow = oSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Row;
                 
 
-                for (int i = testCaseStartIndex; i < lastRow; i++)
+                for (int i = testCaseStartIndex; i <= lastRow; i++)
                 {
                     if (String.IsNullOrEmpty(oSheet.Cells[i, testCaseColumn].Text)) continue;
 
