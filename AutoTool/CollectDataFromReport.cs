@@ -19,7 +19,6 @@ namespace AutoTool
         Microsoft.Office.Interop.Excel._Workbook oWB = null;
         Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
         public string dateFormat = "M/d/yyyy h:mm:ss tt";
-        //public string dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
         private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath)
         {
@@ -30,9 +29,14 @@ namespace AutoTool
                 WebClient webClient = new WebClient();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] Files = dir.GetFiles("*.html");
+                FileInfo[] files = dir.GetFiles("*.html");
 
-                foreach (FileInfo file in Files)
+                if (files.Count() == 0)
+                {
+                    throw new Exception("There is no html file in folder: " + resultPath);
+                }
+
+                foreach (FileInfo file in files)
                 {
                     var filePath = "file:///" + resultPath.Replace("\\", "/") + "/" + file.Name;
                     string page = webClient.DownloadString(filePath);
@@ -89,9 +93,14 @@ namespace AutoTool
                 Dictionary<string, string[]> results = new Dictionary<string, string[]>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] Files = dir.GetFiles("*.xml");
+                FileInfo[] files = dir.GetFiles("*.xml");
 
-                foreach (FileInfo file in Files)
+                if (files.Count() == 0)
+                {
+                    throw new Exception("There is no xml file in folder: " + resultPath);
+                }
+
+                foreach (FileInfo file in files)
                 {
                     DataSet ds = ConvertXMLtoDataset(file.FullName);
                     if (ds.Tables[0].TableName == "testng-results")
@@ -127,26 +136,23 @@ namespace AutoTool
 
         public void UpdateExcel(ReportInfo report, TemplateInfo template)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            //if (!String.IsNullOrEmpty(template.DateTimeFormat))
-            //    dateFormat = template.DateTimeFormat;
-
-            oWB = oXL.Workbooks.Open(report.TargetPath);
-
-            Dictionary<string, string[]> listResult;
-            if (report.ReportType == "html")
-            {
-                listResult = CollectDataFromHtmlFile(report.ResultPath);
-            }
-            else
-            {
-                listResult = ColectDataFromXmlFile(report.ResultPath);
-            }
-
             try
             {
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                Dictionary<string, string[]> listResult;
+                if (report.ReportType == "html")
+                {
+                    listResult = CollectDataFromHtmlFile(report.ResultPath);
+                }
+                else
+                {
+                    listResult = ColectDataFromXmlFile(report.ResultPath);
+                }
+
+                oWB = oXL.Workbooks.Open(report.TargetPath);
+
                 oSheet = String.IsNullOrEmpty(report.SheetName) ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets[report.SheetName];
 
                 int statusColumn = GenerateReportDate(report, template);
@@ -178,7 +184,10 @@ namespace AutoTool
             finally
             {
                 if (oWB != null)
+                {
                     oWB.Close();
+                    oWB = null;
+                }
             }
         }
 
@@ -281,11 +290,13 @@ namespace AutoTool
 
         public List<string> GetSheetName(string excelPath)
         {
+            var sheetNames = new List<string>();
+
             try
             {
                 oXL = new Microsoft.Office.Interop.Excel.Application();
                 oWB = oXL.Workbooks.Open(excelPath);
-                var sheetNames = new List<string>();
+                
                 foreach (Microsoft.Office.Interop.Excel.Worksheet worksheet in oXL.Worksheets)
                 {
                     if (worksheet.Visible == XlSheetVisibility.xlSheetVisible)
@@ -293,14 +304,21 @@ namespace AutoTool
                         sheetNames.Add(worksheet.Name);
                     }
                 }
-                oWB.Close();
-                return sheetNames;
             }
             catch (Exception)
             {
-
-                return new List<string>();
+                sheetNames = new List<string>();
             }
+            finally
+            {
+                if (oWB != null)
+                {
+                    oWB.Close();
+                    oWB = null;
+                }
+            }
+
+            return sheetNames;
         }
 
         public string GetCurrentTestCase(string excelPath, string sheetName, string testCaseColumnName, int testCaseStartIndex)
@@ -330,7 +348,10 @@ namespace AutoTool
             finally
             {
                 if (oWB != null)
+                {
                     oWB.Close();
+                    oWB = null;
+                }
             }
 
             return tcList;
@@ -340,8 +361,5 @@ namespace AutoTool
         {
             return value.First().ToString().ToUpper() + value.Substring(1).ToLower();
         }
-
-  
-
     }
 }

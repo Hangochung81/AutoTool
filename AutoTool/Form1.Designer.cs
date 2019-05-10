@@ -42,6 +42,7 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.chxUseCustom = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbxDatetimeFormat = new System.Windows.Forms.ComboBox();
             this.btnEndExcel = new System.Windows.Forms.Button();
@@ -137,7 +138,7 @@
             // 
             // ExecuteBtn
             // 
-            this.ExecuteBtn.Location = new System.Drawing.Point(438, 398);
+            this.ExecuteBtn.Location = new System.Drawing.Point(455, 396);
             this.ExecuteBtn.Name = "ExecuteBtn";
             this.ExecuteBtn.Size = new System.Drawing.Size(108, 37);
             this.ExecuteBtn.TabIndex = 5;
@@ -148,7 +149,7 @@
             // 
             // OpenButton2
             // 
-            this.OpenButton2.Location = new System.Drawing.Point(488, 72);
+            this.OpenButton2.Location = new System.Drawing.Point(488, 71);
             this.OpenButton2.Name = "OpenButton2";
             this.OpenButton2.Size = new System.Drawing.Size(75, 23);
             this.OpenButton2.TabIndex = 6;
@@ -166,7 +167,7 @@
             this.cbxSheet.FormattingEnabled = true;
             this.cbxSheet.Location = new System.Drawing.Point(89, 105);
             this.cbxSheet.Name = "cbxSheet";
-            this.cbxSheet.Size = new System.Drawing.Size(184, 21);
+            this.cbxSheet.Size = new System.Drawing.Size(216, 21);
             this.cbxSheet.TabIndex = 7;
             // 
             // label3
@@ -200,6 +201,7 @@
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.chxUseCustom);
             this.tabPageReport.Controls.Add(this.label8);
             this.tabPageReport.Controls.Add(this.cbxDatetimeFormat);
             this.tabPageReport.Controls.Add(this.btnEndExcel);
@@ -225,10 +227,21 @@
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
             // 
+            // chxUseCustom
+            // 
+            this.chxUseCustom.AutoSize = true;
+            this.chxUseCustom.Location = new System.Drawing.Point(467, 43);
+            this.chxUseCustom.Name = "chxUseCustom";
+            this.chxUseCustom.Size = new System.Drawing.Size(96, 17);
+            this.chxUseCustom.TabIndex = 21;
+            this.chxUseCustom.Text = "Custom Format";
+            this.chxUseCustom.UseVisualStyleBackColor = true;
+            this.chxUseCustom.CheckedChanged += new System.EventHandler(this.chxUseCustom_CheckedChanged);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(308, 44);
+            this.label8.Location = new System.Drawing.Point(231, 44);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 13);
             this.label8.TabIndex = 20;
@@ -236,18 +249,19 @@
             // 
             // cbxDatetimeFormat
             // 
+            this.cbxDatetimeFormat.Enabled = false;
             this.cbxDatetimeFormat.FormattingEnabled = true;
             this.cbxDatetimeFormat.Items.AddRange(new object[] {
             "M/d/yyyy h:mm:ss tt",
             "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'"});
-            this.cbxDatetimeFormat.Location = new System.Drawing.Point(379, 41);
+            this.cbxDatetimeFormat.Location = new System.Drawing.Point(297, 41);
             this.cbxDatetimeFormat.Name = "cbxDatetimeFormat";
-            this.cbxDatetimeFormat.Size = new System.Drawing.Size(184, 21);
+            this.cbxDatetimeFormat.Size = new System.Drawing.Size(164, 21);
             this.cbxDatetimeFormat.TabIndex = 19;
             // 
             // btnEndExcel
             // 
-            this.btnEndExcel.Location = new System.Drawing.Point(21, 398);
+            this.btnEndExcel.Location = new System.Drawing.Point(8, 396);
             this.btnEndExcel.Name = "btnEndExcel";
             this.btnEndExcel.Size = new System.Drawing.Size(118, 37);
             this.btnEndExcel.TabIndex = 18;
@@ -270,7 +284,7 @@
             this.cbxReportType.FormattingEnabled = true;
             this.cbxReportType.Location = new System.Drawing.Point(89, 41);
             this.cbxReportType.Name = "cbxReportType";
-            this.cbxReportType.Size = new System.Drawing.Size(184, 21);
+            this.cbxReportType.Size = new System.Drawing.Size(131, 21);
             this.cbxReportType.TabIndex = 16;
             this.cbxReportType.SelectedIndexChanged += new System.EventHandler(this.cbxReportType_SelectedIndexChanged);
             // 
@@ -282,9 +296,9 @@
             this.groupBox1.Controls.Add(this.radioButtonAll);
             this.groupBox1.Controls.Add(this.txtTestCase);
             this.groupBox1.Controls.Add(this.radioButtonChoice);
-            this.groupBox1.Location = new System.Drawing.Point(18, 176);
+            this.groupBox1.Location = new System.Drawing.Point(8, 176);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(531, 218);
+            this.groupBox1.Size = new System.Drawing.Size(555, 218);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test case list ( fill status for only chosen test cases in list - one line for on" +
@@ -340,7 +354,7 @@
             this.txtTestCase.Multiline = true;
             this.txtTestCase.Name = "txtTestCase";
             this.txtTestCase.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTestCase.Size = new System.Drawing.Size(525, 173);
+            this.txtTestCase.Size = new System.Drawing.Size(549, 173);
             this.txtTestCase.TabIndex = 12;
             this.txtTestCase.WordWrap = false;
             this.txtTestCase.TextChanged += new System.EventHandler(this.txtTestCase_TextChanged);
@@ -735,6 +749,7 @@
         private System.Windows.Forms.Button btnEndExcel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cbxDatetimeFormat;
+        private System.Windows.Forms.CheckBox chxUseCustom;
     }
 }
 

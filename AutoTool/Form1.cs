@@ -286,6 +286,18 @@ namespace AutoTool
                 e.Handled = true;
             }
         }
+
+        private void chxUseCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chxUseCustom.Checked)
+            {
+                cbxDatetimeFormat.Enabled = true;
+            }
+            else
+            {
+                cbxDatetimeFormat.Enabled = false;
+            }
+        }
     }
 
 
