@@ -174,7 +174,8 @@ namespace AutoTool
             txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
             txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
             txtStatusColumnIndexPerDate.Text = ini.ReadValue("Template", "StatusColumnIndexPerDate");
-            
+            //Load Guideline document
+            webBrowser.Navigate(Directory.GetCurrentDirectory() + "\\AutoCollectGuideline.mht");
         }
 
         private void txtTestCase_TextChanged(object sender, EventArgs e)
@@ -297,6 +298,11 @@ namespace AutoTool
             {
                 cbxDatetimeFormat.Enabled = false;
             }
+        }
+
+        private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            webBrowser.Document.Body.Style = "zoom:70%";
         }
     }
 

@@ -82,6 +82,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.tabPageGuideline = new System.Windows.Forms.TabPage();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
@@ -90,6 +92,7 @@
             this.panel2.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.tabPageGuideline.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -192,6 +195,7 @@
             this.tabControl1.Controls.Add(this.tabPageReport);
             this.tabControl1.Controls.Add(this.tabPageTemplate);
             this.tabControl1.Controls.Add(this.tabPageAbout);
+            this.tabControl1.Controls.Add(this.tabPageGuideline);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -665,6 +669,27 @@
             this.panel4.Size = new System.Drawing.Size(307, 91);
             this.panel4.TabIndex = 24;
             // 
+            // tabPageGuideline
+            // 
+            this.tabPageGuideline.Controls.Add(this.webBrowser);
+            this.tabPageGuideline.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGuideline.Name = "tabPageGuideline";
+            this.tabPageGuideline.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGuideline.Size = new System.Drawing.Size(571, 441);
+            this.tabPageGuideline.TabIndex = 3;
+            this.tabPageGuideline.Text = "Guideline";
+            this.tabPageGuideline.UseVisualStyleBackColor = true;
+            // 
+            // webBrowser
+            // 
+            this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser.Location = new System.Drawing.Point(3, 3);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(565, 435);
+            this.webBrowser.TabIndex = 0;
+            this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -691,6 +716,7 @@
             this.tabPageAbout.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.tabPageGuideline.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -750,6 +776,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cbxDatetimeFormat;
         private System.Windows.Forms.CheckBox chxUseCustom;
+        private System.Windows.Forms.TabPage tabPageGuideline;
+        private System.Windows.Forms.WebBrowser webBrowser;
     }
 }
 
