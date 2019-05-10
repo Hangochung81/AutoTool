@@ -19,6 +19,7 @@ namespace AutoTool
         Microsoft.Office.Interop.Excel._Workbook oWB = null;
         Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
         public string dateFormat = "M/d/yyyy h:mm:ss tt";
+        //public string dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
         private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath)
         {
@@ -46,7 +47,7 @@ namespace AutoTool
                         if (table[0].ChildNodes[1].InnerText.Trim() == "Test Summary") break;
                         string testID = table[0].ChildNodes[1].InnerText.Trim();
                         string executeDate = table[0].ChildNodes[3].InnerText.Trim();
-                        string executeResult = table[0].ChildNodes[5].InnerText.Trim() + "ed";
+                        string executeResult = UpperFirstCharacter(table[0].ChildNodes[5].InnerText.Trim()) + "ed";
 
                         if (results.ContainsKey(testID))
                         {
@@ -80,6 +81,7 @@ namespace AutoTool
             return objDataSet;
         }
 
+
         private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath)
         {
             try
@@ -94,11 +96,11 @@ namespace AutoTool
                     DataSet ds = ConvertXMLtoDataset(file.FullName);
                     if (ds.Tables[0].TableName == "testng-results")
                     {
-                        for (int i = 1; i < ds.Tables[4].Rows.Count; i++)
+                        for (int i = 0; i < ds.Tables[4].Rows.Count; i++)
                         {
                             string testID = ds.Tables[4].Rows[i].ItemArray[4].ToString().Trim();
                             string executeDate = ds.Tables[4].Rows[i].ItemArray[8].ToString().Trim();
-                            string executeResult = ds.Tables[4].Rows[i].ItemArray[2].ToString().Trim() + "ed";
+                            string executeResult = UpperFirstCharacter(ds.Tables[4].Rows[i].ItemArray[2].ToString().Trim()) + "ed";
                             if (results.ContainsKey(testID))
                             {
                                 DateTime storedDate = DateTime.ParseExact(results[testID][0].ToString(), dateFormat, null);
@@ -128,8 +130,8 @@ namespace AutoTool
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            if (!String.IsNullOrEmpty(template.DateTimeFormat))
-                dateFormat = template.DateTimeFormat;
+            //if (!String.IsNullOrEmpty(template.DateTimeFormat))
+            //    dateFormat = template.DateTimeFormat;
 
             oWB = oXL.Workbooks.Open(report.TargetPath);
 
@@ -279,18 +281,26 @@ namespace AutoTool
 
         public List<string> GetSheetName(string excelPath)
         {
-            oXL = new Microsoft.Office.Interop.Excel.Application();
-            oWB = oXL.Workbooks.Open(excelPath);
-            var sheetNames = new List<string>();
-            foreach (Microsoft.Office.Interop.Excel.Worksheet worksheet in oXL.Worksheets)
+            try
             {
-                if (worksheet.Visible == XlSheetVisibility.xlSheetVisible)
+                oXL = new Microsoft.Office.Interop.Excel.Application();
+                oWB = oXL.Workbooks.Open(excelPath);
+                var sheetNames = new List<string>();
+                foreach (Microsoft.Office.Interop.Excel.Worksheet worksheet in oXL.Worksheets)
                 {
-                    sheetNames.Add(worksheet.Name);
+                    if (worksheet.Visible == XlSheetVisibility.xlSheetVisible)
+                    {
+                        sheetNames.Add(worksheet.Name);
+                    }
                 }
+                oWB.Close();
+                return sheetNames;
             }
-            oWB.Close();
-            return sheetNames;
+            catch (Exception)
+            {
+
+                return new List<string>();
+            }
         }
 
         public string GetCurrentTestCase(string excelPath, string sheetName, string testCaseColumnName, int testCaseStartIndex)
@@ -325,5 +335,13 @@ namespace AutoTool
 
             return tcList;
         }
+
+        public string UpperFirstCharacter(string value)
+        {
+            return value.First().ToString().ToUpper() + value.Substring(1).ToLower();
+        }
+
+  
+
     }
 }

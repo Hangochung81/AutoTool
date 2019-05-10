@@ -42,26 +42,28 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbxDatetimeFormat = new System.Windows.Forms.ComboBox();
+            this.btnEndExcel = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxReportType = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLoadCurrentTestCase = new System.Windows.Forms.Button();
+            this.btnLoadTestCase = new System.Windows.Forms.Button();
+            this.lblTestCaseNumber = new System.Windows.Forms.Label();
             this.radioButtonAll = new System.Windows.Forms.RadioButton();
             this.txtTestCase = new System.Windows.Forms.TextBox();
             this.radioButtonChoice = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageTemplate = new System.Windows.Forms.TabPage();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblTestCaseNumber = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSample6 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.lblSample5 = new System.Windows.Forms.Label();
             this.lblSample4 = new System.Windows.Forms.Label();
             this.lblSample3 = new System.Windows.Forms.Label();
             this.lblSample2 = new System.Windows.Forms.Label();
             this.lblSample1 = new System.Windows.Forms.Label();
-            this.lblDateFormat = new System.Windows.Forms.Label();
-            this.txtDateFormat = new System.Windows.Forms.TextBox();
             this.lblColumnNumberPerDate = new System.Windows.Forms.Label();
             this.txtColumnNumberPerDate = new System.Windows.Forms.TextBox();
             this.lblTestCaseColumnName = new System.Windows.Forms.Label();
@@ -74,12 +76,11 @@
             this.txtTestCaseColumnName = new System.Windows.Forms.TextBox();
             this.lblDateRowIndex = new System.Windows.Forms.Label();
             this.txtDateRowIndex = new System.Windows.Forms.TextBox();
-            this.btnLoadTestCase = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnLoadCurrentTestCase = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
@@ -136,7 +137,7 @@
             // 
             // ExecuteBtn
             // 
-            this.ExecuteBtn.Location = new System.Drawing.Point(230, 398);
+            this.ExecuteBtn.Location = new System.Drawing.Point(438, 398);
             this.ExecuteBtn.Name = "ExecuteBtn";
             this.ExecuteBtn.Size = new System.Drawing.Size(108, 37);
             this.ExecuteBtn.TabIndex = 5;
@@ -165,7 +166,7 @@
             this.cbxSheet.FormattingEnabled = true;
             this.cbxSheet.Location = new System.Drawing.Point(89, 105);
             this.cbxSheet.Name = "cbxSheet";
-            this.cbxSheet.Size = new System.Drawing.Size(216, 21);
+            this.cbxSheet.Size = new System.Drawing.Size(184, 21);
             this.cbxSheet.TabIndex = 7;
             // 
             // label3
@@ -199,6 +200,9 @@
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.label8);
+            this.tabPageReport.Controls.Add(this.cbxDatetimeFormat);
+            this.tabPageReport.Controls.Add(this.btnEndExcel);
             this.tabPageReport.Controls.Add(this.label5);
             this.tabPageReport.Controls.Add(this.cbxReportType);
             this.tabPageReport.Controls.Add(this.groupBox1);
@@ -221,6 +225,36 @@
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(349, 44);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Datetime format";
+            // 
+            // cbxDatetimeFormat
+            // 
+            this.cbxDatetimeFormat.FormattingEnabled = true;
+            this.cbxDatetimeFormat.Items.AddRange(new object[] {
+            "M/d/yyyy h:mm:ss tt",
+            "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'"});
+            this.cbxDatetimeFormat.Location = new System.Drawing.Point(436, 41);
+            this.cbxDatetimeFormat.Name = "cbxDatetimeFormat";
+            this.cbxDatetimeFormat.Size = new System.Drawing.Size(127, 21);
+            this.cbxDatetimeFormat.TabIndex = 19;
+            // 
+            // btnEndExcel
+            // 
+            this.btnEndExcel.Location = new System.Drawing.Point(21, 398);
+            this.btnEndExcel.Name = "btnEndExcel";
+            this.btnEndExcel.Size = new System.Drawing.Size(118, 37);
+            this.btnEndExcel.TabIndex = 18;
+            this.btnEndExcel.Text = "End Excel processes";
+            this.btnEndExcel.UseVisualStyleBackColor = true;
+            this.btnEndExcel.Click += new System.EventHandler(this.btnEndExcel_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -236,8 +270,9 @@
             this.cbxReportType.FormattingEnabled = true;
             this.cbxReportType.Location = new System.Drawing.Point(89, 41);
             this.cbxReportType.Name = "cbxReportType";
-            this.cbxReportType.Size = new System.Drawing.Size(216, 21);
+            this.cbxReportType.Size = new System.Drawing.Size(184, 21);
             this.cbxReportType.TabIndex = 16;
+            this.cbxReportType.SelectedIndexChanged += new System.EventHandler(this.cbxReportType_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -254,6 +289,35 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test case list ( fill status for only chosen test cases in list - one line for on" +
     "e test case )";
+            // 
+            // btnLoadCurrentTestCase
+            // 
+            this.btnLoadCurrentTestCase.Location = new System.Drawing.Point(366, 16);
+            this.btnLoadCurrentTestCase.Name = "btnLoadCurrentTestCase";
+            this.btnLoadCurrentTestCase.Size = new System.Drawing.Size(121, 23);
+            this.btnLoadCurrentTestCase.TabIndex = 19;
+            this.btnLoadCurrentTestCase.Text = "Load current test case";
+            this.btnLoadCurrentTestCase.UseVisualStyleBackColor = true;
+            this.btnLoadCurrentTestCase.Click += new System.EventHandler(this.btnLoadCurrentTestCase_Click);
+            // 
+            // btnLoadTestCase
+            // 
+            this.btnLoadTestCase.Location = new System.Drawing.Point(239, 16);
+            this.btnLoadTestCase.Name = "btnLoadTestCase";
+            this.btnLoadTestCase.Size = new System.Drawing.Size(124, 23);
+            this.btnLoadTestCase.TabIndex = 18;
+            this.btnLoadTestCase.Text = "Load test case from file";
+            this.btnLoadTestCase.UseVisualStyleBackColor = true;
+            this.btnLoadTestCase.Click += new System.EventHandler(this.btnLoadTestCase_Click);
+            // 
+            // lblTestCaseNumber
+            // 
+            this.lblTestCaseNumber.AutoSize = true;
+            this.lblTestCaseNumber.Location = new System.Drawing.Point(157, 21);
+            this.lblTestCaseNumber.Name = "lblTestCaseNumber";
+            this.lblTestCaseNumber.Size = new System.Drawing.Size(76, 13);
+            this.lblTestCaseNumber.TabIndex = 15;
+            this.lblTestCaseNumber.Text = "( 0 test cases )";
             // 
             // radioButtonAll
             // 
@@ -313,34 +377,6 @@
             this.tabPageTemplate.Text = "Template Info";
             this.tabPageTemplate.UseVisualStyleBackColor = true;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 50);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(0, 13);
-            this.label7.TabIndex = 5;
-            // 
-            // lblTestCaseNumber
-            // 
-            this.lblTestCaseNumber.AutoSize = true;
-            this.lblTestCaseNumber.Location = new System.Drawing.Point(157, 21);
-            this.lblTestCaseNumber.Name = "lblTestCaseNumber";
-            this.lblTestCaseNumber.Size = new System.Drawing.Size(76, 13);
-            this.lblTestCaseNumber.TabIndex = 15;
-            this.lblTestCaseNumber.Text = "( 0 test cases )";
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::AutoTool.Properties.Resources.logo;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.ForeColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(123, 305);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(307, 91);
-            this.panel1.TabIndex = 24;
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -351,8 +387,6 @@
             this.panel2.Controls.Add(this.lblSample3);
             this.panel2.Controls.Add(this.lblSample2);
             this.panel2.Controls.Add(this.lblSample1);
-            this.panel2.Controls.Add(this.lblDateFormat);
-            this.panel2.Controls.Add(this.txtDateFormat);
             this.panel2.Controls.Add(this.lblColumnNumberPerDate);
             this.panel2.Controls.Add(this.txtColumnNumberPerDate);
             this.panel2.Controls.Add(this.lblTestCaseColumnName);
@@ -382,6 +416,17 @@
             this.lblSample6.Size = new System.Drawing.Size(17, 17);
             this.lblSample6.TabIndex = 43;
             this.lblSample6.Text = "?";
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::AutoTool.Properties.Resources.logo;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.ForeColor = System.Drawing.Color.Black;
+            this.panel1.Location = new System.Drawing.Point(123, 305);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(307, 91);
+            this.panel1.TabIndex = 24;
             // 
             // lblSample5
             // 
@@ -448,23 +493,6 @@
             this.lblSample1.TabIndex = 38;
             this.lblSample1.Text = "?";
             // 
-            // lblDateFormat
-            // 
-            this.lblDateFormat.AutoSize = true;
-            this.lblDateFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateFormat.Location = new System.Drawing.Point(87, 250);
-            this.lblDateFormat.Name = "lblDateFormat";
-            this.lblDateFormat.Size = new System.Drawing.Size(119, 16);
-            this.lblDateFormat.TabIndex = 36;
-            this.lblDateFormat.Text = "Report date format";
-            // 
-            // txtDateFormat
-            // 
-            this.txtDateFormat.Location = new System.Drawing.Point(339, 249);
-            this.txtDateFormat.Name = "txtDateFormat";
-            this.txtDateFormat.Size = new System.Drawing.Size(110, 20);
-            this.txtDateFormat.TabIndex = 37;
-            // 
             // lblColumnNumberPerDate
             // 
             this.lblColumnNumberPerDate.AutoSize = true;
@@ -481,6 +509,7 @@
             this.txtColumnNumberPerDate.Name = "txtColumnNumberPerDate";
             this.txtColumnNumberPerDate.Size = new System.Drawing.Size(110, 20);
             this.txtColumnNumberPerDate.TabIndex = 35;
+            this.txtColumnNumberPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtColumnNumberPerDate_KeyPress);
             // 
             // lblTestCaseColumnName
             // 
@@ -508,6 +537,7 @@
             this.txtStatusColumnIndexPerDate.Name = "txtStatusColumnIndexPerDate";
             this.txtStatusColumnIndexPerDate.Size = new System.Drawing.Size(110, 20);
             this.txtStatusColumnIndexPerDate.TabIndex = 32;
+            this.txtStatusColumnIndexPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStatusColumnIndexPerDate_KeyPress);
             // 
             // lblFillableRowStartIndex
             // 
@@ -525,6 +555,7 @@
             this.txtFillableRowStartIndex.Name = "txtFillableRowStartIndex";
             this.txtFillableRowStartIndex.Size = new System.Drawing.Size(110, 20);
             this.txtFillableRowStartIndex.TabIndex = 30;
+            this.txtFillableRowStartIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFillableRowStartIndex_KeyPress);
             // 
             // lblFillableColumnStartName
             // 
@@ -542,6 +573,7 @@
             this.txtFillableColumnStartName.Name = "txtFillableColumnStartName";
             this.txtFillableColumnStartName.Size = new System.Drawing.Size(110, 20);
             this.txtFillableColumnStartName.TabIndex = 28;
+            this.txtFillableColumnStartName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFillableColumnStartName_KeyPress);
             // 
             // txtTestCaseColumnName
             // 
@@ -549,6 +581,7 @@
             this.txtTestCaseColumnName.Name = "txtTestCaseColumnName";
             this.txtTestCaseColumnName.Size = new System.Drawing.Size(110, 20);
             this.txtTestCaseColumnName.TabIndex = 26;
+            this.txtTestCaseColumnName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTestCaseColumnName_KeyPress);
             // 
             // lblDateRowIndex
             // 
@@ -566,16 +599,15 @@
             this.txtDateRowIndex.Name = "txtDateRowIndex";
             this.txtDateRowIndex.Size = new System.Drawing.Size(110, 20);
             this.txtDateRowIndex.TabIndex = 25;
+            this.txtDateRowIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDateRowIndex_KeyPress);
             // 
-            // btnLoadTestCase
+            // label7
             // 
-            this.btnLoadTestCase.Location = new System.Drawing.Point(239, 16);
-            this.btnLoadTestCase.Name = "btnLoadTestCase";
-            this.btnLoadTestCase.Size = new System.Drawing.Size(124, 23);
-            this.btnLoadTestCase.TabIndex = 18;
-            this.btnLoadTestCase.Text = "Load test case from file";
-            this.btnLoadTestCase.UseVisualStyleBackColor = true;
-            this.btnLoadTestCase.Click += new System.EventHandler(this.btnLoadTestCase_Click);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(0, 13);
+            this.label7.TabIndex = 5;
             // 
             // tabPageAbout
             // 
@@ -598,17 +630,6 @@
             this.panel3.Size = new System.Drawing.Size(559, 429);
             this.panel3.TabIndex = 26;
             // 
-            // panel4
-            // 
-            this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.ForeColor = System.Drawing.Color.Black;
-            this.panel4.Location = new System.Drawing.Point(123, 305);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(307, 91);
-            this.panel4.TabIndex = 24;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -619,15 +640,16 @@
             this.label6.TabIndex = 25;
             this.label6.Text = "Version: 1.0.0";
             // 
-            // btnLoadCurrentTestCase
+            // panel4
             // 
-            this.btnLoadCurrentTestCase.Location = new System.Drawing.Point(366, 16);
-            this.btnLoadCurrentTestCase.Name = "btnLoadCurrentTestCase";
-            this.btnLoadCurrentTestCase.Size = new System.Drawing.Size(121, 23);
-            this.btnLoadCurrentTestCase.TabIndex = 19;
-            this.btnLoadCurrentTestCase.Text = "Load current test case";
-            this.btnLoadCurrentTestCase.UseVisualStyleBackColor = true;
-            this.btnLoadCurrentTestCase.Click += new System.EventHandler(this.btnLoadCurrentTestCase_Click);
+            this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.ForeColor = System.Drawing.Color.Black;
+            this.panel4.Location = new System.Drawing.Point(123, 305);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(307, 91);
+            this.panel4.TabIndex = 24;
             // 
             // Form1
             // 
@@ -692,8 +714,6 @@
         private System.Windows.Forms.Label lblSample3;
         private System.Windows.Forms.Label lblSample2;
         private System.Windows.Forms.Label lblSample1;
-        private System.Windows.Forms.Label lblDateFormat;
-        private System.Windows.Forms.TextBox txtDateFormat;
         private System.Windows.Forms.Label lblColumnNumberPerDate;
         private System.Windows.Forms.TextBox txtColumnNumberPerDate;
         private System.Windows.Forms.Label lblTestCaseColumnName;
@@ -712,6 +732,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnLoadCurrentTestCase;
+        private System.Windows.Forms.Button btnEndExcel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbxDatetimeFormat;
     }
 }
 

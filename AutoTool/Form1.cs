@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -55,6 +56,9 @@ namespace AutoTool
 
         private void ExecuteBtn_Click(object sender, EventArgs e)
         {
+            //ValidateFolderAndExcelPath();
+            Cursor = Cursors.WaitCursor;
+
             string[] testCase = null;
             if (radioButtonChoice.Checked)
             {
@@ -68,7 +72,9 @@ namespace AutoTool
                 ReportType = cbxReportType.SelectedValue.ToString(),
                 TargetPath = txtExcelPath.Text,
                 ReportDate = dateTimePicker.Value,
-                TestCaseList = testCase
+                TestCaseList = testCase,
+                DateTimeFormat = cbxDatetimeFormat.Text
+                
             };
 
             TemplateInfo template = new TemplateInfo()
@@ -79,7 +85,7 @@ namespace AutoTool
                 DateRowIndex = Convert.ToInt32(txtDateRowIndex.Text),
                 ColumnNumberPerDate = Convert.ToInt32(txtColumnNumberPerDate.Text),
                 StatusColumnIndexPerDate = Convert.ToInt32(txtStatusColumnIndexPerDate.Text),
-                DateTimeFormat = txtDateFormat.Text
+                //DateTimeFormat = txtDateFormat.Text
             };
 
             try
@@ -90,6 +96,8 @@ namespace AutoTool
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            Cursor = Cursors.Arrow;
         }
 
         private void txtPath_Validating(object sender, CancelEventArgs e)
@@ -112,7 +120,7 @@ namespace AutoTool
 
         private void txtExcelPath_TextChanged(object sender, EventArgs e)
         {
-            
+            Cursor = Cursors.WaitCursor;
             cbxSheet.Items.Clear();
             var listSheetName = cldt.GetSheetName(txtExcelPath.Text);
             
@@ -120,7 +128,13 @@ namespace AutoTool
             {
                 cbxSheet.Items.Add(item);
             }
-            cbxSheet.Text = listSheetName[0];
+
+            if (listSheetName.Count > 0)
+            {
+                cbxSheet.Text = listSheetName[0];
+            }
+            
+            Cursor = Cursors.Arrow;
         }
 
         private void radioButtonAll_CheckedChanged(object sender, EventArgs e)
@@ -147,6 +161,7 @@ namespace AutoTool
 
             cbxReportType.DataSource = items;
             cbxReportType.SelectedIndex = 0;
+            cbxDatetimeFormat.SelectedIndex = 0;
 
             INIFile ini = new INIFile(Directory.GetCurrentDirectory() + "\\Settings.ini");
             //Load Report config
@@ -159,7 +174,7 @@ namespace AutoTool
             txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
             txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
             txtStatusColumnIndexPerDate.Text = ini.ReadValue("Template", "StatusColumnIndexPerDate");
-            txtDateFormat.Text = ini.ReadValue("Template", "DateTimeFormat");
+            
         }
 
         private void txtTestCase_TextChanged(object sender, EventArgs e)
@@ -172,15 +187,107 @@ namespace AutoTool
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                Cursor = Cursors.WaitCursor;
                 txtTestCase.Text = File.ReadAllText(ofd.FileName);
+                Cursor = Cursors.Arrow;
             }
         }
 
         private void btnLoadCurrentTestCase_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             txtTestCase.Text = cldt.GetCurrentTestCase(txtExcelPath.Text, cbxSheet.Text, txtTestCaseColumnName.Text, Convert.ToInt32(txtFillableRowStartIndex.Text));
+            Cursor = Cursors.Arrow;
+            
+        }
+
+        private void btnEndExcel_Click(object sender, EventArgs e)
+        {
+            var excelProcs = Process.GetProcessesByName("EXCEL");
+            foreach (Process proc in excelProcs)
+            {
+                proc.Kill();
+            }
+            MessageBox.Show("Excel processes ended", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public bool ValidateFolderAndExcelPath()
+        {
+            if (String.IsNullOrEmpty(txtPath.Text) || String.IsNullOrEmpty(txtExcelPath.Text))
+            {
+                //txtPath.Focus();
+                errorProvider1.SetError(txtPath, "Please Select your Path");
+                errorProvider1.SetError(txtExcelPath, "Please Select your Path");
+                MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return false;
+            }
+            return true;
+        }
+
+        private void cbxReportType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxReportType.SelectedIndex == 0)
+            {
+                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[0].ToString(); 
+            }
+            else
+            {
+                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[1].ToString();
+            }
+        }
+
+        private void txtDateRowIndex_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTestCaseColumnName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void txtFillableColumnStartName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtFillableRowStartIndex_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStatusColumnIndexPerDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtColumnNumberPerDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
         }
     }
+
+
 
     class CustomToolTip : ToolTip
     {
