@@ -228,11 +228,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(349, 44);
+            this.label8.Location = new System.Drawing.Point(308, 44);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.Size = new System.Drawing.Size(65, 13);
             this.label8.TabIndex = 20;
-            this.label8.Text = "Datetime format";
+            this.label8.Text = "Date Format";
             // 
             // cbxDatetimeFormat
             // 
@@ -240,9 +240,9 @@
             this.cbxDatetimeFormat.Items.AddRange(new object[] {
             "M/d/yyyy h:mm:ss tt",
             "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'"});
-            this.cbxDatetimeFormat.Location = new System.Drawing.Point(436, 41);
+            this.cbxDatetimeFormat.Location = new System.Drawing.Point(379, 41);
             this.cbxDatetimeFormat.Name = "cbxDatetimeFormat";
-            this.cbxDatetimeFormat.Size = new System.Drawing.Size(127, 21);
+            this.cbxDatetimeFormat.Size = new System.Drawing.Size(184, 21);
             this.cbxDatetimeFormat.TabIndex = 19;
             // 
             // btnEndExcel

@@ -227,6 +227,7 @@ namespace AutoTool
 
         private void cbxReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cbxDatetimeFormat.Text = string.Empty;
             if (cbxReportType.SelectedIndex == 0)
             {
                 cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[0].ToString(); 
