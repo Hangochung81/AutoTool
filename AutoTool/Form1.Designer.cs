@@ -306,7 +306,7 @@
             // 
             // btnLoadCurrentTestCase
             // 
-            this.btnLoadCurrentTestCase.Location = new System.Drawing.Point(366, 16);
+            this.btnLoadCurrentTestCase.Location = new System.Drawing.Point(431, 16);
             this.btnLoadCurrentTestCase.Name = "btnLoadCurrentTestCase";
             this.btnLoadCurrentTestCase.Size = new System.Drawing.Size(121, 23);
             this.btnLoadCurrentTestCase.TabIndex = 19;
@@ -316,7 +316,7 @@
             // 
             // btnLoadTestCase
             // 
-            this.btnLoadTestCase.Location = new System.Drawing.Point(239, 16);
+            this.btnLoadTestCase.Location = new System.Drawing.Point(297, 16);
             this.btnLoadTestCase.Name = "btnLoadTestCase";
             this.btnLoadTestCase.Size = new System.Drawing.Size(124, 23);
             this.btnLoadTestCase.TabIndex = 18;
@@ -327,7 +327,7 @@
             // lblTestCaseNumber
             // 
             this.lblTestCaseNumber.AutoSize = true;
-            this.lblTestCaseNumber.Location = new System.Drawing.Point(157, 21);
+            this.lblTestCaseNumber.Location = new System.Drawing.Point(141, 21);
             this.lblTestCaseNumber.Name = "lblTestCaseNumber";
             this.lblTestCaseNumber.Size = new System.Drawing.Size(76, 13);
             this.lblTestCaseNumber.TabIndex = 15;
@@ -362,7 +362,7 @@
             // radioButtonChoice
             // 
             this.radioButtonChoice.AutoSize = true;
-            this.radioButtonChoice.Location = new System.Drawing.Point(103, 19);
+            this.radioButtonChoice.Location = new System.Drawing.Point(85, 19);
             this.radioButtonChoice.Name = "radioButtonChoice";
             this.radioButtonChoice.Size = new System.Drawing.Size(58, 17);
             this.radioButtonChoice.TabIndex = 14;
