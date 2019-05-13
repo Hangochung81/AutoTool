@@ -25,12 +25,25 @@ namespace AutoTool
             tip.SetToolTip(lblSample4, "Sample4");
             tip.SetToolTip(lblSample5, "Sample5");
             tip.SetToolTip(lblSample6, "Sample6");
+            tip.SetToolTip(lblDateRowIndex, "Sample7");
+            tip.SetToolTip(lblTestCaseColumnName, "Sample8");
+            tip.SetToolTip(lblFillableColumnStartName, "Sample9");
+            tip.SetToolTip(lblFillableRowStartIndex, "Sample10");
+            tip.SetToolTip(lblStatusColumnIndexPerDate, "Sample11");
+            tip.SetToolTip(lblColumnNumberPerDate, "Sample12");
+           
             lblSample1.Tag = Properties.Resources.sample1;
             lblSample2.Tag = Properties.Resources.sample2;
             lblSample3.Tag = Properties.Resources.sample3;
             lblSample4.Tag = Properties.Resources.sample4;
             lblSample5.Tag = Properties.Resources.sample5;
             lblSample6.Tag = Properties.Resources.sample6;
+            lblDateRowIndex.Tag = Properties.Resources.sample1;
+            lblTestCaseColumnName.Tag = Properties.Resources.sample2;
+            lblFillableColumnStartName.Tag = Properties.Resources.sample3;
+            lblFillableRowStartIndex.Tag = Properties.Resources.sample4;
+            lblStatusColumnIndexPerDate.Tag = Properties.Resources.sample5;
+            lblColumnNumberPerDate.Tag = Properties.Resources.sample6;
         }
 
         FolderBrowserDialog fbd = new FolderBrowserDialog();

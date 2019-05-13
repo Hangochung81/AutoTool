@@ -43,6 +43,10 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnLoadIgnoreTestCase = new System.Windows.Forms.Button();
+            this.lblIgnoreTestCaseNumber = new System.Windows.Forms.Label();
+            this.txtIgnoreTestCase = new System.Windows.Forms.TextBox();
             this.btnShowCollectedData = new System.Windows.Forms.Button();
             this.chxUseCustom = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -86,20 +90,16 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.tabPageGuideline = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnLoadIgnoreTestCase = new System.Windows.Forms.Button();
-            this.lblIgnoreTestCaseNumber = new System.Windows.Forms.Label();
-            this.txtIgnoreTestCase = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPageTemplate.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPageGuideline.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -239,6 +239,49 @@
             this.tabPageReport.TabIndex = 0;
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnLoadIgnoreTestCase);
+            this.groupBox2.Controls.Add(this.lblIgnoreTestCaseNumber);
+            this.groupBox2.Controls.Add(this.txtIgnoreTestCase);
+            this.groupBox2.Location = new System.Drawing.Point(8, 175);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(555, 171);
+            this.groupBox2.TabIndex = 23;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ignore test case list ( test cases will be ignored when collect data )";
+            // 
+            // btnLoadIgnoreTestCase
+            // 
+            this.btnLoadIgnoreTestCase.Location = new System.Drawing.Point(428, 16);
+            this.btnLoadIgnoreTestCase.Name = "btnLoadIgnoreTestCase";
+            this.btnLoadIgnoreTestCase.Size = new System.Drawing.Size(124, 23);
+            this.btnLoadIgnoreTestCase.TabIndex = 18;
+            this.btnLoadIgnoreTestCase.Text = "Load test case from file";
+            this.btnLoadIgnoreTestCase.UseVisualStyleBackColor = true;
+            this.btnLoadIgnoreTestCase.Click += new System.EventHandler(this.btnLoadIgnoreTestCase_Click);
+            // 
+            // lblIgnoreTestCaseNumber
+            // 
+            this.lblIgnoreTestCaseNumber.AutoSize = true;
+            this.lblIgnoreTestCaseNumber.Location = new System.Drawing.Point(7, 21);
+            this.lblIgnoreTestCaseNumber.Name = "lblIgnoreTestCaseNumber";
+            this.lblIgnoreTestCaseNumber.Size = new System.Drawing.Size(76, 13);
+            this.lblIgnoreTestCaseNumber.TabIndex = 15;
+            this.lblIgnoreTestCaseNumber.Text = "( 0 test cases )";
+            // 
+            // txtIgnoreTestCase
+            // 
+            this.txtIgnoreTestCase.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtIgnoreTestCase.Location = new System.Drawing.Point(3, 42);
+            this.txtIgnoreTestCase.Multiline = true;
+            this.txtIgnoreTestCase.Name = "txtIgnoreTestCase";
+            this.txtIgnoreTestCase.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtIgnoreTestCase.Size = new System.Drawing.Size(549, 126);
+            this.txtIgnoreTestCase.TabIndex = 12;
+            this.txtIgnoreTestCase.WordWrap = false;
+            this.txtIgnoreTestCase.TextChanged += new System.EventHandler(this.txtIgnoreTestCase_TextChanged);
             // 
             // btnShowCollectedData
             // 
@@ -400,7 +443,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Collect Date";
+            this.label4.Text = "Report Date";
             // 
             // tabPageTemplate
             // 
@@ -448,7 +491,7 @@
             this.lblSample6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample6.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample6.Location = new System.Drawing.Point(62, 212);
+            this.lblSample6.Location = new System.Drawing.Point(62, 310);
             this.lblSample6.Name = "lblSample6";
             this.lblSample6.Size = new System.Drawing.Size(17, 17);
             this.lblSample6.TabIndex = 43;
@@ -472,7 +515,7 @@
             this.lblSample5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample5.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample5.Location = new System.Drawing.Point(62, 176);
+            this.lblSample5.Location = new System.Drawing.Point(62, 252);
             this.lblSample5.Name = "lblSample5";
             this.lblSample5.Size = new System.Drawing.Size(17, 17);
             this.lblSample5.TabIndex = 42;
@@ -485,7 +528,7 @@
             this.lblSample4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample4.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample4.Location = new System.Drawing.Point(62, 137);
+            this.lblSample4.Location = new System.Drawing.Point(62, 196);
             this.lblSample4.Name = "lblSample4";
             this.lblSample4.Size = new System.Drawing.Size(17, 17);
             this.lblSample4.TabIndex = 41;
@@ -498,7 +541,7 @@
             this.lblSample3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample3.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample3.Location = new System.Drawing.Point(62, 100);
+            this.lblSample3.Location = new System.Drawing.Point(62, 139);
             this.lblSample3.Name = "lblSample3";
             this.lblSample3.Size = new System.Drawing.Size(17, 17);
             this.lblSample3.TabIndex = 40;
@@ -511,7 +554,7 @@
             this.lblSample2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample2.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample2.Location = new System.Drawing.Point(62, 63);
+            this.lblSample2.Location = new System.Drawing.Point(62, 82);
             this.lblSample2.Name = "lblSample2";
             this.lblSample2.Size = new System.Drawing.Size(17, 17);
             this.lblSample2.TabIndex = 39;
@@ -524,7 +567,7 @@
             this.lblSample1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample1.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample1.Location = new System.Drawing.Point(62, 27);
+            this.lblSample1.Location = new System.Drawing.Point(62, 25);
             this.lblSample1.Name = "lblSample1";
             this.lblSample1.Size = new System.Drawing.Size(17, 17);
             this.lblSample1.TabIndex = 38;
@@ -534,7 +577,7 @@
             // 
             this.lblColumnNumberPerDate.AutoSize = true;
             this.lblColumnNumberPerDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColumnNumberPerDate.Location = new System.Drawing.Point(87, 213);
+            this.lblColumnNumberPerDate.Location = new System.Drawing.Point(87, 311);
             this.lblColumnNumberPerDate.Name = "lblColumnNumberPerDate";
             this.lblColumnNumberPerDate.Size = new System.Drawing.Size(176, 16);
             this.lblColumnNumberPerDate.TabIndex = 34;
@@ -542,7 +585,7 @@
             // 
             // txtColumnNumberPerDate
             // 
-            this.txtColumnNumberPerDate.Location = new System.Drawing.Point(339, 212);
+            this.txtColumnNumberPerDate.Location = new System.Drawing.Point(339, 310);
             this.txtColumnNumberPerDate.Name = "txtColumnNumberPerDate";
             this.txtColumnNumberPerDate.Size = new System.Drawing.Size(110, 20);
             this.txtColumnNumberPerDate.TabIndex = 35;
@@ -552,7 +595,7 @@
             // 
             this.lblTestCaseColumnName.AutoSize = true;
             this.lblTestCaseColumnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 64);
+            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 83);
             this.lblTestCaseColumnName.Name = "lblTestCaseColumnName";
             this.lblTestCaseColumnName.Size = new System.Drawing.Size(227, 16);
             this.lblTestCaseColumnName.TabIndex = 33;
@@ -562,7 +605,7 @@
             // 
             this.lblStatusColumnIndexPerDate.AutoSize = true;
             this.lblStatusColumnIndexPerDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatusColumnIndexPerDate.Location = new System.Drawing.Point(87, 176);
+            this.lblStatusColumnIndexPerDate.Location = new System.Drawing.Point(87, 252);
             this.lblStatusColumnIndexPerDate.Name = "lblStatusColumnIndexPerDate";
             this.lblStatusColumnIndexPerDate.Size = new System.Drawing.Size(233, 16);
             this.lblStatusColumnIndexPerDate.TabIndex = 31;
@@ -570,7 +613,7 @@
             // 
             // txtStatusColumnIndexPerDate
             // 
-            this.txtStatusColumnIndexPerDate.Location = new System.Drawing.Point(339, 175);
+            this.txtStatusColumnIndexPerDate.Location = new System.Drawing.Point(339, 251);
             this.txtStatusColumnIndexPerDate.Name = "txtStatusColumnIndexPerDate";
             this.txtStatusColumnIndexPerDate.Size = new System.Drawing.Size(110, 20);
             this.txtStatusColumnIndexPerDate.TabIndex = 32;
@@ -580,7 +623,7 @@
             // 
             this.lblFillableRowStartIndex.AutoSize = true;
             this.lblFillableRowStartIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFillableRowStartIndex.Location = new System.Drawing.Point(87, 138);
+            this.lblFillableRowStartIndex.Location = new System.Drawing.Point(87, 197);
             this.lblFillableRowStartIndex.Name = "lblFillableRowStartIndex";
             this.lblFillableRowStartIndex.Size = new System.Drawing.Size(139, 16);
             this.lblFillableRowStartIndex.TabIndex = 29;
@@ -588,7 +631,7 @@
             // 
             // txtFillableRowStartIndex
             // 
-            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 137);
+            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 196);
             this.txtFillableRowStartIndex.Name = "txtFillableRowStartIndex";
             this.txtFillableRowStartIndex.Size = new System.Drawing.Size(110, 20);
             this.txtFillableRowStartIndex.TabIndex = 30;
@@ -598,7 +641,7 @@
             // 
             this.lblFillableColumnStartName.AutoSize = true;
             this.lblFillableColumnStartName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFillableColumnStartName.Location = new System.Drawing.Point(87, 101);
+            this.lblFillableColumnStartName.Location = new System.Drawing.Point(87, 140);
             this.lblFillableColumnStartName.Name = "lblFillableColumnStartName";
             this.lblFillableColumnStartName.Size = new System.Drawing.Size(185, 16);
             this.lblFillableColumnStartName.TabIndex = 27;
@@ -606,7 +649,7 @@
             // 
             // txtFillableColumnStartName
             // 
-            this.txtFillableColumnStartName.Location = new System.Drawing.Point(339, 100);
+            this.txtFillableColumnStartName.Location = new System.Drawing.Point(339, 139);
             this.txtFillableColumnStartName.Name = "txtFillableColumnStartName";
             this.txtFillableColumnStartName.Size = new System.Drawing.Size(110, 20);
             this.txtFillableColumnStartName.TabIndex = 28;
@@ -614,7 +657,7 @@
             // 
             // txtTestCaseColumnName
             // 
-            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 63);
+            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 82);
             this.txtTestCaseColumnName.Name = "txtTestCaseColumnName";
             this.txtTestCaseColumnName.Size = new System.Drawing.Size(110, 20);
             this.txtTestCaseColumnName.TabIndex = 26;
@@ -624,7 +667,7 @@
             // 
             this.lblDateRowIndex.AutoSize = true;
             this.lblDateRowIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateRowIndex.Location = new System.Drawing.Point(85, 27);
+            this.lblDateRowIndex.Location = new System.Drawing.Point(85, 25);
             this.lblDateRowIndex.Name = "lblDateRowIndex";
             this.lblDateRowIndex.Size = new System.Drawing.Size(157, 16);
             this.lblDateRowIndex.TabIndex = 24;
@@ -632,7 +675,7 @@
             // 
             // txtDateRowIndex
             // 
-            this.txtDateRowIndex.Location = new System.Drawing.Point(339, 26);
+            this.txtDateRowIndex.Location = new System.Drawing.Point(339, 24);
             this.txtDateRowIndex.Name = "txtDateRowIndex";
             this.txtDateRowIndex.Size = new System.Drawing.Size(110, 20);
             this.txtDateRowIndex.TabIndex = 25;
@@ -671,7 +714,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(57, 129);
+            this.label6.Location = new System.Drawing.Point(57, 158);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(443, 73);
             this.label6.TabIndex = 25;
@@ -683,9 +726,9 @@
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.ForeColor = System.Drawing.Color.Black;
-            this.panel4.Location = new System.Drawing.Point(123, 305);
+            this.panel4.Location = new System.Drawing.Point(62, 420);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(307, 91);
+            this.panel4.Size = new System.Drawing.Size(426, 111);
             this.panel4.TabIndex = 24;
             // 
             // tabPageGuideline
@@ -709,49 +752,6 @@
             this.webBrowser.TabIndex = 0;
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnLoadIgnoreTestCase);
-            this.groupBox2.Controls.Add(this.lblIgnoreTestCaseNumber);
-            this.groupBox2.Controls.Add(this.txtIgnoreTestCase);
-            this.groupBox2.Location = new System.Drawing.Point(8, 175);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(555, 171);
-            this.groupBox2.TabIndex = 23;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ignore test case list ( test cases will be ignored when collect data )";
-            // 
-            // btnLoadIgnoreTestCase
-            // 
-            this.btnLoadIgnoreTestCase.Location = new System.Drawing.Point(428, 16);
-            this.btnLoadIgnoreTestCase.Name = "btnLoadIgnoreTestCase";
-            this.btnLoadIgnoreTestCase.Size = new System.Drawing.Size(124, 23);
-            this.btnLoadIgnoreTestCase.TabIndex = 18;
-            this.btnLoadIgnoreTestCase.Text = "Load test case from file";
-            this.btnLoadIgnoreTestCase.UseVisualStyleBackColor = true;
-            this.btnLoadIgnoreTestCase.Click += new System.EventHandler(this.btnLoadIgnoreTestCase_Click);
-            // 
-            // lblIgnoreTestCaseNumber
-            // 
-            this.lblIgnoreTestCaseNumber.AutoSize = true;
-            this.lblIgnoreTestCaseNumber.Location = new System.Drawing.Point(7, 21);
-            this.lblIgnoreTestCaseNumber.Name = "lblIgnoreTestCaseNumber";
-            this.lblIgnoreTestCaseNumber.Size = new System.Drawing.Size(76, 13);
-            this.lblIgnoreTestCaseNumber.TabIndex = 15;
-            this.lblIgnoreTestCaseNumber.Text = "( 0 test cases )";
-            // 
-            // txtIgnoreTestCase
-            // 
-            this.txtIgnoreTestCase.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtIgnoreTestCase.Location = new System.Drawing.Point(3, 42);
-            this.txtIgnoreTestCase.Multiline = true;
-            this.txtIgnoreTestCase.Name = "txtIgnoreTestCase";
-            this.txtIgnoreTestCase.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtIgnoreTestCase.Size = new System.Drawing.Size(549, 126);
-            this.txtIgnoreTestCase.TabIndex = 12;
-            this.txtIgnoreTestCase.WordWrap = false;
-            this.txtIgnoreTestCase.TextChanged += new System.EventHandler(this.txtIgnoreTestCase_TextChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -770,6 +770,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageReport.ResumeLayout(false);
             this.tabPageReport.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPageTemplate.ResumeLayout(false);
@@ -780,8 +782,6 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
