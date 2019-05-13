@@ -14,6 +14,7 @@ namespace AutoTool
         public string TargetPath { get; set; }
         public DateTime ReportDate { get; set; }
         public string[] TestCaseList { get; set; }
+        public string[] IgnoreTestCaseList { get; set; }
         public string DateTimeFormat { get; set; }
     }
 }

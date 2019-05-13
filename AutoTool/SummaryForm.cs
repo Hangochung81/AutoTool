@@ -12,13 +12,13 @@ namespace AutoTool
 {
     public partial class SummaryForm : Form
     {
-        public SummaryForm(Dictionary<string, string[]> data)
+        public SummaryForm(List<KeyValuePair<string, string[]>> data)
         {
             InitializeComponent();
 
-            for (int index = 0; index < data.Keys.Count; index++)
+            for (int index = 0; index < data.Count; index++)
             {
-                dataGridView.Rows.Add(index+1, data.Keys.ElementAt(index), data.Values.ElementAt(index)[0], data.Values.ElementAt(index)[1]);
+                dataGridView.Rows.Add(index+1, data.ElementAt(index).Key, data.ElementAt(index).Value[0], data.ElementAt(index).Value[1]);
             }
         }
 

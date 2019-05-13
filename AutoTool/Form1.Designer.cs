@@ -86,6 +86,10 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.tabPageGuideline = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnLoadIgnoreTestCase = new System.Windows.Forms.Button();
+            this.lblIgnoreTestCaseNumber = new System.Windows.Forms.Label();
+            this.txtIgnoreTestCase = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
@@ -95,12 +99,13 @@
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPageGuideline.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 76);
+            this.label1.Location = new System.Drawing.Point(15, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 0;
@@ -119,23 +124,23 @@
             // 
             this.txtPath.Location = new System.Drawing.Point(89, 10);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(393, 20);
+            this.txtPath.Size = new System.Drawing.Size(408, 20);
             this.txtPath.TabIndex = 2;
             this.txtPath.Validating += new System.ComponentModel.CancelEventHandler(this.txtPath_Validating);
             // 
             // txtExcelPath
             // 
-            this.txtExcelPath.Location = new System.Drawing.Point(89, 74);
+            this.txtExcelPath.Location = new System.Drawing.Point(89, 38);
             this.txtExcelPath.Name = "txtExcelPath";
-            this.txtExcelPath.Size = new System.Drawing.Size(393, 20);
+            this.txtExcelPath.Size = new System.Drawing.Size(408, 20);
             this.txtExcelPath.TabIndex = 3;
             this.txtExcelPath.TextChanged += new System.EventHandler(this.txtExcelPath_TextChanged);
             // 
             // OpenButton
             // 
-            this.OpenButton.Location = new System.Drawing.Point(488, 8);
+            this.OpenButton.Location = new System.Drawing.Point(503, 8);
             this.OpenButton.Name = "OpenButton";
-            this.OpenButton.Size = new System.Drawing.Size(75, 23);
+            this.OpenButton.Size = new System.Drawing.Size(57, 23);
             this.OpenButton.TabIndex = 4;
             this.OpenButton.Text = "Open";
             this.OpenButton.UseVisualStyleBackColor = true;
@@ -143,7 +148,7 @@
             // 
             // ExecuteBtn
             // 
-            this.ExecuteBtn.Location = new System.Drawing.Point(439, 396);
+            this.ExecuteBtn.Location = new System.Drawing.Point(439, 531);
             this.ExecuteBtn.Name = "ExecuteBtn";
             this.ExecuteBtn.Size = new System.Drawing.Size(124, 37);
             this.ExecuteBtn.TabIndex = 5;
@@ -154,9 +159,9 @@
             // 
             // OpenButton2
             // 
-            this.OpenButton2.Location = new System.Drawing.Point(488, 72);
+            this.OpenButton2.Location = new System.Drawing.Point(503, 36);
             this.OpenButton2.Name = "OpenButton2";
-            this.OpenButton2.Size = new System.Drawing.Size(75, 23);
+            this.OpenButton2.Size = new System.Drawing.Size(57, 23);
             this.OpenButton2.TabIndex = 6;
             this.OpenButton2.Text = "Open";
             this.OpenButton2.UseVisualStyleBackColor = true;
@@ -170,7 +175,7 @@
             // 
             this.cbxSheet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSheet.FormattingEnabled = true;
-            this.cbxSheet.Location = new System.Drawing.Point(89, 105);
+            this.cbxSheet.Location = new System.Drawing.Point(89, 64);
             this.cbxSheet.Name = "cbxSheet";
             this.cbxSheet.Size = new System.Drawing.Size(216, 21);
             this.cbxSheet.TabIndex = 7;
@@ -178,7 +183,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 108);
+            this.label3.Location = new System.Drawing.Point(15, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 8;
@@ -187,7 +192,7 @@
             // dateTimePicker
             // 
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker.Location = new System.Drawing.Point(89, 140);
+            this.dateTimePicker.Location = new System.Drawing.Point(89, 145);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(216, 20);
             this.dateTimePicker.TabIndex = 9;
@@ -202,11 +207,12 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(579, 467);
+            this.tabControl1.Size = new System.Drawing.Size(579, 600);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.groupBox2);
             this.tabPageReport.Controls.Add(this.btnShowCollectedData);
             this.tabPageReport.Controls.Add(this.chxUseCustom);
             this.tabPageReport.Controls.Add(this.label8);
@@ -229,14 +235,14 @@
             this.tabPageReport.Location = new System.Drawing.Point(4, 22);
             this.tabPageReport.Name = "tabPageReport";
             this.tabPageReport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReport.Size = new System.Drawing.Size(571, 441);
+            this.tabPageReport.Size = new System.Drawing.Size(571, 574);
             this.tabPageReport.TabIndex = 0;
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
             // 
             // btnShowCollectedData
             // 
-            this.btnShowCollectedData.Location = new System.Drawing.Point(132, 396);
+            this.btnShowCollectedData.Location = new System.Drawing.Point(132, 531);
             this.btnShowCollectedData.Name = "btnShowCollectedData";
             this.btnShowCollectedData.Size = new System.Drawing.Size(124, 37);
             this.btnShowCollectedData.TabIndex = 22;
@@ -247,7 +253,7 @@
             // chxUseCustom
             // 
             this.chxUseCustom.AutoSize = true;
-            this.chxUseCustom.Location = new System.Drawing.Point(467, 43);
+            this.chxUseCustom.Location = new System.Drawing.Point(311, 120);
             this.chxUseCustom.Name = "chxUseCustom";
             this.chxUseCustom.Size = new System.Drawing.Size(96, 17);
             this.chxUseCustom.TabIndex = 21;
@@ -258,7 +264,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(231, 44);
+            this.label8.Location = new System.Drawing.Point(15, 121);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 13);
             this.label8.TabIndex = 20;
@@ -271,14 +277,14 @@
             this.cbxDatetimeFormat.Items.AddRange(new object[] {
             "M/d/yyyy h:mm:ss tt",
             "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'"});
-            this.cbxDatetimeFormat.Location = new System.Drawing.Point(297, 41);
+            this.cbxDatetimeFormat.Location = new System.Drawing.Point(89, 118);
             this.cbxDatetimeFormat.Name = "cbxDatetimeFormat";
-            this.cbxDatetimeFormat.Size = new System.Drawing.Size(164, 21);
+            this.cbxDatetimeFormat.Size = new System.Drawing.Size(216, 21);
             this.cbxDatetimeFormat.TabIndex = 19;
             // 
             // btnEndExcel
             // 
-            this.btnEndExcel.Location = new System.Drawing.Point(8, 396);
+            this.btnEndExcel.Location = new System.Drawing.Point(8, 531);
             this.btnEndExcel.Name = "btnEndExcel";
             this.btnEndExcel.Size = new System.Drawing.Size(118, 37);
             this.btnEndExcel.TabIndex = 18;
@@ -289,7 +295,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 44);
+            this.label5.Location = new System.Drawing.Point(15, 95);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 13);
             this.label5.TabIndex = 17;
@@ -299,9 +305,9 @@
             // 
             this.cbxReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxReportType.FormattingEnabled = true;
-            this.cbxReportType.Location = new System.Drawing.Point(89, 41);
+            this.cbxReportType.Location = new System.Drawing.Point(89, 92);
             this.cbxReportType.Name = "cbxReportType";
-            this.cbxReportType.Size = new System.Drawing.Size(131, 21);
+            this.cbxReportType.Size = new System.Drawing.Size(216, 21);
             this.cbxReportType.TabIndex = 16;
             this.cbxReportType.SelectedIndexChanged += new System.EventHandler(this.cbxReportType_SelectedIndexChanged);
             // 
@@ -313,9 +319,9 @@
             this.groupBox1.Controls.Add(this.radioButtonAll);
             this.groupBox1.Controls.Add(this.txtTestCase);
             this.groupBox1.Controls.Add(this.radioButtonChoice);
-            this.groupBox1.Location = new System.Drawing.Point(8, 176);
+            this.groupBox1.Location = new System.Drawing.Point(8, 354);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(555, 218);
+            this.groupBox1.Size = new System.Drawing.Size(555, 171);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test case list ( fill status for only chosen test cases in list - one line for on" +
@@ -333,7 +339,7 @@
             // 
             // btnLoadTestCase
             // 
-            this.btnLoadTestCase.Location = new System.Drawing.Point(297, 16);
+            this.btnLoadTestCase.Location = new System.Drawing.Point(304, 16);
             this.btnLoadTestCase.Name = "btnLoadTestCase";
             this.btnLoadTestCase.Size = new System.Drawing.Size(124, 23);
             this.btnLoadTestCase.TabIndex = 18;
@@ -371,7 +377,7 @@
             this.txtTestCase.Multiline = true;
             this.txtTestCase.Name = "txtTestCase";
             this.txtTestCase.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTestCase.Size = new System.Drawing.Size(549, 173);
+            this.txtTestCase.Size = new System.Drawing.Size(549, 126);
             this.txtTestCase.TabIndex = 12;
             this.txtTestCase.WordWrap = false;
             this.txtTestCase.TextChanged += new System.EventHandler(this.txtTestCase_TextChanged);
@@ -390,7 +396,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 144);
+            this.label4.Location = new System.Drawing.Point(15, 148);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 10;
@@ -403,7 +409,7 @@
             this.tabPageTemplate.Location = new System.Drawing.Point(4, 22);
             this.tabPageTemplate.Name = "tabPageTemplate";
             this.tabPageTemplate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTemplate.Size = new System.Drawing.Size(571, 441);
+            this.tabPageTemplate.Size = new System.Drawing.Size(571, 574);
             this.tabPageTemplate.TabIndex = 1;
             this.tabPageTemplate.Text = "Template Info";
             this.tabPageTemplate.UseVisualStyleBackColor = true;
@@ -432,7 +438,7 @@
             this.panel2.Controls.Add(this.txtDateRowIndex);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(559, 429);
+            this.panel2.Size = new System.Drawing.Size(559, 560);
             this.panel2.TabIndex = 25;
             // 
             // lblSample6
@@ -454,9 +460,9 @@
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.ForeColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(123, 305);
+            this.panel1.Location = new System.Drawing.Point(62, 420);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(307, 91);
+            this.panel1.Size = new System.Drawing.Size(426, 111);
             this.panel1.TabIndex = 24;
             // 
             // lblSample5
@@ -646,7 +652,7 @@
             this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
             this.tabPageAbout.Name = "tabPageAbout";
             this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAbout.Size = new System.Drawing.Size(571, 441);
+            this.tabPageAbout.Size = new System.Drawing.Size(571, 574);
             this.tabPageAbout.TabIndex = 2;
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
@@ -658,7 +664,7 @@
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Location = new System.Drawing.Point(6, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(559, 429);
+            this.panel3.Size = new System.Drawing.Size(559, 562);
             this.panel3.TabIndex = 26;
             // 
             // label6
@@ -688,7 +694,7 @@
             this.tabPageGuideline.Location = new System.Drawing.Point(4, 22);
             this.tabPageGuideline.Name = "tabPageGuideline";
             this.tabPageGuideline.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGuideline.Size = new System.Drawing.Size(571, 441);
+            this.tabPageGuideline.Size = new System.Drawing.Size(571, 574);
             this.tabPageGuideline.TabIndex = 3;
             this.tabPageGuideline.Text = "Guideline";
             this.tabPageGuideline.UseVisualStyleBackColor = true;
@@ -699,15 +705,58 @@
             this.webBrowser.Location = new System.Drawing.Point(3, 3);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(565, 435);
+            this.webBrowser.Size = new System.Drawing.Size(565, 568);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnLoadIgnoreTestCase);
+            this.groupBox2.Controls.Add(this.lblIgnoreTestCaseNumber);
+            this.groupBox2.Controls.Add(this.txtIgnoreTestCase);
+            this.groupBox2.Location = new System.Drawing.Point(8, 175);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(555, 171);
+            this.groupBox2.TabIndex = 23;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ignore test case list ( test cases will be ignored when collect data )";
+            // 
+            // btnLoadIgnoreTestCase
+            // 
+            this.btnLoadIgnoreTestCase.Location = new System.Drawing.Point(428, 16);
+            this.btnLoadIgnoreTestCase.Name = "btnLoadIgnoreTestCase";
+            this.btnLoadIgnoreTestCase.Size = new System.Drawing.Size(124, 23);
+            this.btnLoadIgnoreTestCase.TabIndex = 18;
+            this.btnLoadIgnoreTestCase.Text = "Load test case from file";
+            this.btnLoadIgnoreTestCase.UseVisualStyleBackColor = true;
+            this.btnLoadIgnoreTestCase.Click += new System.EventHandler(this.btnLoadIgnoreTestCase_Click);
+            // 
+            // lblIgnoreTestCaseNumber
+            // 
+            this.lblIgnoreTestCaseNumber.AutoSize = true;
+            this.lblIgnoreTestCaseNumber.Location = new System.Drawing.Point(7, 21);
+            this.lblIgnoreTestCaseNumber.Name = "lblIgnoreTestCaseNumber";
+            this.lblIgnoreTestCaseNumber.Size = new System.Drawing.Size(76, 13);
+            this.lblIgnoreTestCaseNumber.TabIndex = 15;
+            this.lblIgnoreTestCaseNumber.Text = "( 0 test cases )";
+            // 
+            // txtIgnoreTestCase
+            // 
+            this.txtIgnoreTestCase.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtIgnoreTestCase.Location = new System.Drawing.Point(3, 42);
+            this.txtIgnoreTestCase.Multiline = true;
+            this.txtIgnoreTestCase.Name = "txtIgnoreTestCase";
+            this.txtIgnoreTestCase.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtIgnoreTestCase.Size = new System.Drawing.Size(549, 126);
+            this.txtIgnoreTestCase.TabIndex = 12;
+            this.txtIgnoreTestCase.WordWrap = false;
+            this.txtIgnoreTestCase.TextChanged += new System.EventHandler(this.txtIgnoreTestCase_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 467);
+            this.ClientSize = new System.Drawing.Size(579, 600);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -731,6 +780,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -793,6 +844,10 @@
         private System.Windows.Forms.TabPage tabPageGuideline;
         private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.Button btnShowCollectedData;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnLoadIgnoreTestCase;
+        private System.Windows.Forms.Label lblIgnoreTestCaseNumber;
+        private System.Windows.Forms.TextBox txtIgnoreTestCase;
     }
 }
 

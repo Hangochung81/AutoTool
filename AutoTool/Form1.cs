@@ -63,6 +63,7 @@ namespace AutoTool
             {
                 testCase = txtTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             }
+            string[] ignoreTestCase = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             ReportInfo report = new ReportInfo()
             {
@@ -72,8 +73,8 @@ namespace AutoTool
                 TargetPath = txtExcelPath.Text,
                 ReportDate = dateTimePicker.Value,
                 TestCaseList = testCase,
+                IgnoreTestCaseList = ignoreTestCase,
                 DateTimeFormat = cbxDatetimeFormat.Text
-                
             };
 
             TemplateInfo template = new TemplateInfo()
@@ -172,6 +173,8 @@ namespace AutoTool
             txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
             txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
             txtStatusColumnIndexPerDate.Text = ini.ReadValue("Template", "StatusColumnIndexPerDate");
+            //Load Ignore test case
+            txtIgnoreTestCase.Text = File.ReadAllText(Directory.GetCurrentDirectory() + "\\IgnoreTestCase.txt");
             //Load Guideline document
             webBrowser.Navigate(Directory.GetCurrentDirectory() + "\\AutoCollectGuideline.mht");
         }
@@ -307,10 +310,12 @@ namespace AutoTool
         {
             try
             {
+                string[] ignoreTestCase = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 ReportInfo report = new ReportInfo()
                 {
                     ResultPath = txtPath.Text,
                     ReportType = cbxReportType.SelectedValue.ToString(),
+                    IgnoreTestCaseList = ignoreTestCase,
                     DateTimeFormat = cbxDatetimeFormat.Text
                 };
 
@@ -322,6 +327,22 @@ namespace AutoTool
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnLoadIgnoreTestCase_Click(object sender, EventArgs e)
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Cursor = Cursors.WaitCursor;
+                txtIgnoreTestCase.Text = File.ReadAllText(ofd.FileName);
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        private void txtIgnoreTestCase_TextChanged(object sender, EventArgs e)
+        {
+            string[] testCaseList = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            lblIgnoreTestCaseNumber.Text = String.Format("( {0} test cases )", testCaseList.Count());
         }
     }
 

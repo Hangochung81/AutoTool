@@ -20,7 +20,7 @@ namespace AutoTool
         Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
         public string dateFormat = "M/d/yyyy h:mm:ss tt";
 
-        private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath)
+        private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath, string[] ignoreList)
         {
             try
             {
@@ -53,18 +53,21 @@ namespace AutoTool
                         string executeDate = table[0].ChildNodes[3].InnerText.Trim();
                         string executeResult = UpperFirstCharacter(table[0].ChildNodes[5].InnerText.Trim()) + "ed";
 
-                        if (results.ContainsKey(testID))
+                        if (!Array.Exists(ignoreList, E => E == testID))
                         {
-                            DateTime storedDate = DateTime.ParseExact(results[testID][0].ToString(), dateFormat, null);
-                            DateTime currentDate = DateTime.ParseExact(executeDate, dateFormat, null);
-                            if (storedDate < currentDate)
+                            if (results.ContainsKey(testID))
+                            {
+                                DateTime storedDate = DateTime.ParseExact(results[testID][0].ToString(), dateFormat, null);
+                                DateTime currentDate = DateTime.ParseExact(executeDate, dateFormat, null);
+                                if (storedDate < currentDate)
+                                {
+                                    results[testID] = new string[] { executeDate, executeResult };
+                                }
+                            }
+                            else
                             {
                                 results[testID] = new string[] { executeDate, executeResult };
                             }
-                        }
-                        else
-                        {
-                            results[testID] = new string[] { executeDate, executeResult };
                         }
                     }
 
@@ -77,16 +80,52 @@ namespace AutoTool
             }
         }
 
-        private DataSet ConvertXMLtoDataset(string xmlPathFile)
+        private List<KeyValuePair<string, string[]>> CollectRawDataFromHtmlFile(string resultPath, string[] ignoreList)
         {
-            //string filePath = string.Empty;
-            DataSet objDataSet = new DataSet();
-            objDataSet.ReadXml(xmlPathFile);
-            return objDataSet;
+            try
+            {
+                var results = new List<KeyValuePair<string, string[]>>();
+
+                WebClient webClient = new WebClient();
+
+                DirectoryInfo dir = new DirectoryInfo(resultPath);
+                FileInfo[] files = dir.GetFiles("*.html");
+
+                if (files.Count() == 0)
+                {
+                    throw new Exception("There is no html file in folder: " + resultPath);
+                }
+
+                foreach (FileInfo file in files)
+                {
+                    var filePath = "file:///" + resultPath.Replace("\\", "/") + "/" + file.Name;
+                    string page = webClient.DownloadString(filePath);
+                    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                    doc.LoadHtml(page);
+
+                    var tables = doc.DocumentNode.SelectNodes("//div[@class='test-heading']").ToList();
+                    for (int i = 1; i <= tables.Count; i++)
+                    {
+                        var table = doc.DocumentNode.SelectNodes($"(//div[@class='test-heading'])[{i}]").ToList();
+                        if (table[0].ChildNodes[1].InnerText.Trim() == "Pre-condition") continue;
+                        if (table[0].ChildNodes[1].InnerText.Trim() == "Test Summary") break;
+                        string testID = table[0].ChildNodes[1].InnerText.Trim();
+                        string executeDate = table[0].ChildNodes[3].InnerText.Trim();
+                        string executeResult = UpperFirstCharacter(table[0].ChildNodes[5].InnerText.Trim()) + "ed";
+
+                        results.Add(new KeyValuePair<string, string[]>(testID, new string[] { executeDate, executeResult }));
+                    }
+
+                }
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-
-        private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath)
+        private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath, string[] ignoreList)
         {
             try
             {
@@ -110,18 +149,22 @@ namespace AutoTool
                             string testID = ds.Tables[4].Rows[i].ItemArray[4].ToString().Trim();
                             string executeDate = ds.Tables[4].Rows[i].ItemArray[8].ToString().Trim();
                             string executeResult = UpperFirstCharacter(ds.Tables[4].Rows[i].ItemArray[2].ToString().Trim()) + "ed";
-                            if (results.ContainsKey(testID))
+
+                            if (!Array.Exists(ignoreList, E => E == testID))
                             {
-                                DateTime storedDate = DateTime.ParseExact(results[testID][0].ToString(), dateFormat, null);
-                                DateTime currentDate = DateTime.ParseExact(executeDate, dateFormat, null);
-                                if (storedDate < currentDate)
+                                if (results.ContainsKey(testID))
+                                {
+                                    DateTime storedDate = DateTime.ParseExact(results[testID][0].ToString(), dateFormat, null);
+                                    DateTime currentDate = DateTime.ParseExact(executeDate, dateFormat, null);
+                                    if (storedDate < currentDate)
+                                    {
+                                        results[testID] = new string[] { executeDate, executeResult };
+                                    }
+                                }
+                                else
                                 {
                                     results[testID] = new string[] { executeDate, executeResult };
                                 }
-                            }
-                            else
-                            {
-                                results[testID] = new string[] { executeDate, executeResult };
                             }
                         }
                     }
@@ -132,6 +175,51 @@ namespace AutoTool
             {
                 throw e;
             }
+        }
+        private List<KeyValuePair<string, string[]>> ColectRawDataFromXmlFile(string resultPath, string[] ignoreList)
+        {
+            try
+            {
+                var results = new List<KeyValuePair<string, string[]>>();
+
+                DirectoryInfo dir = new DirectoryInfo(resultPath);
+                FileInfo[] files = dir.GetFiles("*.xml");
+
+                if (files.Count() == 0)
+                {
+                    throw new Exception("There is no xml file in folder: " + resultPath);
+                }
+
+                foreach (FileInfo file in files)
+                {
+                    DataSet ds = ConvertXMLtoDataset(file.FullName);
+                    if (ds.Tables[0].TableName == "testng-results")
+                    {
+                        for (int i = 0; i < ds.Tables[4].Rows.Count; i++)
+                        {
+                            string testID = ds.Tables[4].Rows[i].ItemArray[4].ToString().Trim();
+                            string executeDate = ds.Tables[4].Rows[i].ItemArray[8].ToString().Trim();
+                            string executeResult = UpperFirstCharacter(ds.Tables[4].Rows[i].ItemArray[2].ToString().Trim()) + "ed";
+
+                            if (!Array.Exists(ignoreList, E => E == testID))
+                                results.Add(new KeyValuePair<string, string[]>(testID, new string[] { executeDate, executeResult }));
+                        }
+                    }
+                }
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private DataSet ConvertXMLtoDataset(string xmlPathFile)
+        {
+            //string filePath = string.Empty;
+            DataSet objDataSet = new DataSet();
+            objDataSet.ReadXml(xmlPathFile);
+            return objDataSet;
         }
 
         public void UpdateExcel(ReportInfo report, TemplateInfo template)
@@ -146,11 +234,11 @@ namespace AutoTool
                 Dictionary<string, string[]> listResult;
                 if (report.ReportType == "html")
                 {
-                    listResult = CollectDataFromHtmlFile(report.ResultPath);
+                    listResult = CollectDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList);
                 }
                 else
                 {
-                    listResult = ColectDataFromXmlFile(report.ResultPath);
+                    listResult = ColectDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList);
                 }
 
                 oWB = oXL.Workbooks.Open(report.TargetPath);
@@ -193,21 +281,21 @@ namespace AutoTool
             }
         }
 
-        public Dictionary<string, string[]> GetCollectedData(ReportInfo report)
+        public List<KeyValuePair<string, string[]>> GetCollectedData(ReportInfo report)
         {
             dateFormat = report.DateTimeFormat;
 
-            Dictionary<string, string[]> listResult;
+            List<KeyValuePair<string, string[]>> listResult;
             if (report.ReportType == "html")
             {
-                listResult = CollectDataFromHtmlFile(report.ResultPath);
+                listResult = CollectRawDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList);
             }
             else
             {
-                listResult = ColectDataFromXmlFile(report.ResultPath);
+                listResult = ColectRawDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList);
             }
 
-            return listResult;
+            return listResult.OrderBy(x => x.Key).ToList();
         }
 
         private Boolean IsTargetTestCase(string[] targetList, string testName)
