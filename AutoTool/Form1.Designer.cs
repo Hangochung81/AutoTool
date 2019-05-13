@@ -154,7 +154,7 @@
             // 
             // OpenButton2
             // 
-            this.OpenButton2.Location = new System.Drawing.Point(488, 71);
+            this.OpenButton2.Location = new System.Drawing.Point(488, 72);
             this.OpenButton2.Name = "OpenButton2";
             this.OpenButton2.Size = new System.Drawing.Size(75, 23);
             this.OpenButton2.TabIndex = 6;
