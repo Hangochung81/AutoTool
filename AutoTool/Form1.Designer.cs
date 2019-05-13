@@ -250,7 +250,8 @@
             this.groupBox2.Size = new System.Drawing.Size(555, 171);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ignore test case list ( test cases will be ignored when collect data )";
+            this.groupBox2.Text = "Ignore test case list ( test cases will be ignored when collect data - one line f" +
+    "or one test case )";
             // 
             // btnLoadIgnoreTestCase
             // 
@@ -481,7 +482,7 @@
             this.panel2.Controls.Add(this.txtDateRowIndex);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(559, 560);
+            this.panel2.Size = new System.Drawing.Size(559, 562);
             this.panel2.TabIndex = 25;
             // 
             // lblSample6
