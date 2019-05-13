@@ -43,6 +43,7 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.btnShowCollectedData = new System.Windows.Forms.Button();
             this.chxUseCustom = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbxDatetimeFormat = new System.Windows.Forms.ComboBox();
@@ -142,11 +143,11 @@
             // 
             // ExecuteBtn
             // 
-            this.ExecuteBtn.Location = new System.Drawing.Point(455, 396);
+            this.ExecuteBtn.Location = new System.Drawing.Point(439, 396);
             this.ExecuteBtn.Name = "ExecuteBtn";
-            this.ExecuteBtn.Size = new System.Drawing.Size(108, 37);
+            this.ExecuteBtn.Size = new System.Drawing.Size(124, 37);
             this.ExecuteBtn.TabIndex = 5;
-            this.ExecuteBtn.Text = "Execute";
+            this.ExecuteBtn.Text = "Fill Test Case Status";
             this.ExecuteBtn.UseVisualStyleBackColor = true;
             this.ExecuteBtn.Click += new System.EventHandler(this.ExecuteBtn_Click);
             this.ExecuteBtn.Validating += new System.ComponentModel.CancelEventHandler(this.ExecuteBtn_Validating);
@@ -206,6 +207,7 @@
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.btnShowCollectedData);
             this.tabPageReport.Controls.Add(this.chxUseCustom);
             this.tabPageReport.Controls.Add(this.label8);
             this.tabPageReport.Controls.Add(this.cbxDatetimeFormat);
@@ -231,6 +233,16 @@
             this.tabPageReport.TabIndex = 0;
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
+            // 
+            // btnShowCollectedData
+            // 
+            this.btnShowCollectedData.Location = new System.Drawing.Point(132, 396);
+            this.btnShowCollectedData.Name = "btnShowCollectedData";
+            this.btnShowCollectedData.Size = new System.Drawing.Size(124, 37);
+            this.btnShowCollectedData.TabIndex = 22;
+            this.btnShowCollectedData.Text = "Show Collected Data";
+            this.btnShowCollectedData.UseVisualStyleBackColor = true;
+            this.btnShowCollectedData.Click += new System.EventHandler(this.btnShowCollectedData_Click);
             // 
             // chxUseCustom
             // 
@@ -780,6 +792,7 @@
         private System.Windows.Forms.CheckBox chxUseCustom;
         private System.Windows.Forms.TabPage tabPageGuideline;
         private System.Windows.Forms.WebBrowser webBrowser;
+        private System.Windows.Forms.Button btnShowCollectedData;
     }
 }
 

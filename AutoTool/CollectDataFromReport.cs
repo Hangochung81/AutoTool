@@ -141,6 +141,8 @@ namespace AutoTool
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                dateFormat = report.DateTimeFormat;
+
                 Dictionary<string, string[]> listResult;
                 if (report.ReportType == "html")
                 {
@@ -189,6 +191,23 @@ namespace AutoTool
                     oWB = null;
                 }
             }
+        }
+
+        public Dictionary<string, string[]> GetCollectedData(ReportInfo report)
+        {
+            dateFormat = report.DateTimeFormat;
+
+            Dictionary<string, string[]> listResult;
+            if (report.ReportType == "html")
+            {
+                listResult = CollectDataFromHtmlFile(report.ResultPath);
+            }
+            else
+            {
+                listResult = ColectDataFromXmlFile(report.ResultPath);
+            }
+
+            return listResult;
         }
 
         private Boolean IsTargetTestCase(string[] targetList, string testName)

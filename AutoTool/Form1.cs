@@ -43,7 +43,6 @@ namespace AutoTool
             {
                 txtPath.Text = fbd.SelectedPath;
             }
-            //fbd.ShowDialog();
         }
 
         private void OpenButton2_Click(object sender, EventArgs e)
@@ -85,7 +84,6 @@ namespace AutoTool
                 DateRowIndex = Convert.ToInt32(txtDateRowIndex.Text),
                 ColumnNumberPerDate = Convert.ToInt32(txtColumnNumberPerDate.Text),
                 StatusColumnIndexPerDate = Convert.ToInt32(txtStatusColumnIndexPerDate.Text),
-                //DateTimeFormat = txtDateFormat.Text
             };
 
             try
@@ -303,6 +301,27 @@ namespace AutoTool
         private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             webBrowser.Document.Body.Style = "zoom:70%";
+        }
+
+        private void btnShowCollectedData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ReportInfo report = new ReportInfo()
+                {
+                    ResultPath = txtPath.Text,
+                    ReportType = cbxReportType.SelectedValue.ToString(),
+                    DateTimeFormat = cbxDatetimeFormat.Text
+                };
+
+                var data = cldt.GetCollectedData(report);
+                SummaryForm form = new SummaryForm(data);
+                form.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 
