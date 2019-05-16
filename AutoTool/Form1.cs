@@ -83,6 +83,7 @@ namespace AutoTool
                 SheetName = cbxSheet.Text,
                 ResultPath = txtPath.Text,
                 ReportType = cbxReportType.SelectedValue.ToString(),
+                FilterFile = txtFilterFile.Text,
                 TargetPath = txtExcelPath.Text,
                 ReportDate = dateTimePicker.Value,
                 TestCaseList = testCase,
@@ -168,6 +169,7 @@ namespace AutoTool
 
             var items = new[] {
                 new { Text = "Extent Report (.html)", Value = "html" },
+                new { Text = "Allure Report (.json)", Value = "json" },
                 new { Text = "TestNG Report (.xml)", Value = "xml" }
             };
 
@@ -245,11 +247,18 @@ namespace AutoTool
             cbxDatetimeFormat.Text = string.Empty;
             if (cbxReportType.SelectedIndex == 0)
             {
-                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[0].ToString(); 
+                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[0].ToString();
+                txtFilterFile.Clear();
+            }
+            else if (cbxReportType.SelectedIndex == 1)
+            {
+                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[2].ToString();
+                txtFilterFile.Text = "result";
             }
             else
             {
                 cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[1].ToString();
+                txtFilterFile.Clear();
             }
         }
 
@@ -329,7 +338,8 @@ namespace AutoTool
                     ResultPath = txtPath.Text,
                     ReportType = cbxReportType.SelectedValue.ToString(),
                     IgnoreTestCaseList = ignoreTestCase,
-                    DateTimeFormat = cbxDatetimeFormat.Text
+                    DateTimeFormat = cbxDatetimeFormat.Text,
+                    FilterFile = txtFilterFile.Text
                 };
 
                 var data = cldt.GetCollectedData(report);

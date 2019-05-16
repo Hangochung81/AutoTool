@@ -43,6 +43,8 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.txtFilterFile = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnLoadIgnoreTestCase = new System.Windows.Forms.Button();
             this.lblIgnoreTestCaseNumber = new System.Windows.Forms.Label();
@@ -212,6 +214,8 @@
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.txtFilterFile);
+            this.tabPageReport.Controls.Add(this.label9);
             this.tabPageReport.Controls.Add(this.groupBox2);
             this.tabPageReport.Controls.Add(this.btnShowCollectedData);
             this.tabPageReport.Controls.Add(this.chxUseCustom);
@@ -239,6 +243,22 @@
             this.tabPageReport.TabIndex = 0;
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
+            // 
+            // txtFilterFile
+            // 
+            this.txtFilterFile.Location = new System.Drawing.Point(382, 92);
+            this.txtFilterFile.Name = "txtFilterFile";
+            this.txtFilterFile.Size = new System.Drawing.Size(115, 20);
+            this.txtFilterFile.TabIndex = 26;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(328, 95);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(48, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Filter File";
             // 
             // groupBox2
             // 
@@ -320,7 +340,8 @@
             this.cbxDatetimeFormat.FormattingEnabled = true;
             this.cbxDatetimeFormat.Items.AddRange(new object[] {
             "M/d/yyyy h:mm:ss tt",
-            "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'"});
+            "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'",
+            "Epoch Unix Timestamp"});
             this.cbxDatetimeFormat.Location = new System.Drawing.Point(89, 118);
             this.cbxDatetimeFormat.Name = "cbxDatetimeFormat";
             this.cbxDatetimeFormat.Size = new System.Drawing.Size(216, 21);
@@ -849,6 +870,8 @@
         private System.Windows.Forms.Button btnLoadIgnoreTestCase;
         private System.Windows.Forms.Label lblIgnoreTestCaseNumber;
         private System.Windows.Forms.TextBox txtIgnoreTestCase;
+        private System.Windows.Forms.TextBox txtFilterFile;
+        private System.Windows.Forms.Label label9;
     }
 }
 

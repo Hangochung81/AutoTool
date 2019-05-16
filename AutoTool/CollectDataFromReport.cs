@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,7 +21,7 @@ namespace AutoTool
         Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
         public string dateFormat = "M/d/yyyy h:mm:ss tt";
 
-        private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath, string[] ignoreList)
+        private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath, string[] ignoreList, string filterFile = null)
         {
             try
             {
@@ -29,7 +30,7 @@ namespace AutoTool
                 WebClient webClient = new WebClient();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles("*.html");
+                FileInfo[] files = dir.GetFiles($"*{filterFile}.html");
 
                 if (files.Count() == 0)
                 {
@@ -80,7 +81,7 @@ namespace AutoTool
             }
         }
 
-        private List<KeyValuePair<string, string[]>> CollectRawDataFromHtmlFile(string resultPath, string[] ignoreList)
+        private List<KeyValuePair<string, string[]>> CollectRawDataFromHtmlFile(string resultPath, string[] ignoreList, string filterFile = null)
         {
             try
             {
@@ -89,7 +90,7 @@ namespace AutoTool
                 WebClient webClient = new WebClient();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles("*.html");
+                FileInfo[] files = dir.GetFiles($"*{filterFile}.html");
 
                 if (files.Count() == 0)
                 {
@@ -125,14 +126,14 @@ namespace AutoTool
             }
         }
 
-        private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath, string[] ignoreList)
+        private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath, string[] ignoreList, string filterFile = null)
         {
             try
             {
                 Dictionary<string, string[]> results = new Dictionary<string, string[]>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles("*.xml");
+                FileInfo[] files = dir.GetFiles($"*{filterFile}.xml");
 
                 if (files.Count() == 0)
                 {
@@ -176,14 +177,14 @@ namespace AutoTool
                 throw e;
             }
         }
-        private List<KeyValuePair<string, string[]>> ColectRawDataFromXmlFile(string resultPath, string[] ignoreList)
+        private List<KeyValuePair<string, string[]>> ColectRawDataFromXmlFile(string resultPath, string[] ignoreList, string filterFile = null)
         {
             try
             {
                 var results = new List<KeyValuePair<string, string[]>>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles("*.xml");
+                FileInfo[] files = dir.GetFiles($"*{filterFile}.xml");
 
                 if (files.Count() == 0)
                 {
@@ -214,6 +215,97 @@ namespace AutoTool
             }
         }
 
+        private Dictionary<string, string[]> ColectDataFromJsonFile(string resultPath, string[] ignoreList, string filterFile = null)
+        {
+            try
+            {
+                Dictionary<string, string[]> results = new Dictionary<string, string[]>();
+
+                DirectoryInfo dir = new DirectoryInfo(resultPath);
+                FileInfo[] files = dir.GetFiles($"*{filterFile}.json");
+
+                if (files.Count() == 0)
+                {
+                    throw new Exception("There is no JsonFile file in folder: " + resultPath);
+                }
+
+                foreach (FileInfo file in files)
+                {
+                    StreamReader rd = new StreamReader(file.FullName);
+                    var json = rd.ReadToEnd();
+                    var jobj = JObject.Parse(json);
+                    string testID = (string)jobj["name"];
+                    string executeDate = (string)jobj["start"];
+                    string executeResult = UpperFirstCharacter((string)jobj["status"]);
+                    if (!Array.Exists(ignoreList, E => E == testID))
+                    {
+                        if (results.ContainsKey(testID))
+                        {
+                            DateTime storedDate = ConvertTimestamp(results[testID][0]);
+                            DateTime currentDate = ConvertTimestamp(executeDate);
+                            if (storedDate < currentDate)
+                            {
+                                results[testID] = new string[] { executeDate, executeResult };
+                            }
+                        }
+                        else
+                        {
+                            results[testID] = new string[] { executeDate, executeResult };
+                        }
+                    }
+                }
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private List<KeyValuePair<string, string[]>> ColectRawDataFromJsonFile(string resultPath, string[] ignoreList, string filterFile = null)
+        {
+            try
+            {
+                List<KeyValuePair<string, string[]>> results = new List<KeyValuePair<string, string[]>>();
+
+                DirectoryInfo dir = new DirectoryInfo(resultPath);
+                FileInfo[] files = dir.GetFiles($"*{filterFile}.json");
+
+                if (files.Count() == 0)
+                {
+                    throw new Exception("There is no JsonFile file in folder: " + resultPath);
+                }
+
+                foreach (FileInfo file in files)
+                {
+                    StreamReader rd = new StreamReader(file.FullName);
+                    var json = rd.ReadToEnd();
+                    var jobj = JObject.Parse(json);
+                    string testID = (string)jobj["name"];
+                    string executeDate = ConvertTimestamp((string)jobj["start"]).ToString();
+                    string executeResult = UpperFirstCharacter((string)jobj["status"]);
+                    
+                    if (!Array.Exists(ignoreList, E => E == testID))
+                        results.Add(new KeyValuePair<string, string[]>(testID, new string[] { executeDate, executeResult }));
+                }
+                return results;
+            }
+            catch (Exception)
+            {
+                throw new Exception("There is no JsonFile match with filter name" + filterFile);
+            }
+        }
+
+
+
+        private DateTime ConvertTimestamp(string timestamp)
+        {
+            
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            dateTime = dateTime.AddMilliseconds(double.Parse(timestamp));
+            return dateTime;
+        }
+
         private DataSet ConvertXMLtoDataset(string xmlPathFile)
         {
             //string filePath = string.Empty;
@@ -234,11 +326,15 @@ namespace AutoTool
                 Dictionary<string, string[]> listResult;
                 if (report.ReportType == "html")
                 {
-                    listResult = CollectDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList);
+                    listResult = CollectDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+                }
+                else if (report.ReportType == "json")
+                {
+                    listResult = ColectDataFromJsonFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
                 }
                 else
                 {
-                    listResult = ColectDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList);
+                    listResult = ColectDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
                 }
 
                 oWB = oXL.Workbooks.Open(report.TargetPath);
@@ -288,11 +384,15 @@ namespace AutoTool
             List<KeyValuePair<string, string[]>> listResult;
             if (report.ReportType == "html")
             {
-                listResult = CollectRawDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList);
+                listResult = CollectRawDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+            }
+            else if (report.ReportType == "json")
+            {
+                listResult = ColectRawDataFromJsonFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
             }
             else
             {
-                listResult = ColectRawDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList);
+                listResult = ColectRawDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
             }
 
             return listResult.OrderBy(x => x.Key).ToList();
