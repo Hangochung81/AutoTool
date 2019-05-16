@@ -21,7 +21,7 @@ namespace AutoTool
         Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
         public string dateFormat = "M/d/yyyy h:mm:ss tt";
 
-        private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath, string[] ignoreList, string filterFile = null)
+        private Dictionary<string, string[]> CollectDataFromHtmlFile(string resultPath, string[] ignoreList, string filterFile)
         {
             try
             {
@@ -30,7 +30,13 @@ namespace AutoTool
                 WebClient webClient = new WebClient();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles($"*{filterFile}.html");
+				
+				if (String.IsNullOrEmpty(filterFile))
+				{
+					filterFile = "*";
+				}
+				
+                FileInfo[] files = dir.GetFiles($"{filterFile}.html");
 
                 if (files.Count() == 0)
                 {
@@ -44,30 +50,44 @@ namespace AutoTool
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(page);
 
-                    var tables = doc.DocumentNode.SelectNodes("//div[@class='test-heading']").ToList();
+                    var tables = doc.DocumentNode.SelectNodes("//ul[@id='test-collection']/li").ToList();
                     for (int i = 1; i <= tables.Count; i++)
                     {
-                        var table = doc.DocumentNode.SelectNodes($"(//div[@class='test-heading'])[{i}]").ToList();
-                        if (table[0].ChildNodes[1].InnerText.Trim() == "Pre-condition") continue;
-                        if (table[0].ChildNodes[1].InnerText.Trim() == "Test Summary") break;
-                        string testID = table[0].ChildNodes[1].InnerText.Trim();
-                        string executeDate = table[0].ChildNodes[3].InnerText.Trim();
-                        string executeResult = UpperFirstCharacter(table[0].ChildNodes[5].InnerText.Trim()) + "ed";
+                        var testNode = doc.DocumentNode.SelectNodes($"(//ul[@id='test-collection']/li)[{i}]").Single();
+                        string testID = testNode.SelectNodes(".//span[@class='test-name']").Single().InnerText.Trim();
+                        if (testID == "Pre-condition") continue;
+                        if (testID == "Test Summary") break;
+                        string startTime = testNode.SelectNodes(".//span[@class='label start-time']").Single().InnerText.Trim();
+                        string endTime = testNode.SelectNodes(".//span[@class='label end-time']").Single().InnerText.Trim();
+                        string status = UpperFirstCharacter(testNode.SelectNodes(".//div[@class='test-heading']/span[contains(@class,'test-status')]").Single().InnerText.Trim()) + "ed";
+                        string message = "";
+                        if (status != "Passed")
+                        {
+                            var lastNode = testNode.SelectNodes("(.//li[contains(@class,'node')])[last()]").Single();
+                            if (lastNode.Attributes["status"].Value != "pass")
+                            {
+                                var lastLog = lastNode.SelectNodes("(.//tr[@class='log'])[last()]").Single();
+                                if (lastLog.Attributes["status"].Value != "info" && lastLog.Attributes["status"].Value != "pass")
+                                {
+                                    message = lastLog.SelectNodes(".//td[@class='step-details']").Single().InnerText.Trim();
+                                }
+                            }
+                        }
 
                         if (!Array.Exists(ignoreList, E => E == testID))
                         {
                             if (results.ContainsKey(testID))
                             {
-                                DateTime storedDate = DateTime.ParseExact(results[testID][0].ToString(), dateFormat, null);
-                                DateTime currentDate = DateTime.ParseExact(executeDate, dateFormat, null);
+                                DateTime storedDate = DateTime.ParseExact(results[testID][1].ToString(), dateFormat, null);
+                                DateTime currentDate = DateTime.ParseExact(endTime, dateFormat, null);
                                 if (storedDate < currentDate)
                                 {
-                                    results[testID] = new string[] { executeDate, executeResult };
+                                    results[testID] = new string[] { startTime, endTime, status, message };
                                 }
                             }
                             else
                             {
-                                results[testID] = new string[] { executeDate, executeResult };
+                                results[testID] = new string[] { startTime, endTime, status, message };
                             }
                         }
                     }
@@ -81,7 +101,7 @@ namespace AutoTool
             }
         }
 
-        private List<KeyValuePair<string, string[]>> CollectRawDataFromHtmlFile(string resultPath, string[] ignoreList, string filterFile = null)
+        private List<KeyValuePair<string, string[]>> CollectRawDataFromHtmlFile(string resultPath, string[] ignoreList, string filterFile)
         {
             try
             {
@@ -90,7 +110,13 @@ namespace AutoTool
                 WebClient webClient = new WebClient();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles($"*{filterFile}.html");
+				
+				if (String.IsNullOrEmpty(filterFile))
+				{
+					filterFile = "*";
+				}
+				
+                FileInfo[] files = dir.GetFiles($"{filterFile}.html");
 
                 if (files.Count() == 0)
                 {
@@ -104,19 +130,32 @@ namespace AutoTool
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(page);
 
-                    var tables = doc.DocumentNode.SelectNodes("//div[@class='test-heading']").ToList();
+                    var tables = doc.DocumentNode.SelectNodes("//ul[@id='test-collection']/li").ToList();
                     for (int i = 1; i <= tables.Count; i++)
                     {
-                        var table = doc.DocumentNode.SelectNodes($"(//div[@class='test-heading'])[{i}]").ToList();
-                        if (table[0].ChildNodes[1].InnerText.Trim() == "Pre-condition") continue;
-                        if (table[0].ChildNodes[1].InnerText.Trim() == "Test Summary") break;
-                        string testID = table[0].ChildNodes[1].InnerText.Trim();
-                        string executeDate = table[0].ChildNodes[3].InnerText.Trim();
-                        string executeResult = UpperFirstCharacter(table[0].ChildNodes[5].InnerText.Trim()) + "ed";
+                        var testNode = doc.DocumentNode.SelectNodes($"(//ul[@id='test-collection']/li)[{i}]").Single();
+                        string testID = testNode.SelectNodes(".//span[@class='test-name']").Single().InnerText.Trim();
+                        if (testID == "Pre-condition") continue;
+                        if (testID == "Test Summary") break;
+                        string startTime = testNode.SelectNodes(".//span[@class='label start-time']").Single().InnerText.Trim();
+                        string endTime = testNode.SelectNodes(".//span[@class='label end-time']").Single().InnerText.Trim();
+                        string status = UpperFirstCharacter(testNode.SelectNodes(".//div[@class='test-heading']/span[contains(@class,'test-status')]").Single().InnerText.Trim()) + "ed";
+                        string message = "";
+                        if (status != "Passed")
+                        {
+                            var lastNode = testNode.SelectNodes("(.//li[contains(@class,'node')])[last()]").Single();
+                            if (lastNode.Attributes["status"].Value != "pass")
+                            {
+                                var lastLog = lastNode.SelectNodes("(.//tr[@class='log'])[last()]").Single();
+                                if (lastLog.Attributes["status"].Value != "info" && lastLog.Attributes["status"].Value != "pass")
+                                {
+                                    message = lastLog.SelectNodes(".//td[@class='step-details']").Single().InnerText.Trim();
+                                }
+                            }
+                        }
 
-                        results.Add(new KeyValuePair<string, string[]>(testID, new string[] { executeDate, executeResult }));
+                        results.Add(new KeyValuePair<string, string[]>(testID, new string[] { startTime, endTime, status, message }));
                     }
-
                 }
                 return results;
             }
@@ -126,14 +165,20 @@ namespace AutoTool
             }
         }
 
-        private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath, string[] ignoreList, string filterFile = null)
+        private Dictionary<string, string[]> ColectDataFromXmlFile(string resultPath, string[] ignoreList, string filterFile)
         {
             try
             {
                 Dictionary<string, string[]> results = new Dictionary<string, string[]>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles($"*{filterFile}.xml");
+				
+				if (String.IsNullOrEmpty(filterFile))
+				{
+					filterFile = "*";
+				}
+				
+                FileInfo[] files = dir.GetFiles($"{filterFile}.xml");
 
                 if (files.Count() == 0)
                 {
@@ -177,14 +222,20 @@ namespace AutoTool
                 throw e;
             }
         }
-        private List<KeyValuePair<string, string[]>> ColectRawDataFromXmlFile(string resultPath, string[] ignoreList, string filterFile = null)
+        private List<KeyValuePair<string, string[]>> ColectRawDataFromXmlFile(string resultPath, string[] ignoreList, string filterFile)
         {
             try
             {
                 var results = new List<KeyValuePair<string, string[]>>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles($"*{filterFile}.xml");
+				
+				if (String.IsNullOrEmpty(filterFile))
+				{
+					filterFile = "*";
+				}
+				
+                FileInfo[] files = dir.GetFiles($"{filterFile}.xml");
 
                 if (files.Count() == 0)
                 {
@@ -215,14 +266,20 @@ namespace AutoTool
             }
         }
 
-        private Dictionary<string, string[]> ColectDataFromJsonFile(string resultPath, string[] ignoreList, string filterFile = null)
+        private Dictionary<string, string[]> ColectDataFromJsonFile(string resultPath, string[] ignoreList, string filterFile)
         {
             try
             {
                 Dictionary<string, string[]> results = new Dictionary<string, string[]>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles($"*{filterFile}.json");
+				
+				if (String.IsNullOrEmpty(filterFile))
+				{
+					filterFile = "*";
+				}
+				
+                FileInfo[] files = dir.GetFiles($"{filterFile}.json");
 
                 if (files.Count() == 0)
                 {
@@ -262,14 +319,20 @@ namespace AutoTool
             }
         }
 
-        private List<KeyValuePair<string, string[]>> ColectRawDataFromJsonFile(string resultPath, string[] ignoreList, string filterFile = null)
+        private List<KeyValuePair<string, string[]>> ColectRawDataFromJsonFile(string resultPath, string[] ignoreList, string filterFile)
         {
             try
             {
                 List<KeyValuePair<string, string[]>> results = new List<KeyValuePair<string, string[]>>();
 
                 DirectoryInfo dir = new DirectoryInfo(resultPath);
-                FileInfo[] files = dir.GetFiles($"*{filterFile}.json");
+				
+				if (String.IsNullOrEmpty(filterFile))
+				{
+					filterFile = "*";
+				}
+				
+                FileInfo[] files = dir.GetFiles($"{filterFile}.json");
 
                 if (files.Count() == 0)
                 {
@@ -295,8 +358,6 @@ namespace AutoTool
                 throw new Exception("There is no JsonFile match with filter name" + filterFile);
             }
         }
-
-
 
         private DateTime ConvertTimestamp(string timestamp)
         {
@@ -328,13 +389,13 @@ namespace AutoTool
                 {
                     listResult = CollectDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
                 }
-                else if (report.ReportType == "json")
+                else if (report.ReportType == "xml")
                 {
-                    listResult = ColectDataFromJsonFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+                    listResult = ColectDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
                 }
                 else
                 {
-                    listResult = ColectDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+                    listResult = ColectDataFromJsonFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
                 }
 
                 oWB = oXL.Workbooks.Open(report.TargetPath);
@@ -353,7 +414,7 @@ namespace AutoTool
 
                     if (IsTargetTestCase(report.TestCaseList, tcVal) && listResult.ContainsKey(tcVal))
                     {
-                        oSheet.Cells[i, statusColumn] = listResult[tcVal][1];
+                        oSheet.Cells[i, statusColumn] = listResult[tcVal][2];
                     }
                 }
 
@@ -386,13 +447,13 @@ namespace AutoTool
             {
                 listResult = CollectRawDataFromHtmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
             }
-            else if (report.ReportType == "json")
+            else if (report.ReportType == "xml")
             {
-                listResult = ColectRawDataFromJsonFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+                listResult = ColectRawDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
             }
             else
             {
-                listResult = ColectRawDataFromXmlFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+                listResult = ColectRawDataFromJsonFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
             }
 
             return listResult.OrderBy(x => x.Key).ToList();

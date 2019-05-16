@@ -169,8 +169,8 @@ namespace AutoTool
 
             var items = new[] {
                 new { Text = "Extent Report (.html)", Value = "html" },
-                new { Text = "Allure Report (.json)", Value = "json" },
-                new { Text = "TestNG Report (.xml)", Value = "xml" }
+                new { Text = "TestNG Report (.xml)", Value = "xml" },
+                new { Text = "Allure Report (.json)", Value = "json" }
             };
 
             cbxReportType.DataSource = items;
@@ -250,10 +250,10 @@ namespace AutoTool
                 cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[0].ToString();
                 txtFilterFile.Clear();
             }
-            else if (cbxReportType.SelectedIndex == 1)
+            else if (cbxReportType.SelectedIndex == 2)
             {
                 cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[2].ToString();
-                txtFilterFile.Text = "result";
+                txtFilterFile.Text = "*result";
             }
             else
             {
