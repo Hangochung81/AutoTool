@@ -36,22 +36,28 @@ namespace AutoTool.ReportManager.Implement
                     var json = rd.ReadToEnd();
                     var jobj = JObject.Parse(json);
                     string testID = (string)jobj["name"];
-                    string executeDate = (string)jobj["start"];
-                    string executeResult = Helper.UpperFirstCharacter((string)jobj["status"]);
+                    string startTime = (string)jobj["start"];
+                    string endTime = (string)jobj["stop"];
+                    string message = "";
+                    string status = Helper.UpperFirstCharacter((string)jobj["status"]);
+                    if (status != "Passed")
+                    {
+                        message = (string)jobj["statusDetails"]["message"];
+                    }
                     if (!Array.Exists(ignoreList, E => E == testID))
                     {
                         if (results.ContainsKey(testID))
                         {
-                            DateTime storedDate = Helper.ConvertTimestamp(results[testID][0]);
-                            DateTime currentDate = Helper.ConvertTimestamp(executeDate);
+                            DateTime storedDate = Helper.ConvertTimestamp(results[testID][1]);
+                            DateTime currentDate = Helper.ConvertTimestamp(endTime);
                             if (storedDate < currentDate)
                             {
-                                results[testID] = new string[] { executeDate, executeResult };
+                                results[testID] = new string[] { startTime, endTime, status, message };
                             }
                         }
                         else
                         {
-                            results[testID] = new string[] { executeDate, executeResult };
+                            results[testID] = new string[] { startTime, endTime, status, message };
                         }
                     }
                 }
@@ -89,11 +95,17 @@ namespace AutoTool.ReportManager.Implement
                     var json = rd.ReadToEnd();
                     var jobj = JObject.Parse(json);
                     string testID = (string)jobj["name"];
-                    string executeDate = Helper.ConvertTimestamp((string)jobj["start"]).ToString();
-                    string executeResult = Helper.UpperFirstCharacter((string)jobj["status"]);
+                    string startTime = (string)jobj["start"];
+                    string endTime = (string)jobj["stop"];
+                    string status = Helper.UpperFirstCharacter((string)jobj["status"]);
+                    string message = "";
+                    if (status != "Passed")
+                    {
+                        message = (string)jobj["statusDetails"]["message"];
+                    }
 
                     if (!Array.Exists(ignoreList, E => E == testID))
-                        results.Add(new KeyValuePair<string, string[]>(testID, new string[] { executeDate, executeResult }));
+                        results.Add(new KeyValuePair<string, string[]>(testID, new string[] { Helper.ConvertTimestamp(startTime).ToString(), Helper.ConvertTimestamp(endTime).ToString(), status, message }));
                 }
                 return results;
             }
