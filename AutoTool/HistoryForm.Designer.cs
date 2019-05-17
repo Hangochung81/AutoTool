@@ -1,6 +1,6 @@
 ﻿namespace AutoTool
 {
-    partial class SummaryForm
+    partial class HistoryForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SummaryForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistoryForm));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTestName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -115,7 +115,7 @@
             this.Name = "SummaryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collected Data";
-            this.Load += new System.EventHandler(this.SummaryForm_Load);
+            this.Load += new System.EventHandler(this.HistoryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

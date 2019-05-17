@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoTool
+﻿namespace AutoTool.Entity
 {
     public class TemplateInfo
     {
@@ -13,7 +7,9 @@ namespace AutoTool
         public string FillableColumnStartName { get; set; }
         public int FillableRowStartIndex { get; set; }
         public int StatusColumnIndexPerDate { get; set; }
+        public int DetailColumnIndexPerDate { get; set; }
         public int ColumnNumberPerDate { get; set; }
-        public string DateTimeFormat { get; set; }
+        public bool FillStatus { get; set; }
+        public bool FillDetail { get; set; }
     }
 }

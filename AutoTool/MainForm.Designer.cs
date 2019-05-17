@@ -1,6 +1,6 @@
 ﻿namespace AutoTool
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPath = new System.Windows.Forms.TextBox();
@@ -66,18 +66,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageTemplate = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblSample6 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.lblSample5 = new System.Windows.Forms.Label();
+            this.lblColumnNumberPerDate = new System.Windows.Forms.Label();
+            this.txtColumnNumberPerDate = new System.Windows.Forms.TextBox();
             this.lblSample4 = new System.Windows.Forms.Label();
             this.lblSample3 = new System.Windows.Forms.Label();
             this.lblSample2 = new System.Windows.Forms.Label();
             this.lblSample1 = new System.Windows.Forms.Label();
-            this.lblColumnNumberPerDate = new System.Windows.Forms.Label();
-            this.txtColumnNumberPerDate = new System.Windows.Forms.TextBox();
             this.lblTestCaseColumnName = new System.Windows.Forms.Label();
-            this.lblStatusColumnIndexPerDate = new System.Windows.Forms.Label();
-            this.txtStatusColumnIndexPerDate = new System.Windows.Forms.TextBox();
             this.lblFillableRowStartIndex = new System.Windows.Forms.Label();
             this.txtFillableRowStartIndex = new System.Windows.Forms.TextBox();
             this.lblFillableColumnStartName = new System.Windows.Forms.Label();
@@ -89,9 +85,20 @@
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.tabPageGuideline = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtDetailColumnIndexPerDate = new System.Windows.Forms.TextBox();
+            this.lblSample7 = new System.Windows.Forms.Label();
+            this.txtStatusColumnIndexPerDate = new System.Windows.Forms.TextBox();
+            this.chxFillStatus = new System.Windows.Forms.CheckBox();
+            this.chxFillDetail = new System.Windows.Forms.CheckBox();
+            this.lblSample6 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
@@ -102,6 +109,7 @@
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPageGuideline.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -246,19 +254,19 @@
             // 
             // txtFilterFile
             // 
-            this.txtFilterFile.Location = new System.Drawing.Point(382, 92);
+            this.txtFilterFile.Location = new System.Drawing.Point(393, 92);
             this.txtFilterFile.Name = "txtFilterFile";
-            this.txtFilterFile.Size = new System.Drawing.Size(115, 20);
+            this.txtFilterFile.Size = new System.Drawing.Size(104, 20);
             this.txtFilterFile.TabIndex = 26;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(328, 95);
+            this.label9.Location = new System.Drawing.Point(308, 95);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 13);
+            this.label9.Size = new System.Drawing.Size(79, 13);
             this.label9.TabIndex = 25;
-            this.label9.Text = "Filter File";
+            this.label9.Text = "Filter File Name";
             // 
             // groupBox2
             // 
@@ -482,18 +490,16 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.lblSample6);
-            this.panel2.Controls.Add(this.panel1);
+            this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.lblSample5);
+            this.panel2.Controls.Add(this.lblColumnNumberPerDate);
+            this.panel2.Controls.Add(this.txtColumnNumberPerDate);
+            this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.lblSample4);
             this.panel2.Controls.Add(this.lblSample3);
             this.panel2.Controls.Add(this.lblSample2);
             this.panel2.Controls.Add(this.lblSample1);
-            this.panel2.Controls.Add(this.lblColumnNumberPerDate);
-            this.panel2.Controls.Add(this.txtColumnNumberPerDate);
             this.panel2.Controls.Add(this.lblTestCaseColumnName);
-            this.panel2.Controls.Add(this.lblStatusColumnIndexPerDate);
-            this.panel2.Controls.Add(this.txtStatusColumnIndexPerDate);
             this.panel2.Controls.Add(this.lblFillableRowStartIndex);
             this.panel2.Controls.Add(this.txtFillableRowStartIndex);
             this.panel2.Controls.Add(this.lblFillableColumnStartName);
@@ -501,34 +507,12 @@
             this.panel2.Controls.Add(this.txtTestCaseColumnName);
             this.panel2.Controls.Add(this.lblDateRowIndex);
             this.panel2.Controls.Add(this.txtDateRowIndex);
+            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(559, 562);
             this.panel2.TabIndex = 25;
-            // 
-            // lblSample6
-            // 
-            this.lblSample6.AutoSize = true;
-            this.lblSample6.BackColor = System.Drawing.Color.Transparent;
-            this.lblSample6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblSample6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSample6.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample6.Location = new System.Drawing.Point(62, 310);
-            this.lblSample6.Name = "lblSample6";
-            this.lblSample6.Size = new System.Drawing.Size(17, 17);
-            this.lblSample6.TabIndex = 43;
-            this.lblSample6.Text = "?";
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::AutoTool.Properties.Resources.logo;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.ForeColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(62, 420);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 111);
-            this.panel1.TabIndex = 24;
             // 
             // lblSample5
             // 
@@ -537,11 +521,29 @@
             this.lblSample5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample5.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample5.Location = new System.Drawing.Point(62, 252);
+            this.lblSample5.Location = new System.Drawing.Point(62, 185);
             this.lblSample5.Name = "lblSample5";
             this.lblSample5.Size = new System.Drawing.Size(17, 17);
-            this.lblSample5.TabIndex = 42;
+            this.lblSample5.TabIndex = 46;
             this.lblSample5.Text = "?";
+            // 
+            // lblColumnNumberPerDate
+            // 
+            this.lblColumnNumberPerDate.AutoSize = true;
+            this.lblColumnNumberPerDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblColumnNumberPerDate.Location = new System.Drawing.Point(87, 186);
+            this.lblColumnNumberPerDate.Name = "lblColumnNumberPerDate";
+            this.lblColumnNumberPerDate.Size = new System.Drawing.Size(176, 16);
+            this.lblColumnNumberPerDate.TabIndex = 44;
+            this.lblColumnNumberPerDate.Text = "Column number of date area";
+            // 
+            // txtColumnNumberPerDate
+            // 
+            this.txtColumnNumberPerDate.Location = new System.Drawing.Point(339, 184);
+            this.txtColumnNumberPerDate.Name = "txtColumnNumberPerDate";
+            this.txtColumnNumberPerDate.Size = new System.Drawing.Size(110, 20);
+            this.txtColumnNumberPerDate.TabIndex = 45;
+            this.txtColumnNumberPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtColumnNumberPerDate_KeyPress);
             // 
             // lblSample4
             // 
@@ -550,7 +552,7 @@
             this.lblSample4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample4.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample4.Location = new System.Drawing.Point(62, 196);
+            this.lblSample4.Location = new System.Drawing.Point(62, 145);
             this.lblSample4.Name = "lblSample4";
             this.lblSample4.Size = new System.Drawing.Size(17, 17);
             this.lblSample4.TabIndex = 41;
@@ -563,7 +565,7 @@
             this.lblSample3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample3.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample3.Location = new System.Drawing.Point(62, 139);
+            this.lblSample3.Location = new System.Drawing.Point(62, 104);
             this.lblSample3.Name = "lblSample3";
             this.lblSample3.Size = new System.Drawing.Size(17, 17);
             this.lblSample3.TabIndex = 40;
@@ -576,7 +578,7 @@
             this.lblSample2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample2.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample2.Location = new System.Drawing.Point(62, 82);
+            this.lblSample2.Location = new System.Drawing.Point(62, 64);
             this.lblSample2.Name = "lblSample2";
             this.lblSample2.Size = new System.Drawing.Size(17, 17);
             this.lblSample2.TabIndex = 39;
@@ -595,57 +597,21 @@
             this.lblSample1.TabIndex = 38;
             this.lblSample1.Text = "?";
             // 
-            // lblColumnNumberPerDate
-            // 
-            this.lblColumnNumberPerDate.AutoSize = true;
-            this.lblColumnNumberPerDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColumnNumberPerDate.Location = new System.Drawing.Point(87, 311);
-            this.lblColumnNumberPerDate.Name = "lblColumnNumberPerDate";
-            this.lblColumnNumberPerDate.Size = new System.Drawing.Size(176, 16);
-            this.lblColumnNumberPerDate.TabIndex = 34;
-            this.lblColumnNumberPerDate.Text = "Column number of date area";
-            // 
-            // txtColumnNumberPerDate
-            // 
-            this.txtColumnNumberPerDate.Location = new System.Drawing.Point(339, 310);
-            this.txtColumnNumberPerDate.Name = "txtColumnNumberPerDate";
-            this.txtColumnNumberPerDate.Size = new System.Drawing.Size(110, 20);
-            this.txtColumnNumberPerDate.TabIndex = 35;
-            this.txtColumnNumberPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtColumnNumberPerDate_KeyPress);
-            // 
             // lblTestCaseColumnName
             // 
             this.lblTestCaseColumnName.AutoSize = true;
             this.lblTestCaseColumnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 83);
+            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 65);
             this.lblTestCaseColumnName.Name = "lblTestCaseColumnName";
             this.lblTestCaseColumnName.Size = new System.Drawing.Size(227, 16);
             this.lblTestCaseColumnName.TabIndex = 33;
             this.lblTestCaseColumnName.Text = "Test cases\'s name column character";
             // 
-            // lblStatusColumnIndexPerDate
-            // 
-            this.lblStatusColumnIndexPerDate.AutoSize = true;
-            this.lblStatusColumnIndexPerDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatusColumnIndexPerDate.Location = new System.Drawing.Point(87, 252);
-            this.lblStatusColumnIndexPerDate.Name = "lblStatusColumnIndexPerDate";
-            this.lblStatusColumnIndexPerDate.Size = new System.Drawing.Size(233, 16);
-            this.lblStatusColumnIndexPerDate.TabIndex = 31;
-            this.lblStatusColumnIndexPerDate.Text = "Status column index in each date area";
-            // 
-            // txtStatusColumnIndexPerDate
-            // 
-            this.txtStatusColumnIndexPerDate.Location = new System.Drawing.Point(339, 251);
-            this.txtStatusColumnIndexPerDate.Name = "txtStatusColumnIndexPerDate";
-            this.txtStatusColumnIndexPerDate.Size = new System.Drawing.Size(110, 20);
-            this.txtStatusColumnIndexPerDate.TabIndex = 32;
-            this.txtStatusColumnIndexPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStatusColumnIndexPerDate_KeyPress);
-            // 
             // lblFillableRowStartIndex
             // 
             this.lblFillableRowStartIndex.AutoSize = true;
             this.lblFillableRowStartIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFillableRowStartIndex.Location = new System.Drawing.Point(87, 197);
+            this.lblFillableRowStartIndex.Location = new System.Drawing.Point(87, 146);
             this.lblFillableRowStartIndex.Name = "lblFillableRowStartIndex";
             this.lblFillableRowStartIndex.Size = new System.Drawing.Size(139, 16);
             this.lblFillableRowStartIndex.TabIndex = 29;
@@ -653,7 +619,7 @@
             // 
             // txtFillableRowStartIndex
             // 
-            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 196);
+            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 146);
             this.txtFillableRowStartIndex.Name = "txtFillableRowStartIndex";
             this.txtFillableRowStartIndex.Size = new System.Drawing.Size(110, 20);
             this.txtFillableRowStartIndex.TabIndex = 30;
@@ -663,7 +629,7 @@
             // 
             this.lblFillableColumnStartName.AutoSize = true;
             this.lblFillableColumnStartName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFillableColumnStartName.Location = new System.Drawing.Point(87, 140);
+            this.lblFillableColumnStartName.Location = new System.Drawing.Point(87, 105);
             this.lblFillableColumnStartName.Name = "lblFillableColumnStartName";
             this.lblFillableColumnStartName.Size = new System.Drawing.Size(185, 16);
             this.lblFillableColumnStartName.TabIndex = 27;
@@ -671,7 +637,7 @@
             // 
             // txtFillableColumnStartName
             // 
-            this.txtFillableColumnStartName.Location = new System.Drawing.Point(339, 139);
+            this.txtFillableColumnStartName.Location = new System.Drawing.Point(339, 104);
             this.txtFillableColumnStartName.Name = "txtFillableColumnStartName";
             this.txtFillableColumnStartName.Size = new System.Drawing.Size(110, 20);
             this.txtFillableColumnStartName.TabIndex = 28;
@@ -679,7 +645,7 @@
             // 
             // txtTestCaseColumnName
             // 
-            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 82);
+            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 64);
             this.txtTestCaseColumnName.Name = "txtTestCaseColumnName";
             this.txtTestCaseColumnName.Size = new System.Drawing.Size(110, 20);
             this.txtTestCaseColumnName.TabIndex = 26;
@@ -742,17 +708,6 @@
             this.label6.TabIndex = 25;
             this.label6.Text = "Version: 1.0.0";
             // 
-            // panel4
-            // 
-            this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.ForeColor = System.Drawing.Color.Black;
-            this.panel4.Location = new System.Drawing.Point(62, 420);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(426, 111);
-            this.panel4.TabIndex = 24;
-            // 
             // tabPageGuideline
             // 
             this.tabPageGuideline.Controls.Add(this.webBrowser);
@@ -774,7 +729,143 @@
             this.webBrowser.TabIndex = 0;
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
             // 
-            // Form1
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(250, 262);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 24);
+            this.label10.TabIndex = 47;
+            this.label10.Text = "Date";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(114, 281);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(332, 16);
+            this.label11.TabIndex = 48;
+            this.label11.Text = "---------------------------------------------------------------------------------" +
+    "";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.lblSample6);
+            this.groupBox3.Controls.Add(this.chxFillStatus);
+            this.groupBox3.Controls.Add(this.txtDetailColumnIndexPerDate);
+            this.groupBox3.Controls.Add(this.chxFillDetail);
+            this.groupBox3.Controls.Add(this.lblSample7);
+            this.groupBox3.Controls.Add(this.txtStatusColumnIndexPerDate);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.groupBox3.Location = new System.Drawing.Point(80, 240);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 137);
+            this.groupBox3.TabIndex = 51;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Column index of each sub title in date area";
+            // 
+            // txtDetailColumnIndexPerDate
+            // 
+            this.txtDetailColumnIndexPerDate.Enabled = false;
+            this.txtDetailColumnIndexPerDate.Location = new System.Drawing.Point(249, 79);
+            this.txtDetailColumnIndexPerDate.Name = "txtDetailColumnIndexPerDate";
+            this.txtDetailColumnIndexPerDate.Size = new System.Drawing.Size(56, 22);
+            this.txtDetailColumnIndexPerDate.TabIndex = 35;
+            this.txtDetailColumnIndexPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDetailColumnIndexPerDate_KeyPress);
+            // 
+            // lblSample7
+            // 
+            this.lblSample7.AutoSize = true;
+            this.lblSample7.BackColor = System.Drawing.Color.Transparent;
+            this.lblSample7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSample7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSample7.ForeColor = System.Drawing.Color.Blue;
+            this.lblSample7.Location = new System.Drawing.Point(229, 59);
+            this.lblSample7.Name = "lblSample7";
+            this.lblSample7.Size = new System.Drawing.Size(17, 17);
+            this.lblSample7.TabIndex = 43;
+            this.lblSample7.Text = "?";
+            // 
+            // txtStatusColumnIndexPerDate
+            // 
+            this.txtStatusColumnIndexPerDate.Enabled = false;
+            this.txtStatusColumnIndexPerDate.Location = new System.Drawing.Point(92, 81);
+            this.txtStatusColumnIndexPerDate.Name = "txtStatusColumnIndexPerDate";
+            this.txtStatusColumnIndexPerDate.Size = new System.Drawing.Size(56, 22);
+            this.txtStatusColumnIndexPerDate.TabIndex = 32;
+            this.txtStatusColumnIndexPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStatusColumnIndexPerDate_KeyPress);
+            // 
+            // chxFillStatus
+            // 
+            this.chxFillStatus.AutoSize = true;
+            this.chxFillStatus.Location = new System.Drawing.Point(95, 59);
+            this.chxFillStatus.Name = "chxFillStatus";
+            this.chxFillStatus.Size = new System.Drawing.Size(64, 20);
+            this.chxFillStatus.TabIndex = 36;
+            this.chxFillStatus.Text = "Status";
+            this.chxFillStatus.UseVisualStyleBackColor = true;
+            this.chxFillStatus.CheckedChanged += new System.EventHandler(this.chxFillStatus_CheckedChanged);
+            // 
+            // chxFillDetail
+            // 
+            this.chxFillDetail.AutoSize = true;
+            this.chxFillDetail.Location = new System.Drawing.Point(252, 59);
+            this.chxFillDetail.Name = "chxFillDetail";
+            this.chxFillDetail.Size = new System.Drawing.Size(62, 20);
+            this.chxFillDetail.TabIndex = 37;
+            this.chxFillDetail.Text = "Detail";
+            this.chxFillDetail.UseVisualStyleBackColor = true;
+            this.chxFillDetail.CheckedChanged += new System.EventHandler(this.chxFillDetail_CheckedChanged);
+            // 
+            // lblSample6
+            // 
+            this.lblSample6.AutoSize = true;
+            this.lblSample6.BackColor = System.Drawing.Color.Transparent;
+            this.lblSample6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSample6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSample6.ForeColor = System.Drawing.Color.Blue;
+            this.lblSample6.Location = new System.Drawing.Point(72, 59);
+            this.lblSample6.Name = "lblSample6";
+            this.lblSample6.Size = new System.Drawing.Size(17, 17);
+            this.lblSample6.TabIndex = 42;
+            this.lblSample6.Text = "?";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(86, 112);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(219, 13);
+            this.label12.TabIndex = 52;
+            this.label12.Text = "( Check on if want to fill data for the sub title )";
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::AutoTool.Properties.Resources.logo;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.ForeColor = System.Drawing.Color.Black;
+            this.panel1.Location = new System.Drawing.Point(62, 420);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(426, 111);
+            this.panel1.TabIndex = 24;
+            // 
+            // panel4
+            // 
+            this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.ForeColor = System.Drawing.Color.Black;
+            this.panel4.Location = new System.Drawing.Point(62, 420);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(426, 111);
+            this.panel4.TabIndex = 24;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -784,10 +875,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collect Report";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageReport.ResumeLayout(false);
@@ -804,6 +895,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -835,17 +928,11 @@
         private System.Windows.Forms.Label lblTestCaseNumber;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lblSample6;
-        private System.Windows.Forms.Label lblSample5;
         private System.Windows.Forms.Label lblSample4;
         private System.Windows.Forms.Label lblSample3;
         private System.Windows.Forms.Label lblSample2;
         private System.Windows.Forms.Label lblSample1;
-        private System.Windows.Forms.Label lblColumnNumberPerDate;
-        private System.Windows.Forms.TextBox txtColumnNumberPerDate;
         private System.Windows.Forms.Label lblTestCaseColumnName;
-        private System.Windows.Forms.Label lblStatusColumnIndexPerDate;
-        private System.Windows.Forms.TextBox txtStatusColumnIndexPerDate;
         private System.Windows.Forms.Label lblFillableRowStartIndex;
         private System.Windows.Forms.TextBox txtFillableRowStartIndex;
         private System.Windows.Forms.Label lblFillableColumnStartName;
@@ -872,6 +959,19 @@
         private System.Windows.Forms.TextBox txtIgnoreTestCase;
         private System.Windows.Forms.TextBox txtFilterFile;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblSample5;
+        private System.Windows.Forms.Label lblColumnNumberPerDate;
+        private System.Windows.Forms.TextBox txtColumnNumberPerDate;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblSample6;
+        private System.Windows.Forms.CheckBox chxFillStatus;
+        private System.Windows.Forms.TextBox txtDetailColumnIndexPerDate;
+        private System.Windows.Forms.CheckBox chxFillDetail;
+        private System.Windows.Forms.Label lblSample7;
+        private System.Windows.Forms.TextBox txtStatusColumnIndexPerDate;
     }
 }
 

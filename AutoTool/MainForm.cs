@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoTool.Entity;
+using AutoTool.ReportManager;
+using AutoTool.Utility;
+using System;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutoTool
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             CustomToolTip tip = new CustomToolTip();
@@ -25,30 +23,31 @@ namespace AutoTool
             tip.SetToolTip(lblSample4, "Sample4");
             tip.SetToolTip(lblSample5, "Sample5");
             tip.SetToolTip(lblSample6, "Sample6");
-            tip.SetToolTip(lblDateRowIndex, "Sample7");
-            tip.SetToolTip(lblTestCaseColumnName, "Sample8");
-            tip.SetToolTip(lblFillableColumnStartName, "Sample9");
-            tip.SetToolTip(lblFillableRowStartIndex, "Sample10");
-            tip.SetToolTip(lblStatusColumnIndexPerDate, "Sample11");
+            tip.SetToolTip(lblSample7, "Sample7");
+
+            tip.SetToolTip(lblDateRowIndex, "Sample8");
+            tip.SetToolTip(lblTestCaseColumnName, "Sample9");
+            tip.SetToolTip(lblFillableColumnStartName, "Sample10");
+            tip.SetToolTip(lblFillableRowStartIndex, "Sample11");
             tip.SetToolTip(lblColumnNumberPerDate, "Sample12");
-           
+
             lblSample1.Tag = Properties.Resources.sample1;
             lblSample2.Tag = Properties.Resources.sample2;
             lblSample3.Tag = Properties.Resources.sample3;
             lblSample4.Tag = Properties.Resources.sample4;
             lblSample5.Tag = Properties.Resources.sample5;
             lblSample6.Tag = Properties.Resources.sample6;
+            lblSample7.Tag = Properties.Resources.sample7;
             lblDateRowIndex.Tag = Properties.Resources.sample1;
             lblTestCaseColumnName.Tag = Properties.Resources.sample2;
             lblFillableColumnStartName.Tag = Properties.Resources.sample3;
             lblFillableRowStartIndex.Tag = Properties.Resources.sample4;
-            lblStatusColumnIndexPerDate.Tag = Properties.Resources.sample5;
-            lblColumnNumberPerDate.Tag = Properties.Resources.sample6;
+            lblColumnNumberPerDate.Tag = Properties.Resources.sample5;
         }
 
         FolderBrowserDialog fbd = new FolderBrowserDialog();
         OpenFileDialog ofd = new OpenFileDialog();
-        CollectDataFromReport cldt = new CollectDataFromReport();
+        ReportUtils cldt = new ReportUtils();
 
         private void Open_Click(object sender, EventArgs e)
         {
@@ -99,6 +98,9 @@ namespace AutoTool
                 DateRowIndex = Convert.ToInt32(txtDateRowIndex.Text),
                 ColumnNumberPerDate = Convert.ToInt32(txtColumnNumberPerDate.Text),
                 StatusColumnIndexPerDate = Convert.ToInt32(txtStatusColumnIndexPerDate.Text),
+                DetailColumnIndexPerDate = Convert.ToInt32(txtDetailColumnIndexPerDate.Text),
+                FillStatus = chxFillStatus.Checked,
+                FillDetail = chxFillDetail.Checked
             };
 
             try
@@ -162,15 +164,15 @@ namespace AutoTool
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             cbxReportType.DisplayMember = "Text";
             cbxReportType.ValueMember = "Value";
 
             var items = new[] {
-                new { Text = "Extent Report (.html)", Value = "html" },
-                new { Text = "TestNG Report (.xml)", Value = "xml" },
-                new { Text = "Allure Report (.json)", Value = "json" }
+                new { Text = "Extent Report (.html)", Value = "ExtentReport" },
+                new { Text = "TestNG Report (.xml)", Value = "TestNGReport" },
+                new { Text = "Allure Report (.json)", Value = "AllureReport" }
             };
 
             cbxReportType.DataSource = items;
@@ -188,6 +190,9 @@ namespace AutoTool
             txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
             txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
             txtStatusColumnIndexPerDate.Text = ini.ReadValue("Template", "StatusColumnIndexPerDate");
+            txtDetailColumnIndexPerDate.Text = ini.ReadValue("Template", "DetailColumnIndexPerDate");
+            chxFillStatus.Checked = Boolean.Parse(ini.ReadValue("Template", "FillStatus"));
+            chxFillDetail.Checked = Boolean.Parse(ini.ReadValue("Template", "FillDetail"));
             //Load Ignore test case
             txtIgnoreTestCase.Text = File.ReadAllText(Directory.GetCurrentDirectory() + "\\IgnoreTestCase.txt");
             //Load Guideline document
@@ -343,7 +348,7 @@ namespace AutoTool
                 };
 
                 var data = cldt.GetCollectedData(report);
-                SummaryForm form = new SummaryForm(data);
+                HistoryForm form = new HistoryForm(data);
                 form.ShowDialog();
             }
             catch (Exception ex)
@@ -367,9 +372,39 @@ namespace AutoTool
             string[] testCaseList = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             lblIgnoreTestCaseNumber.Text = String.Format("( {0} test cases )", testCaseList.Count());
         }
+
+        private void txtDetailColumnIndexPerDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void chxFillStatus_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chxFillStatus.Checked)
+            {
+                txtStatusColumnIndexPerDate.Enabled = true;
+            }
+            else
+            {
+                txtStatusColumnIndexPerDate.Enabled = false;
+            }
+        }
+
+        private void chxFillDetail_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chxFillDetail.Checked)
+            {
+                txtDetailColumnIndexPerDate.Enabled = true;
+            }
+            else
+            {
+                txtDetailColumnIndexPerDate.Enabled = false;
+            }
+        }
     }
-
-
 
     class CustomToolTip : ToolTip
     {
@@ -400,25 +435,4 @@ namespace AutoTool
             b.Dispose();
         }
     }
-
-    class INIFile
-    {
-        public string path { get; private set; }
-
-        [DllImport("kernel32")]
-        private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-
-        public INIFile(string INIPath)
-        {
-            path = INIPath;
-        }
-
-        public string ReadValue(string Section, string Key)
-        {
-            StringBuilder temp = new StringBuilder(255);
-            int i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
-            return temp.ToString();
-        }
-    }
-
 }

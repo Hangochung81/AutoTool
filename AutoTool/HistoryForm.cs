@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutoTool
 {
-    public partial class SummaryForm : Form
+    public partial class HistoryForm : Form
     {
-        public SummaryForm(List<KeyValuePair<string, string[]>> data)
+        public HistoryForm(List<KeyValuePair<string, string[]>> data)
         {
             InitializeComponent();
 
@@ -22,7 +17,7 @@ namespace AutoTool
             }
         }
 
-        private void SummaryForm_Load(object sender, EventArgs e)
+        private void HistoryForm_Load(object sender, EventArgs e)
         {
 
         }
