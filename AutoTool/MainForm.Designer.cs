@@ -34,14 +34,12 @@
             this.txtPath = new System.Windows.Forms.TextBox();
             this.txtExcelPath = new System.Windows.Forms.TextBox();
             this.OpenButton = new System.Windows.Forms.Button();
-            this.ExecuteBtn = new System.Windows.Forms.Button();
             this.OpenButton2 = new System.Windows.Forms.Button();
             this.cbxSheet = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
-            this.chxOpenFile = new System.Windows.Forms.CheckBox();
             this.lblFileExtension = new System.Windows.Forms.Label();
             this.txtFilterFile = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -49,8 +47,6 @@
             this.btnLoadIgnoreTestCase = new System.Windows.Forms.Button();
             this.lblIgnoreTestCaseNumber = new System.Windows.Forms.Label();
             this.txtIgnoreTestCase = new System.Windows.Forms.TextBox();
-            this.btnShowCollectedData = new System.Windows.Forms.Button();
-            this.btnEndExcel = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxReportType = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -95,6 +91,10 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.tabPageGuideline = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.ExecuteBtn = new System.Windows.Forms.Button();
+            this.chxOpenFile = new System.Windows.Forms.CheckBox();
+            this.btnShowCollectedData = new System.Windows.Forms.Button();
+            this.btnEndExcel = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -151,18 +151,6 @@
             this.OpenButton.UseVisualStyleBackColor = true;
             this.OpenButton.Click += new System.EventHandler(this.Open_Click);
             // 
-            // ExecuteBtn
-            // 
-            this.ExecuteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.ExecuteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExecuteBtn.Location = new System.Drawing.Point(264, 531);
-            this.ExecuteBtn.Name = "ExecuteBtn";
-            this.ExecuteBtn.Size = new System.Drawing.Size(135, 37);
-            this.ExecuteBtn.TabIndex = 5;
-            this.ExecuteBtn.Text = "Fill Data Into Output File";
-            this.ExecuteBtn.UseVisualStyleBackColor = false;
-            this.ExecuteBtn.Click += new System.EventHandler(this.ExecuteBtn_Click);
-            // 
             // OpenButton2
             // 
             this.OpenButton2.Location = new System.Drawing.Point(503, 36);
@@ -205,23 +193,19 @@
             this.tabControl1.Controls.Add(this.tabPageTemplate);
             this.tabControl1.Controls.Add(this.tabPageAbout);
             this.tabControl1.Controls.Add(this.tabPageGuideline);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(579, 600);
+            this.tabControl1.Size = new System.Drawing.Size(579, 554);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPageReport
             // 
-            this.tabPageReport.Controls.Add(this.ExecuteBtn);
-            this.tabPageReport.Controls.Add(this.chxOpenFile);
             this.tabPageReport.Controls.Add(this.lblFileExtension);
             this.tabPageReport.Controls.Add(this.txtFilterFile);
             this.tabPageReport.Controls.Add(this.label9);
             this.tabPageReport.Controls.Add(this.groupBox2);
-            this.tabPageReport.Controls.Add(this.btnShowCollectedData);
-            this.tabPageReport.Controls.Add(this.btnEndExcel);
             this.tabPageReport.Controls.Add(this.label5);
             this.tabPageReport.Controls.Add(this.cbxReportType);
             this.tabPageReport.Controls.Add(this.groupBox1);
@@ -238,20 +222,10 @@
             this.tabPageReport.Location = new System.Drawing.Point(4, 22);
             this.tabPageReport.Name = "tabPageReport";
             this.tabPageReport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReport.Size = new System.Drawing.Size(571, 574);
+            this.tabPageReport.Size = new System.Drawing.Size(571, 528);
             this.tabPageReport.TabIndex = 0;
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
-            // 
-            // chxOpenFile
-            // 
-            this.chxOpenFile.AutoSize = true;
-            this.chxOpenFile.Location = new System.Drawing.Point(406, 542);
-            this.chxOpenFile.Name = "chxOpenFile";
-            this.chxOpenFile.Size = new System.Drawing.Size(124, 17);
-            this.chxOpenFile.TabIndex = 28;
-            this.chxOpenFile.Text = "Open file when finish";
-            this.chxOpenFile.UseVisualStyleBackColor = true;
             // 
             // lblFileExtension
             // 
@@ -323,30 +297,6 @@
             this.txtIgnoreTestCase.TabIndex = 12;
             this.txtIgnoreTestCase.WordWrap = false;
             this.txtIgnoreTestCase.TextChanged += new System.EventHandler(this.txtIgnoreTestCase_TextChanged);
-            // 
-            // btnShowCollectedData
-            // 
-            this.btnShowCollectedData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnShowCollectedData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowCollectedData.Location = new System.Drawing.Point(133, 531);
-            this.btnShowCollectedData.Name = "btnShowCollectedData";
-            this.btnShowCollectedData.Size = new System.Drawing.Size(124, 37);
-            this.btnShowCollectedData.TabIndex = 22;
-            this.btnShowCollectedData.Text = "Show Collected Data";
-            this.btnShowCollectedData.UseVisualStyleBackColor = false;
-            this.btnShowCollectedData.Click += new System.EventHandler(this.btnShowCollectedData_Click);
-            // 
-            // btnEndExcel
-            // 
-            this.btnEndExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnEndExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEndExcel.Location = new System.Drawing.Point(8, 531);
-            this.btnEndExcel.Name = "btnEndExcel";
-            this.btnEndExcel.Size = new System.Drawing.Size(118, 37);
-            this.btnEndExcel.TabIndex = 18;
-            this.btnEndExcel.Text = "End Excel Processes";
-            this.btnEndExcel.UseVisualStyleBackColor = false;
-            this.btnEndExcel.Click += new System.EventHandler(this.btnEndExcel_Click);
             // 
             // label5
             // 
@@ -465,7 +415,7 @@
             this.tabPageTemplate.Location = new System.Drawing.Point(4, 22);
             this.tabPageTemplate.Name = "tabPageTemplate";
             this.tabPageTemplate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTemplate.Size = new System.Drawing.Size(571, 574);
+            this.tabPageTemplate.Size = new System.Drawing.Size(571, 528);
             this.tabPageTemplate.TabIndex = 1;
             this.tabPageTemplate.Text = "Template Info";
             this.tabPageTemplate.UseVisualStyleBackColor = true;
@@ -582,7 +532,7 @@
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.ForeColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(62, 420);
+            this.panel1.Location = new System.Drawing.Point(62, 400);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(426, 111);
             this.panel1.TabIndex = 24;
@@ -779,7 +729,7 @@
             this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
             this.tabPageAbout.Name = "tabPageAbout";
             this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAbout.Size = new System.Drawing.Size(571, 574);
+            this.tabPageAbout.Size = new System.Drawing.Size(571, 528);
             this.tabPageAbout.TabIndex = 2;
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
@@ -810,7 +760,7 @@
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.ForeColor = System.Drawing.Color.Black;
-            this.panel4.Location = new System.Drawing.Point(62, 420);
+            this.panel4.Location = new System.Drawing.Point(62, 400);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(426, 111);
             this.panel4.TabIndex = 24;
@@ -821,7 +771,7 @@
             this.tabPageGuideline.Location = new System.Drawing.Point(4, 22);
             this.tabPageGuideline.Name = "tabPageGuideline";
             this.tabPageGuideline.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGuideline.Size = new System.Drawing.Size(571, 574);
+            this.tabPageGuideline.Size = new System.Drawing.Size(571, 528);
             this.tabPageGuideline.TabIndex = 3;
             this.tabPageGuideline.Text = "Guideline";
             this.tabPageGuideline.UseVisualStyleBackColor = true;
@@ -832,15 +782,66 @@
             this.webBrowser.Location = new System.Drawing.Point(3, 3);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(565, 568);
+            this.webBrowser.Size = new System.Drawing.Size(565, 522);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+            // 
+            // ExecuteBtn
+            // 
+            this.ExecuteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.ExecuteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExecuteBtn.Location = new System.Drawing.Point(271, 558);
+            this.ExecuteBtn.Name = "ExecuteBtn";
+            this.ExecuteBtn.Size = new System.Drawing.Size(135, 37);
+            this.ExecuteBtn.TabIndex = 29;
+            this.ExecuteBtn.Text = "Fill Data Into Output File";
+            this.ExecuteBtn.UseVisualStyleBackColor = false;
+            this.ExecuteBtn.Click += new System.EventHandler(this.ExecuteBtn_Click);
+            // 
+            // chxOpenFile
+            // 
+            this.chxOpenFile.AutoSize = true;
+            this.chxOpenFile.Location = new System.Drawing.Point(413, 569);
+            this.chxOpenFile.Name = "chxOpenFile";
+            this.chxOpenFile.Size = new System.Drawing.Size(124, 17);
+            this.chxOpenFile.TabIndex = 32;
+            this.chxOpenFile.Text = "Open file when finish";
+            this.chxOpenFile.UseVisualStyleBackColor = true;
+            // 
+            // btnShowCollectedData
+            // 
+            this.btnShowCollectedData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnShowCollectedData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowCollectedData.Location = new System.Drawing.Point(140, 558);
+            this.btnShowCollectedData.Name = "btnShowCollectedData";
+            this.btnShowCollectedData.Size = new System.Drawing.Size(124, 37);
+            this.btnShowCollectedData.TabIndex = 31;
+            this.btnShowCollectedData.Text = "Show Collected Data";
+            this.btnShowCollectedData.UseVisualStyleBackColor = false;
+            this.btnShowCollectedData.Click += new System.EventHandler(this.btnShowCollectedData_Click);
+            // 
+            // btnEndExcel
+            // 
+            this.btnEndExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnEndExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEndExcel.Location = new System.Drawing.Point(15, 558);
+            this.btnEndExcel.Name = "btnEndExcel";
+            this.btnEndExcel.Size = new System.Drawing.Size(118, 37);
+            this.btnEndExcel.TabIndex = 30;
+            this.btnEndExcel.Text = "End Excel Processes";
+            this.btnEndExcel.UseVisualStyleBackColor = false;
+            this.btnEndExcel.Click += new System.EventHandler(this.btnEndExcel_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(579, 600);
+            this.Controls.Add(this.ExecuteBtn);
+            this.Controls.Add(this.chxOpenFile);
+            this.Controls.Add(this.btnShowCollectedData);
+            this.Controls.Add(this.btnEndExcel);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -868,6 +869,7 @@
             this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -878,7 +880,6 @@
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.Button OpenButton;
-        private System.Windows.Forms.Button ExecuteBtn;
         private System.Windows.Forms.Button OpenButton2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbxSheet;
@@ -915,10 +916,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnLoadCurrentTestCase;
-        private System.Windows.Forms.Button btnEndExcel;
         private System.Windows.Forms.TabPage tabPageGuideline;
         private System.Windows.Forms.WebBrowser webBrowser;
-        private System.Windows.Forms.Button btnShowCollectedData;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnLoadIgnoreTestCase;
         private System.Windows.Forms.Label lblIgnoreTestCaseNumber;
@@ -938,7 +937,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSubIndex;
         private System.Windows.Forms.DataGridViewLinkColumn colDeleteIcon;
         private System.Windows.Forms.Label lblFileExtension;
+        private System.Windows.Forms.Button ExecuteBtn;
         private System.Windows.Forms.CheckBox chxOpenFile;
+        private System.Windows.Forms.Button btnShowCollectedData;
+        private System.Windows.Forms.Button btnEndExcel;
     }
 }
 
