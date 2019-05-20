@@ -1,0 +1,6 @@
+# Ignore build files
+###################
+**/bin
+**/obj
+*.suo
+
