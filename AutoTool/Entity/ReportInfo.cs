@@ -12,6 +12,5 @@ namespace AutoTool.Entity
         public DateTime ReportDate { get; set; }
         public string[] TestCaseList { get; set; }
         public string[] IgnoreTestCaseList { get; set; }
-        public string DateTimeFormat { get; set; }
     }
 }

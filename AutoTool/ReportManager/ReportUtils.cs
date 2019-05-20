@@ -16,29 +16,28 @@ namespace AutoTool.ReportManager
         _Workbook oWB = null;
         _Worksheet oSheet = null;
 
-        public void UpdateExcel(ReportInfo report, TemplateInfo template)
+        public void UpdateExcel(ReportInfo report, TemplateInfo template, bool openFile)
         {
+            bool success = false;
             try
             {
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                if (template.FillStatus == false && template.FillDetail == false)
+                if (template.SubTitleColumnIndexList.Count == 0)
                 {
                     throw new Exception("There is no column was chosen to fill data. Please check template info again.");
                 }
 
                 // Create Report object
                 var collectedReport = ReportFactory.GetReport(report.ReportType);
-                var listResult = collectedReport.CollectDataFromFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile, report.DateTimeFormat);
+                var listResult = collectedReport.CollectDataFromFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
 
                 oWB = oXL.Workbooks.Open(report.TargetPath);
 
                 oSheet = String.IsNullOrEmpty(report.SheetName) ? (_Worksheet)oWB.ActiveSheet : (_Worksheet)oWB.Worksheets[report.SheetName];
 
-                var columnList = GenerateReportDate(report, template);
-                int statusColumn = columnList[0];
-                int detailColumn = columnList[1];
+                int firstSubTitleIndex = GenerateReportDate(report, template);
 
                 int lastRow = oSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Row;
                 int testCaseColumn = Helper.TitleToNumber(template.TestCaseColumnName);
@@ -51,13 +50,12 @@ namespace AutoTool.ReportManager
 
                     if (IsTargetTestCase(report.TestCaseList, tcVal) && listResult.ContainsKey(tcVal))
                     {
-                        if (template.FillStatus)
+                        // Loop chosen sub title list and fill data
+                        for (int j = 0; j < template.SubTitleColumnIndexList.Count; j++)
                         {
-                            oSheet.Cells[i, statusColumn] = listResult[tcVal][2];
-                        }
-                        if (template.FillDetail)
-                        {
-                            oSheet.Cells[i, detailColumn] = listResult[tcVal][3];
+                            int subTitleType = template.SubTitleColumnIndexList[j].Key;
+                            int subTitleIndex = template.SubTitleColumnIndexList[j].Value;
+                            oSheet.Cells[i, firstSubTitleIndex + subTitleIndex - 1] = listResult[tcVal][subTitleType];
                         }
                     }
                 }
@@ -67,6 +65,8 @@ namespace AutoTool.ReportManager
                 stopwatch.Stop();
 
                 MessageBox.Show(String.Format("Completed in {0} seconds", stopwatch.ElapsedMilliseconds/1000), "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                success = true;
             }
             catch (Exception ex)
             {
@@ -78,6 +78,14 @@ namespace AutoTool.ReportManager
                 {
                     oWB.Close();
                     oWB = null;
+                }
+
+                if (openFile && success)
+                {
+                    var excelApp = new Microsoft.Office.Interop.Excel.Application();
+                    excelApp.Visible = true;
+                    excelApp.Workbooks.Open(report.TargetPath);
+                    excelApp.Worksheets[report.SheetName].Activate();
                 }
             }
         }
@@ -101,11 +109,9 @@ namespace AutoTool.ReportManager
             return true;
         }
 
-        private int[] GenerateReportDate(ReportInfo report, TemplateInfo template)
+        private int GenerateReportDate(ReportInfo report, TemplateInfo template)
         {
             int targetDateCol = -1;
-            int targetStatusCol = -1;
-            int targetDetailCol = -1;
             int lastRow = oSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Row;
             int lastColumn = oSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Column;
             int fillableColumnStartIndex = Helper.TitleToNumber(template.FillableColumnStartName);
@@ -118,8 +124,6 @@ namespace AutoTool.ReportManager
                 if (rawValue.Date == report.ReportDate.Date)
                 {
                     targetDateCol = i;
-                    targetStatusCol = i + template.StatusColumnIndexPerDate - 1;
-                    targetDetailCol = i + template.DetailColumnIndexPerDate - 1;
                     break;
                 }
             }
@@ -141,11 +145,10 @@ namespace AutoTool.ReportManager
                 range = oSheet.Range[oSheet.Cells[template.FillableRowStartIndex, fillableColumnStartIndex], oSheet.Cells[lastRow, fillableColumnStartIndex + template.ColumnNumberPerDate - 1]];
                 range.Value = "";
 
-                targetStatusCol = fillableColumnStartIndex + template.StatusColumnIndexPerDate - 1;
-                targetDetailCol = fillableColumnStartIndex + template.DetailColumnIndexPerDate - 1;
+                targetDateCol = fillableColumnStartIndex;
             }
 
-            return new int[] { targetStatusCol, targetDetailCol };
+            return targetDateCol;
         }
 
         public List<string> GetSheetName(string excelPath)

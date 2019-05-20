@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,12 +36,13 @@
             this.OpenButton = new System.Windows.Forms.Button();
             this.ExecuteBtn = new System.Windows.Forms.Button();
             this.OpenButton2 = new System.Windows.Forms.Button();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.cbxSheet = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.chxOpenFile = new System.Windows.Forms.CheckBox();
+            this.lblFileExtension = new System.Windows.Forms.Label();
             this.txtFilterFile = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -50,9 +50,6 @@
             this.lblIgnoreTestCaseNumber = new System.Windows.Forms.Label();
             this.txtIgnoreTestCase = new System.Windows.Forms.TextBox();
             this.btnShowCollectedData = new System.Windows.Forms.Button();
-            this.chxUseCustom = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cbxDatetimeFormat = new System.Windows.Forms.ComboBox();
             this.btnEndExcel = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxReportType = new System.Windows.Forms.ComboBox();
@@ -66,9 +63,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageTemplate = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.lblSample5 = new System.Windows.Forms.Label();
+            this.lblSample7 = new System.Windows.Forms.Label();
+            this.lblSample6 = new System.Windows.Forms.Label();
             this.lblColumnNumberPerDate = new System.Windows.Forms.Label();
             this.txtColumnNumberPerDate = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.lblSample4 = new System.Windows.Forms.Label();
             this.lblSample3 = new System.Windows.Forms.Label();
             this.lblSample2 = new System.Windows.Forms.Label();
@@ -81,35 +83,29 @@
             this.txtTestCaseColumnName = new System.Windows.Forms.TextBox();
             this.lblDateRowIndex = new System.Windows.Forms.Label();
             this.txtDateRowIndex = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dgvSubTitle = new System.Windows.Forms.DataGridView();
+            this.colSubTitle = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colSubIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDeleteIcon = new System.Windows.Forms.DataGridViewLinkColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.tabPageGuideline = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtDetailColumnIndexPerDate = new System.Windows.Forms.TextBox();
-            this.lblSample7 = new System.Windows.Forms.Label();
-            this.txtStatusColumnIndexPerDate = new System.Windows.Forms.TextBox();
-            this.chxFillStatus = new System.Windows.Forms.CheckBox();
-            this.chxFillDetail = new System.Windows.Forms.CheckBox();
-            this.lblSample6 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPageTemplate.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSubTitle)).BeginInit();
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPageGuideline.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -136,7 +132,6 @@
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(408, 20);
             this.txtPath.TabIndex = 2;
-            this.txtPath.Validating += new System.ComponentModel.CancelEventHandler(this.txtPath_Validating);
             // 
             // txtExcelPath
             // 
@@ -158,14 +153,15 @@
             // 
             // ExecuteBtn
             // 
-            this.ExecuteBtn.Location = new System.Drawing.Point(439, 531);
+            this.ExecuteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.ExecuteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExecuteBtn.Location = new System.Drawing.Point(264, 531);
             this.ExecuteBtn.Name = "ExecuteBtn";
-            this.ExecuteBtn.Size = new System.Drawing.Size(124, 37);
+            this.ExecuteBtn.Size = new System.Drawing.Size(135, 37);
             this.ExecuteBtn.TabIndex = 5;
-            this.ExecuteBtn.Text = "Fill Test Case Status";
-            this.ExecuteBtn.UseVisualStyleBackColor = true;
+            this.ExecuteBtn.Text = "Fill Data Into Output File";
+            this.ExecuteBtn.UseVisualStyleBackColor = false;
             this.ExecuteBtn.Click += new System.EventHandler(this.ExecuteBtn_Click);
-            this.ExecuteBtn.Validating += new System.ComponentModel.CancelEventHandler(this.ExecuteBtn_Validating);
             // 
             // OpenButton2
             // 
@@ -176,10 +172,6 @@
             this.OpenButton2.Text = "Open";
             this.OpenButton2.UseVisualStyleBackColor = true;
             this.OpenButton2.Click += new System.EventHandler(this.OpenButton2_Click);
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // cbxSheet
             // 
@@ -222,13 +214,13 @@
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.ExecuteBtn);
+            this.tabPageReport.Controls.Add(this.chxOpenFile);
+            this.tabPageReport.Controls.Add(this.lblFileExtension);
             this.tabPageReport.Controls.Add(this.txtFilterFile);
             this.tabPageReport.Controls.Add(this.label9);
             this.tabPageReport.Controls.Add(this.groupBox2);
             this.tabPageReport.Controls.Add(this.btnShowCollectedData);
-            this.tabPageReport.Controls.Add(this.chxUseCustom);
-            this.tabPageReport.Controls.Add(this.label8);
-            this.tabPageReport.Controls.Add(this.cbxDatetimeFormat);
             this.tabPageReport.Controls.Add(this.btnEndExcel);
             this.tabPageReport.Controls.Add(this.label5);
             this.tabPageReport.Controls.Add(this.cbxReportType);
@@ -243,7 +235,6 @@
             this.tabPageReport.Controls.Add(this.txtExcelPath);
             this.tabPageReport.Controls.Add(this.OpenButton2);
             this.tabPageReport.Controls.Add(this.OpenButton);
-            this.tabPageReport.Controls.Add(this.ExecuteBtn);
             this.tabPageReport.Location = new System.Drawing.Point(4, 22);
             this.tabPageReport.Name = "tabPageReport";
             this.tabPageReport.Padding = new System.Windows.Forms.Padding(3);
@@ -252,21 +243,42 @@
             this.tabPageReport.Text = "Report Info";
             this.tabPageReport.UseVisualStyleBackColor = true;
             // 
+            // chxOpenFile
+            // 
+            this.chxOpenFile.AutoSize = true;
+            this.chxOpenFile.Location = new System.Drawing.Point(406, 542);
+            this.chxOpenFile.Name = "chxOpenFile";
+            this.chxOpenFile.Size = new System.Drawing.Size(124, 17);
+            this.chxOpenFile.TabIndex = 28;
+            this.chxOpenFile.Text = "Open file when finish";
+            this.chxOpenFile.UseVisualStyleBackColor = true;
+            // 
+            // lblFileExtension
+            // 
+            this.lblFileExtension.AutoSize = true;
+            this.lblFileExtension.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFileExtension.Location = new System.Drawing.Point(194, 122);
+            this.lblFileExtension.Name = "lblFileExtension";
+            this.lblFileExtension.Size = new System.Drawing.Size(0, 13);
+            this.lblFileExtension.TabIndex = 27;
+            // 
             // txtFilterFile
             // 
-            this.txtFilterFile.Location = new System.Drawing.Point(393, 92);
+            this.txtFilterFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilterFile.Location = new System.Drawing.Point(89, 119);
             this.txtFilterFile.Name = "txtFilterFile";
             this.txtFilterFile.Size = new System.Drawing.Size(104, 20);
             this.txtFilterFile.TabIndex = 26;
+            this.txtFilterFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(308, 95);
+            this.label9.Location = new System.Drawing.Point(15, 121);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(79, 13);
+            this.label9.Size = new System.Drawing.Size(60, 13);
             this.label9.TabIndex = 25;
-            this.label9.Text = "Filter File Name";
+            this.label9.Text = "Filter Name";
             // 
             // groupBox2
             // 
@@ -314,55 +326,26 @@
             // 
             // btnShowCollectedData
             // 
-            this.btnShowCollectedData.Location = new System.Drawing.Point(132, 531);
+            this.btnShowCollectedData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnShowCollectedData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowCollectedData.Location = new System.Drawing.Point(133, 531);
             this.btnShowCollectedData.Name = "btnShowCollectedData";
             this.btnShowCollectedData.Size = new System.Drawing.Size(124, 37);
             this.btnShowCollectedData.TabIndex = 22;
             this.btnShowCollectedData.Text = "Show Collected Data";
-            this.btnShowCollectedData.UseVisualStyleBackColor = true;
+            this.btnShowCollectedData.UseVisualStyleBackColor = false;
             this.btnShowCollectedData.Click += new System.EventHandler(this.btnShowCollectedData_Click);
-            // 
-            // chxUseCustom
-            // 
-            this.chxUseCustom.AutoSize = true;
-            this.chxUseCustom.Location = new System.Drawing.Point(311, 120);
-            this.chxUseCustom.Name = "chxUseCustom";
-            this.chxUseCustom.Size = new System.Drawing.Size(96, 17);
-            this.chxUseCustom.TabIndex = 21;
-            this.chxUseCustom.Text = "Custom Format";
-            this.chxUseCustom.UseVisualStyleBackColor = true;
-            this.chxUseCustom.CheckedChanged += new System.EventHandler(this.chxUseCustom_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 121);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "Date Format";
-            // 
-            // cbxDatetimeFormat
-            // 
-            this.cbxDatetimeFormat.Enabled = false;
-            this.cbxDatetimeFormat.FormattingEnabled = true;
-            this.cbxDatetimeFormat.Items.AddRange(new object[] {
-            "M/d/yyyy h:mm:ss tt",
-            "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'",
-            "Epoch Unix Timestamp"});
-            this.cbxDatetimeFormat.Location = new System.Drawing.Point(89, 118);
-            this.cbxDatetimeFormat.Name = "cbxDatetimeFormat";
-            this.cbxDatetimeFormat.Size = new System.Drawing.Size(216, 21);
-            this.cbxDatetimeFormat.TabIndex = 19;
             // 
             // btnEndExcel
             // 
+            this.btnEndExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnEndExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEndExcel.Location = new System.Drawing.Point(8, 531);
             this.btnEndExcel.Name = "btnEndExcel";
             this.btnEndExcel.Size = new System.Drawing.Size(118, 37);
             this.btnEndExcel.TabIndex = 18;
-            this.btnEndExcel.Text = "End Excel processes";
-            this.btnEndExcel.UseVisualStyleBackColor = true;
+            this.btnEndExcel.Text = "End Excel Processes";
+            this.btnEndExcel.UseVisualStyleBackColor = false;
             this.btnEndExcel.Click += new System.EventHandler(this.btnEndExcel_Click);
             // 
             // label5
@@ -490,8 +473,11 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.lblSample5);
+            this.panel2.Controls.Add(this.lblSample7);
+            this.panel2.Controls.Add(this.lblSample6);
             this.panel2.Controls.Add(this.lblColumnNumberPerDate);
             this.panel2.Controls.Add(this.txtColumnNumberPerDate);
             this.panel2.Controls.Add(this.panel1);
@@ -507,12 +493,31 @@
             this.panel2.Controls.Add(this.txtTestCaseColumnName);
             this.panel2.Controls.Add(this.lblDateRowIndex);
             this.panel2.Controls.Add(this.txtDateRowIndex);
-            this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(559, 562);
             this.panel2.TabIndex = 25;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(109, 350);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(331, 16);
+            this.label11.TabIndex = 53;
+            this.label11.Text = "( Assign sub titles will be filled data for each date area )";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(189, 371);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(26, 16);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "Ex:";
             // 
             // lblSample5
             // 
@@ -521,17 +526,43 @@
             this.lblSample5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample5.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample5.Location = new System.Drawing.Point(62, 185);
+            this.lblSample5.Location = new System.Drawing.Point(62, 150);
             this.lblSample5.Name = "lblSample5";
             this.lblSample5.Size = new System.Drawing.Size(17, 17);
             this.lblSample5.TabIndex = 46;
             this.lblSample5.Text = "?";
             // 
+            // lblSample7
+            // 
+            this.lblSample7.AutoSize = true;
+            this.lblSample7.BackColor = System.Drawing.Color.Transparent;
+            this.lblSample7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSample7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSample7.ForeColor = System.Drawing.Color.Blue;
+            this.lblSample7.Location = new System.Drawing.Point(270, 371);
+            this.lblSample7.Name = "lblSample7";
+            this.lblSample7.Size = new System.Drawing.Size(75, 17);
+            this.lblSample7.TabIndex = 43;
+            this.lblSample7.Text = "Detail info";
+            // 
+            // lblSample6
+            // 
+            this.lblSample6.AutoSize = true;
+            this.lblSample6.BackColor = System.Drawing.Color.Transparent;
+            this.lblSample6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSample6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSample6.ForeColor = System.Drawing.Color.Blue;
+            this.lblSample6.Location = new System.Drawing.Point(218, 371);
+            this.lblSample6.Name = "lblSample6";
+            this.lblSample6.Size = new System.Drawing.Size(49, 17);
+            this.lblSample6.TabIndex = 42;
+            this.lblSample6.Text = "Status";
+            // 
             // lblColumnNumberPerDate
             // 
             this.lblColumnNumberPerDate.AutoSize = true;
             this.lblColumnNumberPerDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColumnNumberPerDate.Location = new System.Drawing.Point(87, 186);
+            this.lblColumnNumberPerDate.Location = new System.Drawing.Point(87, 151);
             this.lblColumnNumberPerDate.Name = "lblColumnNumberPerDate";
             this.lblColumnNumberPerDate.Size = new System.Drawing.Size(176, 16);
             this.lblColumnNumberPerDate.TabIndex = 44;
@@ -539,11 +570,22 @@
             // 
             // txtColumnNumberPerDate
             // 
-            this.txtColumnNumberPerDate.Location = new System.Drawing.Point(339, 184);
+            this.txtColumnNumberPerDate.Location = new System.Drawing.Point(339, 149);
             this.txtColumnNumberPerDate.Name = "txtColumnNumberPerDate";
-            this.txtColumnNumberPerDate.Size = new System.Drawing.Size(110, 20);
+            this.txtColumnNumberPerDate.Size = new System.Drawing.Size(124, 20);
             this.txtColumnNumberPerDate.TabIndex = 45;
             this.txtColumnNumberPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtColumnNumberPerDate_KeyPress);
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::AutoTool.Properties.Resources.logo;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.ForeColor = System.Drawing.Color.Black;
+            this.panel1.Location = new System.Drawing.Point(62, 420);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(426, 111);
+            this.panel1.TabIndex = 24;
             // 
             // lblSample4
             // 
@@ -552,7 +594,7 @@
             this.lblSample4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample4.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample4.Location = new System.Drawing.Point(62, 145);
+            this.lblSample4.Location = new System.Drawing.Point(62, 118);
             this.lblSample4.Name = "lblSample4";
             this.lblSample4.Size = new System.Drawing.Size(17, 17);
             this.lblSample4.TabIndex = 41;
@@ -565,7 +607,7 @@
             this.lblSample3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample3.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample3.Location = new System.Drawing.Point(62, 104);
+            this.lblSample3.Location = new System.Drawing.Point(62, 86);
             this.lblSample3.Name = "lblSample3";
             this.lblSample3.Size = new System.Drawing.Size(17, 17);
             this.lblSample3.TabIndex = 40;
@@ -578,7 +620,7 @@
             this.lblSample2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample2.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample2.Location = new System.Drawing.Point(62, 64);
+            this.lblSample2.Location = new System.Drawing.Point(62, 55);
             this.lblSample2.Name = "lblSample2";
             this.lblSample2.Size = new System.Drawing.Size(17, 17);
             this.lblSample2.TabIndex = 39;
@@ -601,7 +643,7 @@
             // 
             this.lblTestCaseColumnName.AutoSize = true;
             this.lblTestCaseColumnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 65);
+            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 56);
             this.lblTestCaseColumnName.Name = "lblTestCaseColumnName";
             this.lblTestCaseColumnName.Size = new System.Drawing.Size(227, 16);
             this.lblTestCaseColumnName.TabIndex = 33;
@@ -611,7 +653,7 @@
             // 
             this.lblFillableRowStartIndex.AutoSize = true;
             this.lblFillableRowStartIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFillableRowStartIndex.Location = new System.Drawing.Point(87, 146);
+            this.lblFillableRowStartIndex.Location = new System.Drawing.Point(87, 119);
             this.lblFillableRowStartIndex.Name = "lblFillableRowStartIndex";
             this.lblFillableRowStartIndex.Size = new System.Drawing.Size(139, 16);
             this.lblFillableRowStartIndex.TabIndex = 29;
@@ -619,9 +661,9 @@
             // 
             // txtFillableRowStartIndex
             // 
-            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 146);
+            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 119);
             this.txtFillableRowStartIndex.Name = "txtFillableRowStartIndex";
-            this.txtFillableRowStartIndex.Size = new System.Drawing.Size(110, 20);
+            this.txtFillableRowStartIndex.Size = new System.Drawing.Size(124, 20);
             this.txtFillableRowStartIndex.TabIndex = 30;
             this.txtFillableRowStartIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFillableRowStartIndex_KeyPress);
             // 
@@ -629,7 +671,7 @@
             // 
             this.lblFillableColumnStartName.AutoSize = true;
             this.lblFillableColumnStartName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFillableColumnStartName.Location = new System.Drawing.Point(87, 105);
+            this.lblFillableColumnStartName.Location = new System.Drawing.Point(87, 87);
             this.lblFillableColumnStartName.Name = "lblFillableColumnStartName";
             this.lblFillableColumnStartName.Size = new System.Drawing.Size(185, 16);
             this.lblFillableColumnStartName.TabIndex = 27;
@@ -637,17 +679,17 @@
             // 
             // txtFillableColumnStartName
             // 
-            this.txtFillableColumnStartName.Location = new System.Drawing.Point(339, 104);
+            this.txtFillableColumnStartName.Location = new System.Drawing.Point(339, 86);
             this.txtFillableColumnStartName.Name = "txtFillableColumnStartName";
-            this.txtFillableColumnStartName.Size = new System.Drawing.Size(110, 20);
+            this.txtFillableColumnStartName.Size = new System.Drawing.Size(124, 20);
             this.txtFillableColumnStartName.TabIndex = 28;
             this.txtFillableColumnStartName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFillableColumnStartName_KeyPress);
             // 
             // txtTestCaseColumnName
             // 
-            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 64);
+            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 55);
             this.txtTestCaseColumnName.Name = "txtTestCaseColumnName";
-            this.txtTestCaseColumnName.Size = new System.Drawing.Size(110, 20);
+            this.txtTestCaseColumnName.Size = new System.Drawing.Size(124, 20);
             this.txtTestCaseColumnName.TabIndex = 26;
             this.txtTestCaseColumnName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTestCaseColumnName_KeyPress);
             // 
@@ -665,9 +707,63 @@
             // 
             this.txtDateRowIndex.Location = new System.Drawing.Point(339, 24);
             this.txtDateRowIndex.Name = "txtDateRowIndex";
-            this.txtDateRowIndex.Size = new System.Drawing.Size(110, 20);
+            this.txtDateRowIndex.Size = new System.Drawing.Size(124, 20);
             this.txtDateRowIndex.TabIndex = 25;
             this.txtDateRowIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDateRowIndex_KeyPress);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.dgvSubTitle);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.groupBox3.Location = new System.Drawing.Point(80, 183);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 165);
+            this.groupBox3.TabIndex = 51;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Column index of each sub title in date area";
+            // 
+            // dgvSubTitle
+            // 
+            this.dgvSubTitle.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dgvSubTitle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSubTitle.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colSubTitle,
+            this.colSubIndex,
+            this.colDeleteIcon});
+            this.dgvSubTitle.Location = new System.Drawing.Point(8, 22);
+            this.dgvSubTitle.Name = "dgvSubTitle";
+            this.dgvSubTitle.RowHeadersVisible = false;
+            this.dgvSubTitle.Size = new System.Drawing.Size(375, 134);
+            this.dgvSubTitle.TabIndex = 53;
+            this.dgvSubTitle.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubTitle_CellContentClick);
+            this.dgvSubTitle.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSubTitle_EditingControlShowing);
+            // 
+            // colSubTitle
+            // 
+            this.colSubTitle.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.colSubTitle.HeaderText = "Sub Title";
+            this.colSubTitle.Name = "colSubTitle";
+            this.colSubTitle.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colSubTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colSubTitle.Width = 200;
+            // 
+            // colSubIndex
+            // 
+            this.colSubIndex.HeaderText = "Index";
+            this.colSubIndex.Name = "colSubIndex";
+            this.colSubIndex.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // colDeleteIcon
+            // 
+            this.colDeleteIcon.HeaderText = "";
+            this.colDeleteIcon.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.colDeleteIcon.Name = "colDeleteIcon";
+            this.colDeleteIcon.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colDeleteIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colDeleteIcon.Text = "Delete";
+            this.colDeleteIcon.TrackVisitedState = false;
+            this.colDeleteIcon.UseColumnTextForLinkValue = true;
+            this.colDeleteIcon.Width = 70;
             // 
             // label7
             // 
@@ -708,6 +804,17 @@
             this.label6.TabIndex = 25;
             this.label6.Text = "Version: 1.0.0";
             // 
+            // panel4
+            // 
+            this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.ForeColor = System.Drawing.Color.Black;
+            this.panel4.Location = new System.Drawing.Point(62, 420);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(426, 111);
+            this.panel4.TabIndex = 24;
+            // 
             // tabPageGuideline
             // 
             this.tabPageGuideline.Controls.Add(this.webBrowser);
@@ -729,142 +836,6 @@
             this.webBrowser.TabIndex = 0;
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(250, 262);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(48, 24);
-            this.label10.TabIndex = 47;
-            this.label10.Text = "Date";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(114, 281);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(332, 16);
-            this.label11.TabIndex = 48;
-            this.label11.Text = "---------------------------------------------------------------------------------" +
-    "";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.lblSample6);
-            this.groupBox3.Controls.Add(this.chxFillStatus);
-            this.groupBox3.Controls.Add(this.txtDetailColumnIndexPerDate);
-            this.groupBox3.Controls.Add(this.chxFillDetail);
-            this.groupBox3.Controls.Add(this.lblSample7);
-            this.groupBox3.Controls.Add(this.txtStatusColumnIndexPerDate);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.groupBox3.Location = new System.Drawing.Point(80, 240);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(391, 137);
-            this.groupBox3.TabIndex = 51;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Column index of each sub title in date area";
-            // 
-            // txtDetailColumnIndexPerDate
-            // 
-            this.txtDetailColumnIndexPerDate.Enabled = false;
-            this.txtDetailColumnIndexPerDate.Location = new System.Drawing.Point(249, 79);
-            this.txtDetailColumnIndexPerDate.Name = "txtDetailColumnIndexPerDate";
-            this.txtDetailColumnIndexPerDate.Size = new System.Drawing.Size(56, 22);
-            this.txtDetailColumnIndexPerDate.TabIndex = 35;
-            this.txtDetailColumnIndexPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDetailColumnIndexPerDate_KeyPress);
-            // 
-            // lblSample7
-            // 
-            this.lblSample7.AutoSize = true;
-            this.lblSample7.BackColor = System.Drawing.Color.Transparent;
-            this.lblSample7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblSample7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSample7.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample7.Location = new System.Drawing.Point(229, 59);
-            this.lblSample7.Name = "lblSample7";
-            this.lblSample7.Size = new System.Drawing.Size(17, 17);
-            this.lblSample7.TabIndex = 43;
-            this.lblSample7.Text = "?";
-            // 
-            // txtStatusColumnIndexPerDate
-            // 
-            this.txtStatusColumnIndexPerDate.Enabled = false;
-            this.txtStatusColumnIndexPerDate.Location = new System.Drawing.Point(92, 81);
-            this.txtStatusColumnIndexPerDate.Name = "txtStatusColumnIndexPerDate";
-            this.txtStatusColumnIndexPerDate.Size = new System.Drawing.Size(56, 22);
-            this.txtStatusColumnIndexPerDate.TabIndex = 32;
-            this.txtStatusColumnIndexPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStatusColumnIndexPerDate_KeyPress);
-            // 
-            // chxFillStatus
-            // 
-            this.chxFillStatus.AutoSize = true;
-            this.chxFillStatus.Location = new System.Drawing.Point(95, 59);
-            this.chxFillStatus.Name = "chxFillStatus";
-            this.chxFillStatus.Size = new System.Drawing.Size(64, 20);
-            this.chxFillStatus.TabIndex = 36;
-            this.chxFillStatus.Text = "Status";
-            this.chxFillStatus.UseVisualStyleBackColor = true;
-            this.chxFillStatus.CheckedChanged += new System.EventHandler(this.chxFillStatus_CheckedChanged);
-            // 
-            // chxFillDetail
-            // 
-            this.chxFillDetail.AutoSize = true;
-            this.chxFillDetail.Location = new System.Drawing.Point(252, 59);
-            this.chxFillDetail.Name = "chxFillDetail";
-            this.chxFillDetail.Size = new System.Drawing.Size(62, 20);
-            this.chxFillDetail.TabIndex = 37;
-            this.chxFillDetail.Text = "Detail";
-            this.chxFillDetail.UseVisualStyleBackColor = true;
-            this.chxFillDetail.CheckedChanged += new System.EventHandler(this.chxFillDetail_CheckedChanged);
-            // 
-            // lblSample6
-            // 
-            this.lblSample6.AutoSize = true;
-            this.lblSample6.BackColor = System.Drawing.Color.Transparent;
-            this.lblSample6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblSample6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSample6.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample6.Location = new System.Drawing.Point(72, 59);
-            this.lblSample6.Name = "lblSample6";
-            this.lblSample6.Size = new System.Drawing.Size(17, 17);
-            this.lblSample6.TabIndex = 42;
-            this.lblSample6.Text = "?";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(86, 112);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(219, 13);
-            this.label12.TabIndex = 52;
-            this.label12.Text = "( Check on if want to fill data for the sub title )";
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::AutoTool.Properties.Resources.logo;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.ForeColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(62, 420);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 111);
-            this.panel1.TabIndex = 24;
-            // 
-            // panel4
-            // 
-            this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.ForeColor = System.Drawing.Color.Black;
-            this.panel4.Location = new System.Drawing.Point(62, 420);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(426, 111);
-            this.panel4.TabIndex = 24;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -879,7 +850,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collect Report";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageReport.ResumeLayout(false);
             this.tabPageReport.PerformLayout();
@@ -891,12 +861,12 @@
             this.tabPageTemplate.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSubTitle)).EndInit();
             this.tabPageAbout.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -910,7 +880,6 @@
         private System.Windows.Forms.Button OpenButton;
         private System.Windows.Forms.Button ExecuteBtn;
         private System.Windows.Forms.Button OpenButton2;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbxSheet;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
@@ -947,9 +916,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnLoadCurrentTestCase;
         private System.Windows.Forms.Button btnEndExcel;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox cbxDatetimeFormat;
-        private System.Windows.Forms.CheckBox chxUseCustom;
         private System.Windows.Forms.TabPage tabPageGuideline;
         private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.Button btnShowCollectedData;
@@ -962,16 +928,17 @@
         private System.Windows.Forms.Label lblSample5;
         private System.Windows.Forms.Label lblColumnNumberPerDate;
         private System.Windows.Forms.TextBox txtColumnNumberPerDate;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label lblSample6;
+        private System.Windows.Forms.Label lblSample7;
+        private System.Windows.Forms.DataGridView dgvSubTitle;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lblSample6;
-        private System.Windows.Forms.CheckBox chxFillStatus;
-        private System.Windows.Forms.TextBox txtDetailColumnIndexPerDate;
-        private System.Windows.Forms.CheckBox chxFillDetail;
-        private System.Windows.Forms.Label lblSample7;
-        private System.Windows.Forms.TextBox txtStatusColumnIndexPerDate;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colSubTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSubIndex;
+        private System.Windows.Forms.DataGridViewLinkColumn colDeleteIcon;
+        private System.Windows.Forms.Label lblFileExtension;
+        private System.Windows.Forms.CheckBox chxOpenFile;
     }
 }
 

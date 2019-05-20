@@ -9,7 +9,11 @@ namespace AutoTool.Utility
     {
         public static string UpperFirstCharacter(string value)
         {
-            return value.First().ToString().ToUpper() + value.Substring(1).ToLower();
+            if (!String.IsNullOrEmpty(value))
+            {
+                return value.First().ToString().ToUpper() + value.Substring(1).ToLower();
+            }
+            else return "";
         }
 
         public static DataSet ConvertXMLtoDataset(string xmlPathFile)

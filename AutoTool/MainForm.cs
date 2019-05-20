@@ -2,6 +2,7 @@
 using AutoTool.ReportManager;
 using AutoTool.Utility;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -13,9 +14,28 @@ namespace AutoTool
 {
     public partial class MainForm : Form
     {
+        FolderBrowserDialog fbd = new FolderBrowserDialog();
+        OpenFileDialog ofd = new OpenFileDialog();
+        ReportUtils cldt = new ReportUtils();
+
+        object reportTypeData = new[] {
+                new { Text = "Extent Report (.html)", Value = Constant.REPORT_TYPE_EXTENT },
+                new { Text = "TestNG Report (.xml)", Value = Constant.REPORT_TYPE_TESTNG },
+                new { Text = "Allure Report (.json)", Value = Constant.REPORT_TYPE_ALLURE }
+            };
+
+        object subTitleData = new[] {
+                new { Text = "Test Start Time", Value = Constant.TEST_START_TIME_INDEX.ToString() },
+                new { Text = "Test End Time", Value = Constant.TEST_END_TIME_INDEX.ToString() },
+                new { Text = "Test Status", Value = Constant.TEST_STATUS_INDEX.ToString() },
+                new { Text = "Test Detail (Error info)", Value = Constant.TEST_DETAIL_INDEX.ToString() }
+            };
+
         public MainForm()
         {
             InitializeComponent();
+
+            // Set tooltip guideline for template info
             CustomToolTip tip = new CustomToolTip();
             tip.SetToolTip(lblSample1, "Sample1");
             tip.SetToolTip(lblSample2, "Sample2");
@@ -43,11 +63,66 @@ namespace AutoTool
             lblFillableColumnStartName.Tag = Properties.Resources.sample3;
             lblFillableRowStartIndex.Tag = Properties.Resources.sample4;
             lblColumnNumberPerDate.Tag = Properties.Resources.sample5;
+
+            // Prepare init data for Report Type combobox
+            cbxReportType.DisplayMember = "Text";
+            cbxReportType.ValueMember = "Value";
+            cbxReportType.DataSource = reportTypeData;
+            cbxReportType.SelectedIndex = 0;
+            // Prepare init data for Sub Title combobox
+            colSubTitle.DisplayMember = "Text";
+            colSubTitle.ValueMember = "Value";
+            colSubTitle.DataSource = subTitleData;
         }
 
-        FolderBrowserDialog fbd = new FolderBrowserDialog();
-        OpenFileDialog ofd = new OpenFileDialog();
-        ReportUtils cldt = new ReportUtils();
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            INIFile ini = new INIFile(Directory.GetCurrentDirectory() + "\\Settings.ini");
+            //Load Report config
+            txtPath.Text = ini.ReadValue("Report", "FolderPath");
+            txtExcelPath.Text = ini.ReadValue("Report", "OutputExcelPath");
+
+            //Load Template config
+            txtTestCaseColumnName.Text = ini.ReadValue("Template", "TestCaseColumnName");
+            txtFillableColumnStartName.Text = ini.ReadValue("Template", "FillableColumnStartName");
+            txtFillableRowStartIndex.Text = ini.ReadValue("Template", "FillableRowStartIndex");
+            txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
+            txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
+            string[] subTitleDataList = ini.ReadValue("Template", "SubTitleColumnIndexList").Split(';');
+            if (subTitleDataList.Count() > 0)
+            {
+                foreach (var item in subTitleDataList)
+                {
+                    string[] subTitleInfo = item.Split('-');
+                    dgvSubTitle.Rows.Add(subTitleInfo[0], subTitleInfo[1]);
+                }
+            }
+
+            //Load Ignore test case
+            string ignoreTestCasePath = ini.ReadValue("Report", "IgnoreTestCasePath");
+            if (File.Exists(ignoreTestCasePath) || File.Exists(Directory.GetCurrentDirectory() + "\\" + ignoreTestCasePath))
+            {
+                if (!File.Exists(ignoreTestCasePath))
+                {
+                    ignoreTestCasePath = Directory.GetCurrentDirectory() + "\\" + ignoreTestCasePath;
+                }
+                txtIgnoreTestCase.Text = File.ReadAllText(ignoreTestCasePath);
+            }
+
+            //Load target test case
+            string targetTestCasePath = ini.ReadValue("Report", "TargetTestCasePath");
+            if (File.Exists(targetTestCasePath) || File.Exists(Directory.GetCurrentDirectory() + "\\" + targetTestCasePath))
+            {
+                if (!File.Exists(targetTestCasePath))
+                {
+                    targetTestCasePath = Directory.GetCurrentDirectory() + "\\" + targetTestCasePath;
+                }
+                txtTestCase.Text = File.ReadAllText(targetTestCasePath);
+            }
+
+            //Load Guideline document
+            webBrowser.Navigate(Directory.GetCurrentDirectory() + "\\AutoCollectGuideline.mht");
+        }
 
         private void Open_Click(object sender, EventArgs e)
         {
@@ -67,45 +142,65 @@ namespace AutoTool
 
         private void ExecuteBtn_Click(object sender, EventArgs e)
         {
-            //ValidateFolderAndExcelPath();
             Cursor = Cursors.WaitCursor;
-
-            string[] testCase = null;
-            if (radioButtonChoice.Checked)
-            {
-                testCase = txtTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            }
-            string[] ignoreTestCase = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-            ReportInfo report = new ReportInfo()
-            {
-                SheetName = cbxSheet.Text,
-                ResultPath = txtPath.Text,
-                ReportType = cbxReportType.SelectedValue.ToString(),
-                FilterFile = txtFilterFile.Text,
-                TargetPath = txtExcelPath.Text,
-                ReportDate = dateTimePicker.Value,
-                TestCaseList = testCase,
-                IgnoreTestCaseList = ignoreTestCase,
-                DateTimeFormat = cbxDatetimeFormat.Text
-            };
-
-            TemplateInfo template = new TemplateInfo()
-            {
-                TestCaseColumnName = txtTestCaseColumnName.Text,
-                FillableColumnStartName = txtFillableColumnStartName.Text,
-                FillableRowStartIndex = Convert.ToInt32(txtFillableRowStartIndex.Text),
-                DateRowIndex = Convert.ToInt32(txtDateRowIndex.Text),
-                ColumnNumberPerDate = Convert.ToInt32(txtColumnNumberPerDate.Text),
-                StatusColumnIndexPerDate = Convert.ToInt32(txtStatusColumnIndexPerDate.Text),
-                DetailColumnIndexPerDate = Convert.ToInt32(txtDetailColumnIndexPerDate.Text),
-                FillStatus = chxFillStatus.Checked,
-                FillDetail = chxFillDetail.Checked
-            };
-
             try
             {
-                cldt.UpdateExcel(report, template);
+                string[] testCase = null;
+                List<KeyValuePair<int, int>> subTitleList = new List<KeyValuePair<int, int>>();
+
+                if (radioButtonChoice.Checked)
+                {
+                    testCase = txtTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                }
+                string[] ignoreTestCase = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                
+                // Get chosen sub title list from template info
+                for (int i = 0; i < dgvSubTitle.Rows.Count - 1; i++)
+                {
+                    if (dgvSubTitle.Rows[i].Cells[0].Value == null)
+                    {
+                        throw new Exception("Type value of some chosen sub title are empty. Please check template info again.");
+                    }
+
+                    if (dgvSubTitle.Rows[i].Cells[1].Value == null)
+                    {
+                        throw new Exception("Index value of some chosen sub title are empty. Please check template info again.");
+                    }
+
+                    int subTitleType = Convert.ToInt32(dgvSubTitle.Rows[i].Cells[0].Value.ToString());
+                    int subTitleIndex = Convert.ToInt32(dgvSubTitle.Rows[i].Cells[1].Value.ToString());
+
+                    if (subTitleIndex <= 0)
+                    {
+                        throw new Exception("Index value of some chosen sub title = 0 (index must start from 1). Please check template info again.");
+                    }
+
+                    subTitleList.Add(new KeyValuePair<int, int> ( subTitleType, subTitleIndex ));
+                }
+
+                ReportInfo report = new ReportInfo()
+                {
+                    SheetName = cbxSheet.Text,
+                    ResultPath = txtPath.Text,
+                    ReportType = cbxReportType.SelectedValue.ToString(),
+                    FilterFile = txtFilterFile.Text,
+                    TargetPath = txtExcelPath.Text,
+                    ReportDate = dateTimePicker.Value,
+                    TestCaseList = testCase,
+                    IgnoreTestCaseList = ignoreTestCase
+                };
+
+                TemplateInfo template = new TemplateInfo()
+                {
+                    TestCaseColumnName = txtTestCaseColumnName.Text,
+                    FillableColumnStartName = txtFillableColumnStartName.Text,
+                    FillableRowStartIndex = Convert.ToInt32(txtFillableRowStartIndex.Text),
+                    DateRowIndex = Convert.ToInt32(txtDateRowIndex.Text),
+                    ColumnNumberPerDate = Convert.ToInt32(txtColumnNumberPerDate.Text),
+                    SubTitleColumnIndexList = subTitleList
+                };
+
+                cldt.UpdateExcel(report, template, chxOpenFile.Checked);
             }
             catch (Exception ex)
             {
@@ -113,24 +208,6 @@ namespace AutoTool
             }
 
             Cursor = Cursors.Arrow;
-        }
-
-        private void txtPath_Validating(object sender, CancelEventArgs e)
-        {
-            //if (txtPath.Text == string.Empty)
-            //{
-            //    errorProvider1.SetError(txtPath, MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ToString());
-            //    e.Cancel = true;
-            //}
-        }
-
-        private void ExecuteBtn_Validating(object sender, CancelEventArgs e)
-        {
-            //if (txtPath.Text == "")
-            //{
-            //    errorProvider1.SetError(txtPath, MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ToString());
-            //    e.Cancel = true;
-            //}
         }
 
         private void txtExcelPath_TextChanged(object sender, EventArgs e)
@@ -162,41 +239,6 @@ namespace AutoTool
             {
                 txtTestCase.Enabled = true;
             }
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            cbxReportType.DisplayMember = "Text";
-            cbxReportType.ValueMember = "Value";
-
-            var items = new[] {
-                new { Text = "Extent Report (.html)", Value = "ExtentReport" },
-                new { Text = "TestNG Report (.xml)", Value = "TestNGReport" },
-                new { Text = "Allure Report (.json)", Value = "AllureReport" }
-            };
-
-            cbxReportType.DataSource = items;
-            cbxReportType.SelectedIndex = 0;
-            cbxDatetimeFormat.SelectedIndex = 0;
-
-            INIFile ini = new INIFile(Directory.GetCurrentDirectory() + "\\Settings.ini");
-            //Load Report config
-            txtPath.Text = ini.ReadValue("Report", "FolderPath");
-            txtExcelPath.Text = ini.ReadValue("Report", "OutputExcelPath");
-            //Load Template config
-            txtTestCaseColumnName.Text = ini.ReadValue("Template", "TestCaseColumnName");
-            txtFillableColumnStartName.Text = ini.ReadValue("Template", "FillableColumnStartName");
-            txtFillableRowStartIndex.Text = ini.ReadValue("Template", "FillableRowStartIndex");
-            txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
-            txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
-            txtStatusColumnIndexPerDate.Text = ini.ReadValue("Template", "StatusColumnIndexPerDate");
-            txtDetailColumnIndexPerDate.Text = ini.ReadValue("Template", "DetailColumnIndexPerDate");
-            chxFillStatus.Checked = Boolean.Parse(ini.ReadValue("Template", "FillStatus"));
-            chxFillDetail.Checked = Boolean.Parse(ini.ReadValue("Template", "FillDetail"));
-            //Load Ignore test case
-            txtIgnoreTestCase.Text = File.ReadAllText(Directory.GetCurrentDirectory() + "\\IgnoreTestCase.txt");
-            //Load Guideline document
-            webBrowser.Navigate(Directory.GetCurrentDirectory() + "\\AutoCollectGuideline.mht");
         }
 
         private void txtTestCase_TextChanged(object sender, EventArgs e)
@@ -233,43 +275,28 @@ namespace AutoTool
             MessageBox.Show("Excel processes ended", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public bool ValidateFolderAndExcelPath()
-        {
-            if (String.IsNullOrEmpty(txtPath.Text) || String.IsNullOrEmpty(txtExcelPath.Text))
-            {
-                //txtPath.Focus();
-                errorProvider1.SetError(txtPath, "Please Select your Path");
-                errorProvider1.SetError(txtExcelPath, "Please Select your Path");
-                MessageBox.Show("Please Select your Path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return false;
-            }
-            return true;
-        }
-
         private void cbxReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbxDatetimeFormat.Text = string.Empty;
             if (cbxReportType.SelectedIndex == 0)
             {
-                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[0].ToString();
+                lblFileExtension.Text = ".html";
                 txtFilterFile.Clear();
             }
             else if (cbxReportType.SelectedIndex == 2)
             {
-                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[2].ToString();
                 txtFilterFile.Text = "*result";
+                lblFileExtension.Text = ".json";
             }
             else
             {
-                cbxDatetimeFormat.SelectedText = cbxDatetimeFormat.Items[1].ToString();
                 txtFilterFile.Clear();
+                lblFileExtension.Text = ".xml";
             }
         }
 
         private void txtDateRowIndex_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -277,7 +304,7 @@ namespace AutoTool
 
         private void txtTestCaseColumnName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -286,7 +313,7 @@ namespace AutoTool
 
         private void txtFillableColumnStartName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -294,15 +321,7 @@ namespace AutoTool
 
         private void txtFillableRowStartIndex_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtStatusColumnIndexPerDate_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -310,21 +329,9 @@ namespace AutoTool
 
         private void txtColumnNumberPerDate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void chxUseCustom_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chxUseCustom.Checked)
-            {
-                cbxDatetimeFormat.Enabled = true;
-            }
-            else
-            {
-                cbxDatetimeFormat.Enabled = false;
             }
         }
 
@@ -343,7 +350,6 @@ namespace AutoTool
                     ResultPath = txtPath.Text,
                     ReportType = cbxReportType.SelectedValue.ToString(),
                     IgnoreTestCaseList = ignoreTestCase,
-                    DateTimeFormat = cbxDatetimeFormat.Text,
                     FilterFile = txtFilterFile.Text
                 };
 
@@ -373,35 +379,24 @@ namespace AutoTool
             lblIgnoreTestCaseNumber.Text = String.Format("( {0} test cases )", testCaseList.Count());
         }
 
-        private void txtDetailColumnIndexPerDate_KeyPress(object sender, KeyPressEventArgs e)
+        private void dgvSubTitle_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (dgvSubTitle.Columns[e.ColumnIndex] is DataGridViewLinkColumn && e.RowIndex >= 0)
+            {
+                dgvSubTitle.Rows.RemoveAt(e.RowIndex);
+            }
+        }
+
+        private void dgvSubTitle_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress += new KeyPressEventHandler(Control_KeyPress);
+        }
+
+        private void Control_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void chxFillStatus_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chxFillStatus.Checked)
-            {
-                txtStatusColumnIndexPerDate.Enabled = true;
-            }
-            else
-            {
-                txtStatusColumnIndexPerDate.Enabled = false;
-            }
-        }
-
-        private void chxFillDetail_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chxFillDetail.Checked)
-            {
-                txtDetailColumnIndexPerDate.Enabled = true;
-            }
-            else
-            {
-                txtDetailColumnIndexPerDate.Enabled = false;
             }
         }
     }

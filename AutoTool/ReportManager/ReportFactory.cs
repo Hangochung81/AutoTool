@@ -1,5 +1,6 @@
 ﻿using AutoTool.ReportManager.Implement;
 using AutoTool.ReportManager.Interface;
+using AutoTool.Utility;
 
 namespace AutoTool.ReportManager
 {
@@ -7,25 +8,19 @@ namespace AutoTool.ReportManager
     {
         public static IReport GetReport(string reportType)
         {
-            IReport report;
-
-            switch(reportType)
+            if (reportType == Constant.REPORT_TYPE_EXTENT)
             {
-                case "ExtentReport":
-                    report = new ExtentReport();
-                    break;
-                case "TestNGReport":
-                    report = new TestNGReport();
-                    break;
-                case "AllureReport":
-                    report = new AllureReport();
-                    break;
-                default:
-                    report = null;
-                    break;
+                return new ExtentReport();
             }
-
-            return report;
+            else if (reportType == Constant.REPORT_TYPE_TESTNG)
+            {
+                return new TestNGReport();
+            }
+            else if (reportType == Constant.REPORT_TYPE_ALLURE)
+            {
+                return new AllureReport();
+            }
+            else return null;
         }
     }
 }
