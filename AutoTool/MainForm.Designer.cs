@@ -60,6 +60,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageTemplate = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSaveTemplate = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblSample5 = new System.Windows.Forms.Label();
@@ -98,6 +99,11 @@
             this.btnEndExcel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.successProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnReloadTemplate = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -111,6 +117,7 @@
             this.tabPageGuideline.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.successProvider)).BeginInit();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -428,6 +435,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnReloadTemplate);
+            this.panel2.Controls.Add(this.btnSaveTemplate);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.lblSample5);
@@ -454,6 +463,17 @@
             this.panel2.Size = new System.Drawing.Size(559, 562);
             this.panel2.TabIndex = 25;
             // 
+            // btnSaveTemplate
+            // 
+            this.btnSaveTemplate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSaveTemplate.Location = new System.Drawing.Point(399, 370);
+            this.btnSaveTemplate.Name = "btnSaveTemplate";
+            this.btnSaveTemplate.Size = new System.Drawing.Size(89, 23);
+            this.btnSaveTemplate.TabIndex = 54;
+            this.btnSaveTemplate.Text = "Save Template";
+            this.btnSaveTemplate.UseVisualStyleBackColor = false;
+            this.btnSaveTemplate.Click += new System.EventHandler(this.btnSaveTemplate_Click);
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -468,7 +488,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(189, 371);
+            this.label10.Location = new System.Drawing.Point(189, 373);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(26, 16);
             this.label10.TabIndex = 52;
@@ -494,7 +514,7 @@
             this.lblSample7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample7.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample7.Location = new System.Drawing.Point(270, 371);
+            this.lblSample7.Location = new System.Drawing.Point(270, 373);
             this.lblSample7.Name = "lblSample7";
             this.lblSample7.Size = new System.Drawing.Size(75, 17);
             this.lblSample7.TabIndex = 43;
@@ -507,7 +527,7 @@
             this.lblSample6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample6.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample6.Location = new System.Drawing.Point(218, 371);
+            this.lblSample6.Location = new System.Drawing.Point(218, 373);
             this.lblSample6.Name = "lblSample6";
             this.lblSample6.Size = new System.Drawing.Size(49, 17);
             this.lblSample6.TabIndex = 42;
@@ -576,7 +596,7 @@
             this.lblSample2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample2.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample2.Location = new System.Drawing.Point(62, 55);
+            this.lblSample2.Location = new System.Drawing.Point(62, 54);
             this.lblSample2.Name = "lblSample2";
             this.lblSample2.Size = new System.Drawing.Size(17, 17);
             this.lblSample2.TabIndex = 39;
@@ -589,7 +609,7 @@
             this.lblSample1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSample1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSample1.ForeColor = System.Drawing.Color.Blue;
-            this.lblSample1.Location = new System.Drawing.Point(62, 25);
+            this.lblSample1.Location = new System.Drawing.Point(62, 24);
             this.lblSample1.Name = "lblSample1";
             this.lblSample1.Size = new System.Drawing.Size(17, 17);
             this.lblSample1.TabIndex = 38;
@@ -599,7 +619,7 @@
             // 
             this.lblTestCaseColumnName.AutoSize = true;
             this.lblTestCaseColumnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 56);
+            this.lblTestCaseColumnName.Location = new System.Drawing.Point(85, 55);
             this.lblTestCaseColumnName.Name = "lblTestCaseColumnName";
             this.lblTestCaseColumnName.Size = new System.Drawing.Size(227, 16);
             this.lblTestCaseColumnName.TabIndex = 33;
@@ -617,7 +637,7 @@
             // 
             // txtFillableRowStartIndex
             // 
-            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 119);
+            this.txtFillableRowStartIndex.Location = new System.Drawing.Point(339, 118);
             this.txtFillableRowStartIndex.Name = "txtFillableRowStartIndex";
             this.txtFillableRowStartIndex.Size = new System.Drawing.Size(124, 20);
             this.txtFillableRowStartIndex.TabIndex = 30;
@@ -645,7 +665,7 @@
             // 
             // txtTestCaseColumnName
             // 
-            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 55);
+            this.txtTestCaseColumnName.Location = new System.Drawing.Point(339, 54);
             this.txtTestCaseColumnName.Name = "txtTestCaseColumnName";
             this.txtTestCaseColumnName.Size = new System.Drawing.Size(124, 20);
             this.txtTestCaseColumnName.TabIndex = 26;
@@ -656,7 +676,7 @@
             // 
             this.lblDateRowIndex.AutoSize = true;
             this.lblDateRowIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateRowIndex.Location = new System.Drawing.Point(85, 25);
+            this.lblDateRowIndex.Location = new System.Drawing.Point(85, 24);
             this.lblDateRowIndex.Name = "lblDateRowIndex";
             this.lblDateRowIndex.Size = new System.Drawing.Size(157, 16);
             this.lblDateRowIndex.TabIndex = 24;
@@ -664,7 +684,7 @@
             // 
             // txtDateRowIndex
             // 
-            this.txtDateRowIndex.Location = new System.Drawing.Point(339, 24);
+            this.txtDateRowIndex.Location = new System.Drawing.Point(339, 23);
             this.txtDateRowIndex.Name = "txtDateRowIndex";
             this.txtDateRowIndex.Size = new System.Drawing.Size(124, 20);
             this.txtDateRowIndex.TabIndex = 25;
@@ -747,8 +767,8 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.panel5);
             this.panel3.Location = new System.Drawing.Point(6, 6);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(559, 562);
@@ -757,10 +777,10 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(57, 158);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(151, 68);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(443, 73);
+            this.label6.Size = new System.Drawing.Size(106, 20);
             this.label6.TabIndex = 25;
             this.label6.Text = "Version: 1.0.0";
             // 
@@ -854,6 +874,59 @@
             this.successProvider.ContainerControl = this;
             this.successProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("successProvider.Icon")));
             // 
+            // btnReloadTemplate
+            // 
+            this.btnReloadTemplate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnReloadTemplate.Location = new System.Drawing.Point(62, 370);
+            this.btnReloadTemplate.Name = "btnReloadTemplate";
+            this.btnReloadTemplate.Size = new System.Drawing.Size(102, 23);
+            this.btnReloadTemplate.TabIndex = 55;
+            this.btnReloadTemplate.Text = "Reload Template";
+            this.btnReloadTemplate.UseVisualStyleBackColor = false;
+            this.btnReloadTemplate.Click += new System.EventHandler(this.btnReloadTemplate_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(126, 93);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(160, 20);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Author: Breeze Team";
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.label13);
+            this.panel5.Controls.Add(this.label12);
+            this.panel5.Controls.Add(this.label8);
+            this.panel5.Controls.Add(this.label6);
+            this.panel5.Location = new System.Drawing.Point(62, 14);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(426, 368);
+            this.panel5.TabIndex = 27;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(77, 14);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(269, 31);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Auto Collect Report";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(101, 121);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(222, 20);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "@ 2019 LogiGear Corporation";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -888,10 +961,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubTitle)).EndInit();
             this.tabPageAbout.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.successProvider)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -967,6 +1041,12 @@
         private System.Windows.Forms.Button btnEndExcel;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.ErrorProvider successProvider;
+        private System.Windows.Forms.Button btnSaveTemplate;
+        private System.Windows.Forms.Button btnReloadTemplate;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label8;
     }
 }
 

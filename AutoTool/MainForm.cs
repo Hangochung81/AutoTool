@@ -75,20 +75,68 @@ namespace AutoTool
             colSubTitle.DataSource = subTitleData;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        /* ---------------------- USER DEFINED METHODS ---------------------- */
+        private void Control_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ValidateNumbericTextbox(TextBox control)
+        {
+            if (String.IsNullOrEmpty(control.Text) || !control.Text.All(char.IsDigit))
+            {
+                errorProvider.SetError(control, "Please enter numberic");
+                successProvider.SetError(control, null);
+            }
+            else
+            {
+                errorProvider.SetError(control, null);
+                successProvider.SetError(control, "OK");
+            }
+        }
+
+        private void ValidateLetterTextbox(TextBox control)
+        {
+            if (String.IsNullOrEmpty(control.Text) || !control.Text.All(char.IsLetter))
+            {
+                errorProvider.SetError(control, "Please enter letter");
+                successProvider.SetError(control, null);
+            }
+            else
+            {
+                errorProvider.SetError(control, null);
+                successProvider.SetError(control, "OK");
+            }
+        }
+
+        private void ValidateTemplateInfo()
+        {
+            // Validate template info
+            foreach (Control c in panel2.Controls)
+            {
+                if (errorProvider.GetError(c).Length > 0)
+                {
+                    throw new Exception("Some inputted value in template are incorrect. Please check template info again.");
+                }
+            }
+        }
+
+        private void LoadTemplateInfo()
         {
             INIFile ini = new INIFile(Directory.GetCurrentDirectory() + "\\Settings.ini");
-            //Load Report config
-            txtPath.Text = ini.ReadValue("Report", "FolderPath");
-            txtExcelPath.Text = ini.ReadValue("Report", "OutputExcelPath");
 
-            //Load Template config
+            // Load Template config from ini file
             txtTestCaseColumnName.Text = ini.ReadValue("Template", "TestCaseColumnName");
             txtFillableColumnStartName.Text = ini.ReadValue("Template", "FillableColumnStartName");
             txtFillableRowStartIndex.Text = ini.ReadValue("Template", "FillableRowStartIndex");
             txtDateRowIndex.Text = ini.ReadValue("Template", "DateRowIndex");
             txtColumnNumberPerDate.Text = ini.ReadValue("Template", "ColumnNumberPerDate");
             string[] subTitleDataList = ini.ReadValue("Template", "SubTitleColumnIndexList").Split(';');
+
+            dgvSubTitle.Rows.Clear();
             if (subTitleDataList.Count() > 0)
             {
                 foreach (var item in subTitleDataList)
@@ -97,12 +145,70 @@ namespace AutoTool
                     dgvSubTitle.Rows.Add(subTitleInfo[0], subTitleInfo[1]);
                 }
             }
+
             // Validate Template info
             ValidateNumbericTextbox(txtDateRowIndex);
             ValidateLetterTextbox(txtTestCaseColumnName);
             ValidateLetterTextbox(txtFillableColumnStartName);
             ValidateNumbericTextbox(txtFillableRowStartIndex);
             ValidateNumbericTextbox(txtColumnNumberPerDate);
+        }
+
+        private void SaveTemplateInfo()
+        {
+            INIFile ini = new INIFile(Directory.GetCurrentDirectory() + "\\Settings.ini");
+
+            // Save Template config
+            ini.WriteValue("Template", "TestCaseColumnName", txtTestCaseColumnName.Text);
+            ini.WriteValue("Template", "FillableColumnStartName", txtFillableColumnStartName.Text);
+            ini.WriteValue("Template", "FillableRowStartIndex", txtFillableRowStartIndex.Text);
+            ini.WriteValue("Template", "DateRowIndex", txtDateRowIndex.Text);
+            ini.WriteValue("Template", "ColumnNumberPerDate", txtColumnNumberPerDate.Text);
+
+            string subTitleList = "";
+
+            // Get chosen sub title list from template info
+            for (int i = 0; i < dgvSubTitle.Rows.Count - 1; i++)
+            {
+                if (dgvSubTitle.Rows[i].Cells[0].Value == null)
+                {
+                    throw new Exception("Type value of some chosen sub title are empty. Please check template info again.");
+                }
+
+                if (dgvSubTitle.Rows[i].Cells[1].Value == null)
+                {
+                    throw new Exception("Index value of some chosen sub title are empty. Please check template info again.");
+                }
+
+                int subTitleType = Convert.ToInt32(dgvSubTitle.Rows[i].Cells[0].Value.ToString());
+                int subTitleIndex = Convert.ToInt32(dgvSubTitle.Rows[i].Cells[1].Value.ToString());
+
+                if (subTitleIndex <= 0)
+                {
+                    throw new Exception("Index value of some chosen sub title = 0 (index must start from 1). Please check template info again.");
+                }
+
+                subTitleList += String.Format(";{0}-{1}", subTitleType, subTitleIndex);
+            }
+
+            if (subTitleList.Length > 0)
+            {
+                subTitleList = subTitleList.Substring(1);
+            }
+
+            ini.WriteValue("Template", "SubTitleColumnIndexList", subTitleList);
+        }
+
+        /* ---------------------- EVENT METHODS ---------------------- */
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //Load Template config
+            LoadTemplateInfo();
+
+            INIFile ini = new INIFile(Directory.GetCurrentDirectory() + "\\Settings.ini");
+            //Load Report config
+            txtPath.Text = ini.ReadValue("Report", "FolderPath");
+            txtExcelPath.Text = ini.ReadValue("Report", "OutputExcelPath");
 
             //Load Ignore test case
             string ignoreTestCasePath = ini.ReadValue("Report", "IgnoreTestCasePath");
@@ -152,13 +258,7 @@ namespace AutoTool
             try
             {
                 // Validate template info
-                foreach (Control c in panel2.Controls)
-                {
-                    if (errorProvider.GetError(c).Length > 0)
-                    {
-                        throw new Exception("Some inputted value in template are incorrect. Please check template info again.");
-                    }
-                }
+                ValidateTemplateInfo();
 
                 string[] testCase = null;
                 List<KeyValuePair<int, int>> subTitleList = new List<KeyValuePair<int, int>>();
@@ -291,7 +391,7 @@ namespace AutoTool
             {
                 proc.Kill();
             }
-            MessageBox.Show("Excel processes ended", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Excel processes ended.", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cbxReportType_SelectedIndexChanged(object sender, EventArgs e)
@@ -414,42 +514,6 @@ namespace AutoTool
             e.Control.KeyPress += new KeyPressEventHandler(Control_KeyPress);
         }
 
-        private void Control_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void ValidateNumbericTextbox(TextBox control)
-        {
-            if (String.IsNullOrEmpty(control.Text) || !control.Text.All(char.IsDigit))
-            {
-                errorProvider.SetError(control, "Please enter numberic !");
-                successProvider.SetError(control, null);
-            }
-            else
-            {
-                errorProvider.SetError(control, null);
-                successProvider.SetError(control, "OK");
-            }
-        }
-
-        private void ValidateLetterTextbox(TextBox control)
-        {
-            if (String.IsNullOrEmpty(control.Text) || !control.Text.All(char.IsLetter))
-            {
-                errorProvider.SetError(control, "Please enter letter !");
-                successProvider.SetError(control, null);
-            }
-            else
-            {
-                errorProvider.SetError(control, null);
-                successProvider.SetError(control, "OK");
-            }
-        }
-
         private void txtDateRowIndex_Validating(object sender, CancelEventArgs e)
         {
             ValidateNumbericTextbox(txtDateRowIndex);
@@ -473,6 +537,30 @@ namespace AutoTool
         private void txtColumnNumberPerDate_Validating(object sender, CancelEventArgs e)
         {
             ValidateNumbericTextbox(txtColumnNumberPerDate);
+        }
+
+        private void btnSaveTemplate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validate template info
+                ValidateTemplateInfo();
+
+                // Save current template info into Settings.ini file
+                SaveTemplateInfo();
+
+                MessageBox.Show("Template was saved.", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnReloadTemplate_Click(object sender, EventArgs e)
+        {
+            // Reload template info
+            LoadTemplateInfo();
         }
     }
 
