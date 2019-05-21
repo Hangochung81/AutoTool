@@ -69,5 +69,17 @@ namespace AutoTool.Utility
             dateTime = dateTime.AddMilliseconds(double.Parse(timestamp));
             return dateTime;
         }
+
+        public static string AddEscapeSequenceInCsvField(string value)
+        {
+            if (value.Contains(","))
+            {
+                return "\"" + value + "\"";
+            }
+            else
+            {
+                return value;
+            }
+        }
     }
 }

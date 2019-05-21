@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -95,6 +96,8 @@
             this.chxOpenFile = new System.Windows.Forms.CheckBox();
             this.btnShowCollectedData = new System.Windows.Forms.Button();
             this.btnEndExcel = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.successProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -106,6 +109,8 @@
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPageGuideline.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.successProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -525,6 +530,7 @@
             this.txtColumnNumberPerDate.Size = new System.Drawing.Size(124, 20);
             this.txtColumnNumberPerDate.TabIndex = 45;
             this.txtColumnNumberPerDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtColumnNumberPerDate_KeyPress);
+            this.txtColumnNumberPerDate.Validating += new System.ComponentModel.CancelEventHandler(this.txtColumnNumberPerDate_Validating);
             // 
             // panel1
             // 
@@ -616,6 +622,7 @@
             this.txtFillableRowStartIndex.Size = new System.Drawing.Size(124, 20);
             this.txtFillableRowStartIndex.TabIndex = 30;
             this.txtFillableRowStartIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFillableRowStartIndex_KeyPress);
+            this.txtFillableRowStartIndex.Validating += new System.ComponentModel.CancelEventHandler(this.txtFillableRowStartIndex_Validating);
             // 
             // lblFillableColumnStartName
             // 
@@ -634,6 +641,7 @@
             this.txtFillableColumnStartName.Size = new System.Drawing.Size(124, 20);
             this.txtFillableColumnStartName.TabIndex = 28;
             this.txtFillableColumnStartName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFillableColumnStartName_KeyPress);
+            this.txtFillableColumnStartName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFillableColumnStartName_Validating);
             // 
             // txtTestCaseColumnName
             // 
@@ -642,6 +650,7 @@
             this.txtTestCaseColumnName.Size = new System.Drawing.Size(124, 20);
             this.txtTestCaseColumnName.TabIndex = 26;
             this.txtTestCaseColumnName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTestCaseColumnName_KeyPress);
+            this.txtTestCaseColumnName.Validating += new System.ComponentModel.CancelEventHandler(this.txtTestCaseColumnName_Validating);
             // 
             // lblDateRowIndex
             // 
@@ -660,6 +669,7 @@
             this.txtDateRowIndex.Size = new System.Drawing.Size(124, 20);
             this.txtDateRowIndex.TabIndex = 25;
             this.txtDateRowIndex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDateRowIndex_KeyPress);
+            this.txtDateRowIndex.Validating += new System.ComponentModel.CancelEventHandler(this.txtDateRowIndex_Validating);
             // 
             // groupBox3
             // 
@@ -773,7 +783,7 @@
             this.tabPageGuideline.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageGuideline.Size = new System.Drawing.Size(571, 528);
             this.tabPageGuideline.TabIndex = 3;
-            this.tabPageGuideline.Text = "Guideline";
+            this.tabPageGuideline.Text = "User Manual";
             this.tabPageGuideline.UseVisualStyleBackColor = true;
             // 
             // webBrowser
@@ -832,6 +842,18 @@
             this.btnEndExcel.UseVisualStyleBackColor = false;
             this.btnEndExcel.Click += new System.EventHandler(this.btnEndExcel_Click);
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
+            // successProvider
+            // 
+            this.successProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.successProvider.ContainerControl = this;
+            this.successProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("successProvider.Icon")));
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -868,6 +890,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.successProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -941,6 +965,8 @@
         private System.Windows.Forms.CheckBox chxOpenFile;
         private System.Windows.Forms.Button btnShowCollectedData;
         private System.Windows.Forms.Button btnEndExcel;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ErrorProvider successProvider;
     }
 }
 

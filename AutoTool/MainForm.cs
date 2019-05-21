@@ -97,6 +97,12 @@ namespace AutoTool
                     dgvSubTitle.Rows.Add(subTitleInfo[0], subTitleInfo[1]);
                 }
             }
+            // Validate Template info
+            ValidateNumbericTextbox(txtDateRowIndex);
+            ValidateLetterTextbox(txtTestCaseColumnName);
+            ValidateLetterTextbox(txtFillableColumnStartName);
+            ValidateNumbericTextbox(txtFillableRowStartIndex);
+            ValidateNumbericTextbox(txtColumnNumberPerDate);
 
             //Load Ignore test case
             string ignoreTestCasePath = ini.ReadValue("Report", "IgnoreTestCasePath");
@@ -145,6 +151,15 @@ namespace AutoTool
             Cursor = Cursors.WaitCursor;
             try
             {
+                // Validate template info
+                foreach (Control c in panel2.Controls)
+                {
+                    if (errorProvider.GetError(c).Length > 0)
+                    {
+                        throw new Exception("Some inputted value in template are incorrect. Please check template info again.");
+                    }
+                }
+
                 string[] testCase = null;
                 List<KeyValuePair<int, int>> subTitleList = new List<KeyValuePair<int, int>>();
 
@@ -178,6 +193,7 @@ namespace AutoTool
                     subTitleList.Add(new KeyValuePair<int, int> ( subTitleType, subTitleIndex ));
                 }
 
+                // Create ReportInfo and TemplateInfo from inputted data
                 ReportInfo report = new ReportInfo()
                 {
                     SheetName = cbxSheet.Text,
@@ -223,6 +239,7 @@ namespace AutoTool
 
             if (listSheetName.Count > 0)
             {
+                // set default sheet name
                 cbxSheet.Text = listSheetName[0];
             }
             
@@ -249,6 +266,7 @@ namespace AutoTool
 
         private void btnLoadTestCase_Click(object sender, EventArgs e)
         {
+            // Load test case list from selected file
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 Cursor = Cursors.WaitCursor;
@@ -259,10 +277,10 @@ namespace AutoTool
 
         private void btnLoadCurrentTestCase_Click(object sender, EventArgs e)
         {
+            // Load current test case list from selected file
             Cursor = Cursors.WaitCursor;
             txtTestCase.Text = cldt.GetCurrentTestCase(txtExcelPath.Text, cbxSheet.Text, txtTestCaseColumnName.Text, Convert.ToInt32(txtFillableRowStartIndex.Text));
             Cursor = Cursors.Arrow;
-            
         }
 
         private void btnEndExcel_Click(object sender, EventArgs e)
@@ -398,6 +416,59 @@ namespace AutoTool
             {
                 e.Handled = true;
             }
+        }
+
+        private void ValidateNumbericTextbox(TextBox control)
+        {
+            if (String.IsNullOrEmpty(control.Text) || !control.Text.All(char.IsDigit))
+            {
+                errorProvider.SetError(control, "Please enter numberic !");
+                successProvider.SetError(control, null);
+            }
+            else
+            {
+                errorProvider.SetError(control, null);
+                successProvider.SetError(control, "OK");
+            }
+        }
+
+        private void ValidateLetterTextbox(TextBox control)
+        {
+            if (String.IsNullOrEmpty(control.Text) || !control.Text.All(char.IsLetter))
+            {
+                errorProvider.SetError(control, "Please enter letter !");
+                successProvider.SetError(control, null);
+            }
+            else
+            {
+                errorProvider.SetError(control, null);
+                successProvider.SetError(control, "OK");
+            }
+        }
+
+        private void txtDateRowIndex_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateNumbericTextbox(txtDateRowIndex);
+        }
+
+        private void txtTestCaseColumnName_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateLetterTextbox(txtTestCaseColumnName);
+        }
+
+        private void txtFillableColumnStartName_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateLetterTextbox(txtFillableColumnStartName);
+        }
+
+        private void txtFillableRowStartIndex_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateNumbericTextbox(txtFillableRowStartIndex);
+        }
+
+        private void txtColumnNumberPerDate_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateNumbericTextbox(txtColumnNumberPerDate);
         }
     }
 

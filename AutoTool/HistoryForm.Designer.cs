@@ -36,6 +36,7 @@
             this.colEndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTestStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnExportData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,12 +53,12 @@
             this.colEndTime,
             this.colTestStatus,
             this.colDetail});
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(784, 600);
+            this.dataGridView.Size = new System.Drawing.Size(784, 554);
             this.dataGridView.TabIndex = 0;
             // 
             // colNo
@@ -102,20 +103,33 @@
             this.colDetail.ReadOnly = true;
             this.colDetail.Width = 250;
             // 
-            // SummaryForm
+            // btnExportData
+            // 
+            this.btnExportData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnExportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportData.Location = new System.Drawing.Point(692, 559);
+            this.btnExportData.Name = "btnExportData";
+            this.btnExportData.Size = new System.Drawing.Size(88, 37);
+            this.btnExportData.TabIndex = 32;
+            this.btnExportData.Text = "Export Data";
+            this.btnExportData.UseVisualStyleBackColor = false;
+            this.btnExportData.Click += new System.EventHandler(this.btnExportData_Click);
+            // 
+            // HistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 600);
+            this.Controls.Add(this.btnExportData);
             this.Controls.Add(this.dataGridView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SummaryForm";
+            this.Name = "HistoryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collected Data";
-            this.Load += new System.EventHandler(this.HistoryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -130,5 +144,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colEndTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTestStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDetail;
+        private System.Windows.Forms.Button btnExportData;
     }
 }
