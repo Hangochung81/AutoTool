@@ -51,6 +51,7 @@ namespace AutoTool.ReportManager.Implement
                 filterFile = "*";
             }
 
+            // Get all files in directory with matched prefix name
             FileInfo[] files = dir.GetFiles($"{filterFile}.json");
 
             if (files.Count() == 0)
@@ -58,6 +59,7 @@ namespace AutoTool.ReportManager.Implement
                 throw new Exception($"There is no file with name \"{filterFile}.json\" in folder \"{resultPath}\"");
             }
 
+            // Loop all files and get data base on defined keywords
             foreach (FileInfo file in files)
             {
                 StreamReader rd = new StreamReader(file.FullName);
@@ -69,6 +71,7 @@ namespace AutoTool.ReportManager.Implement
                 string status = Helper.UpperFirstCharacter((string)jobj["status"]);
                 string message = "";
 
+                // Get error/warning message if test case is not pass
                 if (status != "Passed")
                 {
                     if (jobj["statusDetails"] != null && jobj["statusDetails"]["message"] != null)
@@ -77,8 +80,11 @@ namespace AutoTool.ReportManager.Implement
                     }
                 }
 
+                // Ignore all test cases in ignore list
                 if (!Array.Exists(ignoreList, E => E == testID))
                 {
+                    // If get only one data for each test case, compare and get data has latest end time
+                    // Else get all raw data for each test case (one test case id can be run many times with different test result)
                     if (results.GetType() == typeof(Dictionary<string, string[]>))
                     {
                         if (results.ContainsKey(testID))

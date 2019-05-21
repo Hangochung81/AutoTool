@@ -8,6 +8,7 @@ namespace AutoTool.ReportManager
     {
         public static IReport GetReport(string reportType)
         {
+            // Create specific report base on report type
             if (reportType == Constant.REPORT_TYPE_EXTENT)
             {
                 return new ExtentReport();

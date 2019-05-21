@@ -55,6 +55,7 @@ namespace AutoTool.ReportManager.Implement
                 filterFile = "*";
             }
 
+            // Get all files in directory with matched prefix name
             FileInfo[] files = dir.GetFiles($"{filterFile}.html");
 
             if (files.Count() == 0)
@@ -62,6 +63,7 @@ namespace AutoTool.ReportManager.Implement
                 throw new Exception($"There is no file with name \"{filterFile}.html\" in folder \"{resultPath}\"");
             }
 
+            // Loop all files and get data base on defined keywords
             foreach (FileInfo file in files)
             {
                 var filePath = "file:///" + resultPath.Replace("\\", "/") + "/" + file.Name;
@@ -78,6 +80,8 @@ namespace AutoTool.ReportManager.Implement
                     string endTime = testNode.SelectNodes(".//span[@class='label end-time']").Single().InnerText.Trim();
                     string status = Helper.UpperFirstCharacter(testNode.SelectNodes(".//div[@class='test-heading']/span[contains(@class,'test-status')]").Single().InnerText.Trim()) + "ed";
                     string message = "";
+
+                    // Get error/warning message if test case is not pass
                     if (status != "Passed")
                     {
                         var lastNode = testNode.SelectNodes("(.//li[contains(@class,'node')])[last()]").Single();
@@ -91,8 +95,11 @@ namespace AutoTool.ReportManager.Implement
                         }
                     }
 
+                    // Ignore all test cases in ignore list
                     if (!Array.Exists(ignoreList, E => E == testID))
                     {
+                        // If get only one data for each test case, compare and get data has latest end time
+                        // Else get all raw data for each test case (one test case id can be run many times with different test result)
                         if (results.GetType() == typeof(Dictionary<string, string[]>))
                         {
                             if (results.ContainsKey(testID))

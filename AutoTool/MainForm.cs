@@ -216,6 +216,7 @@ namespace AutoTool
                     SubTitleColumnIndexList = subTitleList
                 };
 
+                // Execute updating chosen Excel file with collected data from reports
                 cldt.UpdateExcel(report, template, chxOpenFile.Checked);
             }
             catch (Exception ex)
@@ -362,6 +363,7 @@ namespace AutoTool
         {
             try
             {
+                // Create Report info from inputted value on screen
                 string[] ignoreTestCase = txtIgnoreTestCase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 ReportInfo report = new ReportInfo()
                 {
@@ -371,7 +373,9 @@ namespace AutoTool
                     FilterFile = txtFilterFile.Text
                 };
 
+                // get data from reports
                 var data = cldt.GetCollectedData(report);
+                // show collected data into screen
                 HistoryForm form = new HistoryForm(data);
                 form.ShowDialog();
             }

@@ -54,6 +54,7 @@ namespace AutoTool.ReportManager.Implement
                 filterFile = "*";
             }
 
+            // Get all files in directory with matched prefix name
             FileInfo[] files = dir.GetFiles($"{filterFile}.xml");
 
             if (files.Count() == 0)
@@ -63,6 +64,7 @@ namespace AutoTool.ReportManager.Implement
 
             XmlDocument doc = new XmlDocument();
 
+            // Loop all files and get data base on defined keywords
             foreach (FileInfo file in files)
             {
                 doc.Load(file.FullName);
@@ -81,6 +83,8 @@ namespace AutoTool.ReportManager.Implement
                             string endTime = nodeList[i].Attributes["finished-at"].Value;
                             string status = Helper.UpperFirstCharacter(nodeList[i].Attributes["status"].Value) + "ed";
                             string message = "";
+
+                            // Get error/warning message if test case is not pass
                             if (status != "Passed")
                             {
                                 var exception = nodeList[i].SelectNodes(".//exception");
@@ -91,8 +95,11 @@ namespace AutoTool.ReportManager.Implement
                                 }
                             }
 
+                            // Ignore all test cases in ignore list
                             if (!Array.Exists(ignoreList, E => E == testID))
                             {
+                                // If get only one data for each test case, compare and get data has latest end time
+                                // Else get all raw data for each test case (one test case id can be run many times with different test result)
                                 if (results.GetType() == typeof(Dictionary<string, string[]>))
                                 {
                                     if (results.ContainsKey(testID))

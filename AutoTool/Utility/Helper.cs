@@ -64,7 +64,6 @@ namespace AutoTool.Utility
 
         public static DateTime ConvertTimestamp(string timestamp)
         {
-
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             dateTime = dateTime.AddMilliseconds(double.Parse(timestamp));
             return dateTime;
