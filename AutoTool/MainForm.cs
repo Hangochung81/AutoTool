@@ -317,7 +317,20 @@ namespace AutoTool
                 };
 
                 // Execute updating chosen Excel file with collected data from reports
-                cldt.UpdateExcel(report, template, chxOpenFile.Checked);
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                cldt.UpdateExcel(report, template);
+
+                stopwatch.Stop();
+
+                MessageBox.Show(String.Format("Completed in {0} seconds", stopwatch.ElapsedMilliseconds / 1000), "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Open Excel after finish
+                if (chxOpenFile.Checked)
+                {
+                    cldt.OpenExcel(report.TargetPath, report.SheetName);
+                }
             }
             catch (Exception ex)
             {
@@ -371,7 +384,14 @@ namespace AutoTool
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 Cursor = Cursors.WaitCursor;
-                txtTestCase.Text = File.ReadAllText(ofd.FileName);
+                try
+                {
+                    txtTestCase.Text = File.ReadAllText(ofd.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 Cursor = Cursors.Arrow;
             }
         }
@@ -380,7 +400,14 @@ namespace AutoTool
         {
             // Load current test case list from selected file
             Cursor = Cursors.WaitCursor;
-            txtTestCase.Text = cldt.GetCurrentTestCase(txtExcelPath.Text, cbxSheet.Text, txtTestCaseColumnName.Text, Convert.ToInt32(txtFillableRowStartIndex.Text));
+            try
+            {
+                txtTestCase.Text = cldt.GetCurrentTestCase(txtExcelPath.Text, cbxSheet.Text, txtTestCaseColumnName.Text, Convert.ToInt32(txtFillableRowStartIndex.Text));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             Cursor = Cursors.Arrow;
         }
 

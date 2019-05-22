@@ -16,14 +16,10 @@ namespace AutoTool.ReportManager
         _Workbook oWB = null;
         _Worksheet oSheet = null;
 
-        public void UpdateExcel(ReportInfo report, TemplateInfo template, bool openFile)
+        public void UpdateExcel(ReportInfo report, TemplateInfo template)
         {
-            bool success = false;
             try
             {
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
-
                 // Stop process if there is no sub title was chosen to fill data
                 if (template.SubTitleColumnIndexList.Count == 0)
                 {
@@ -66,16 +62,6 @@ namespace AutoTool.ReportManager
                 }
 
                 oWB.Save();
-
-                stopwatch.Stop();
-
-                MessageBox.Show(String.Format("Completed in {0} seconds", stopwatch.ElapsedMilliseconds/1000), "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                success = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -83,15 +69,6 @@ namespace AutoTool.ReportManager
                 {
                     oWB.Close();
                     oWB = null;
-                }
-
-                // Open Excel after finish
-                if (openFile && success)
-                {
-                    var excelApp = new Microsoft.Office.Interop.Excel.Application();
-                    excelApp.Visible = true;
-                    excelApp.Workbooks.Open(report.TargetPath);
-                    excelApp.Worksheets[report.SheetName].Activate();
                 }
             }
         }
@@ -217,10 +194,6 @@ namespace AutoTool.ReportManager
                     tcList += tcVal + "\r\n";
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             finally
             {
                 if (oWB != null)
@@ -231,6 +204,14 @@ namespace AutoTool.ReportManager
             }
 
             return tcList;
+        }
+
+        public void OpenExcel(string excelPath, string sheetName)
+        {
+            var excelApp = new Microsoft.Office.Interop.Excel.Application();
+            excelApp.Visible = true;
+            excelApp.Workbooks.Open(excelPath);
+            excelApp.Worksheets[sheetName].Activate();
         }
     }
 }
