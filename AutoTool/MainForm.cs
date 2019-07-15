@@ -300,6 +300,7 @@ namespace AutoTool
                     ResultPath = txtPath.Text,
                     ReportType = cbxReportType.SelectedValue.ToString(),
                     FilterFile = txtFilterFile.Text,
+                    TestSuiteName = txtTestSuite.Text,
                     TargetPath = txtExcelPath.Text,
                     ReportDate = dateTimePicker.Value,
                     TestCaseList = testCase,
@@ -427,16 +428,22 @@ namespace AutoTool
             {
                 lblFileExtension.Text = ".html";
                 txtFilterFile.Clear();
+                lblTestSuite.Visible = false;
+                txtTestSuite.Visible = false;
             }
             else if (cbxReportType.SelectedIndex == 2)
             {
                 txtFilterFile.Text = "*result";
                 lblFileExtension.Text = ".json";
+                lblTestSuite.Visible = false;
+                txtTestSuite.Visible = false;
             }
             else
             {
                 txtFilterFile.Clear();
                 lblFileExtension.Text = ".xml";
+                lblTestSuite.Visible = true;
+                txtTestSuite.Visible = true;
             }
         }
 
@@ -496,6 +503,7 @@ namespace AutoTool
                 {
                     ResultPath = txtPath.Text,
                     ReportType = cbxReportType.SelectedValue.ToString(),
+                    TestSuiteName = txtTestSuite.Text,
                     IgnoreTestCaseList = ignoreTestCase,
                     FilterFile = txtFilterFile.Text
                 };

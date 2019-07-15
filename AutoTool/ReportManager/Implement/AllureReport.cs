@@ -10,7 +10,7 @@ namespace AutoTool.ReportManager.Implement
 {
     public class AllureReport : IReport
     {
-        public Dictionary<string, string[]> CollectDataFromFile(string resultPath, string[] ignoreList, string filterFile)
+        public Dictionary<string, string[]> CollectDataFromFile(string resultPath, string[] ignoreList, string filterFile, string filterTestSuite)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace AutoTool.ReportManager.Implement
             }
         }
 
-        public List<KeyValuePair<string, string[]>> CollectHistoryDataFromFile(string resultPath, string[] ignoreList, string filterFile)
+        public List<KeyValuePair<string, string[]>> CollectHistoryDataFromFile(string resultPath, string[] ignoreList, string filterFile, string filterTestSuite)
         {
             try
             {

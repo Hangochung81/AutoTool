@@ -12,13 +12,13 @@ namespace AutoTool.ReportManager.Implement
     {
         private const string REPORT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
-        public Dictionary<string, string[]> CollectDataFromFile(string resultPath, string[] ignoreList, string filterFile)
+        public Dictionary<string, string[]> CollectDataFromFile(string resultPath, string[] ignoreList, string filterFile, string filterTestSuite)
         {
             try
             {
                 dynamic results = new Dictionary<string, string[]>();
 
-                AnalyzeContent(ref results, resultPath, ignoreList, filterFile);
+                AnalyzeContent(ref results, resultPath, ignoreList, filterFile, filterTestSuite);
 
                 return results;
             }
@@ -28,13 +28,13 @@ namespace AutoTool.ReportManager.Implement
             }
         }
 
-        public List<KeyValuePair<string, string[]>> CollectHistoryDataFromFile(string resultPath, string[] ignoreList, string filterFile)
+        public List<KeyValuePair<string, string[]>> CollectHistoryDataFromFile(string resultPath, string[] ignoreList, string filterFile, string filterTestSuite)
         {
             try
             {
                 dynamic results = new List<KeyValuePair<string, string[]>>();
 
-                AnalyzeContent(ref results, resultPath, ignoreList, filterFile);
+                AnalyzeContent(ref results, resultPath, ignoreList, filterFile, filterTestSuite);
 
                 return results;
             }
@@ -44,7 +44,7 @@ namespace AutoTool.ReportManager.Implement
             }
         }
 
-        private void AnalyzeContent(ref dynamic results, string resultPath, string[] ignoreList, string filterFile)
+        private void AnalyzeContent(ref dynamic results, string resultPath, string[] ignoreList, string filterFile, string filterTestSuite)
         {
             DirectoryInfo dir = new DirectoryInfo(resultPath);
 
@@ -71,7 +71,7 @@ namespace AutoTool.ReportManager.Implement
 
                 if (root.Name == "testng-results")
                 {
-                    var nodeList = root.SelectNodes(".//test-method");
+                    var nodeList = root.SelectNodes($".//test[contains(@name, '{filterTestSuite}')]//test-method");
 
                     for (int i = 0; i < nodeList.Count; i++)
                     {

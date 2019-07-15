@@ -60,6 +60,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageTemplate = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnReloadTemplate = new System.Windows.Forms.Button();
             this.btnSaveTemplate = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -89,8 +90,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabPageGuideline = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.ExecuteBtn = new System.Windows.Forms.Button();
@@ -99,11 +104,8 @@
             this.btnEndExcel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.successProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnReloadTemplate = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblTestSuite = new System.Windows.Forms.Label();
+            this.txtTestSuite = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageReport.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -114,10 +116,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubTitle)).BeginInit();
             this.tabPageAbout.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.tabPageGuideline.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.successProvider)).BeginInit();
-            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -214,6 +216,8 @@
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.txtTestSuite);
+            this.tabPageReport.Controls.Add(this.lblTestSuite);
             this.tabPageReport.Controls.Add(this.lblFileExtension);
             this.tabPageReport.Controls.Add(this.txtFilterFile);
             this.tabPageReport.Controls.Add(this.label9);
@@ -462,6 +466,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(559, 562);
             this.panel2.TabIndex = 25;
+            // 
+            // btnReloadTemplate
+            // 
+            this.btnReloadTemplate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnReloadTemplate.Location = new System.Drawing.Point(62, 370);
+            this.btnReloadTemplate.Name = "btnReloadTemplate";
+            this.btnReloadTemplate.Size = new System.Drawing.Size(102, 23);
+            this.btnReloadTemplate.TabIndex = 55;
+            this.btnReloadTemplate.Text = "Reload Template";
+            this.btnReloadTemplate.UseVisualStyleBackColor = false;
+            this.btnReloadTemplate.Click += new System.EventHandler(this.btnReloadTemplate_Click);
             // 
             // btnSaveTemplate
             // 
@@ -774,16 +789,6 @@
             this.panel3.Size = new System.Drawing.Size(559, 562);
             this.panel3.TabIndex = 26;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(151, 68);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(106, 20);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "Version: 1.0.0";
-            // 
             // panel4
             // 
             this.panel4.BackgroundImage = global::AutoTool.Properties.Resources.logo;
@@ -794,6 +799,58 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(426, 111);
             this.panel4.TabIndex = 24;
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.label13);
+            this.panel5.Controls.Add(this.label12);
+            this.panel5.Controls.Add(this.label8);
+            this.panel5.Controls.Add(this.label6);
+            this.panel5.Location = new System.Drawing.Point(62, 14);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(426, 368);
+            this.panel5.TabIndex = 27;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(101, 121);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(222, 20);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "@ 2019 LogiGear Corporation";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(77, 14);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(269, 31);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Auto Collect Report";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(126, 93);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(160, 20);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Author: Breeze Team";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(151, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(106, 20);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Version: 1.0.0";
             // 
             // tabPageGuideline
             // 
@@ -874,58 +931,21 @@
             this.successProvider.ContainerControl = this;
             this.successProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("successProvider.Icon")));
             // 
-            // btnReloadTemplate
+            // lblTestSuite
             // 
-            this.btnReloadTemplate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnReloadTemplate.Location = new System.Drawing.Point(62, 370);
-            this.btnReloadTemplate.Name = "btnReloadTemplate";
-            this.btnReloadTemplate.Size = new System.Drawing.Size(102, 23);
-            this.btnReloadTemplate.TabIndex = 55;
-            this.btnReloadTemplate.Text = "Reload Template";
-            this.btnReloadTemplate.UseVisualStyleBackColor = false;
-            this.btnReloadTemplate.Click += new System.EventHandler(this.btnReloadTemplate_Click);
+            this.lblTestSuite.AutoSize = true;
+            this.lblTestSuite.Location = new System.Drawing.Point(311, 95);
+            this.lblTestSuite.Name = "lblTestSuite";
+            this.lblTestSuite.Size = new System.Drawing.Size(55, 13);
+            this.lblTestSuite.TabIndex = 29;
+            this.lblTestSuite.Text = "Test Suite";
             // 
-            // label8
+            // txtTestSuite
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(126, 93);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(160, 20);
-            this.label8.TabIndex = 26;
-            this.label8.Text = "Author: Breeze Team";
-            // 
-            // panel5
-            // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.label13);
-            this.panel5.Controls.Add(this.label12);
-            this.panel5.Controls.Add(this.label8);
-            this.panel5.Controls.Add(this.label6);
-            this.panel5.Location = new System.Drawing.Point(62, 14);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(426, 368);
-            this.panel5.TabIndex = 27;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(77, 14);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(269, 31);
-            this.label12.TabIndex = 27;
-            this.label12.Text = "Auto Collect Report";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(101, 121);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(222, 20);
-            this.label13.TabIndex = 28;
-            this.label13.Text = "@ 2019 LogiGear Corporation";
+            this.txtTestSuite.Location = new System.Drawing.Point(372, 92);
+            this.txtTestSuite.Name = "txtTestSuite";
+            this.txtTestSuite.Size = new System.Drawing.Size(188, 20);
+            this.txtTestSuite.TabIndex = 30;
             // 
             // MainForm
             // 
@@ -961,11 +981,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubTitle)).EndInit();
             this.tabPageAbout.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.tabPageGuideline.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.successProvider)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1047,6 +1067,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtTestSuite;
+        private System.Windows.Forms.Label lblTestSuite;
     }
 }
 

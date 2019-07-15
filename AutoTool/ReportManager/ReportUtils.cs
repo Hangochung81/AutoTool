@@ -26,7 +26,7 @@ namespace AutoTool.ReportManager
 
                 // Create Report object
                 var collectedReport = ReportFactory.GetReport(report.ReportType);
-                var listResult = collectedReport.CollectDataFromFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+                var listResult = collectedReport.CollectDataFromFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile, report.TestSuiteName);
 
                 // Open Excel file
                 oWB = oXL.Workbooks.Open(report.TargetPath);
@@ -76,7 +76,7 @@ namespace AutoTool.ReportManager
             // Create Report object
             var collectedReport = ReportFactory.GetReport(report.ReportType);
             // Get all data from reports
-            var listResult = collectedReport.CollectHistoryDataFromFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile);
+            var listResult = collectedReport.CollectHistoryDataFromFile(report.ResultPath, report.IgnoreTestCaseList, report.FilterFile, report.TestSuiteName);
 
             // sort list by key (test case id) and return
             return listResult.OrderBy(x => x.Key).ToList();
