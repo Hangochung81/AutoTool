@@ -90,7 +90,10 @@ namespace AutoTool.ReportManager.Implement
                                 if (exception.Count != 0)
                                 {
                                     message += exception[0].Attributes["class"].Value;
-                                    message += " : " + exception[0].SelectNodes(".//message")[0].InnerText;
+                                    if (exception[0].SelectNodes(".//message").Count > 0)
+                                    {
+                                        message += " : " + exception[0].SelectNodes(".//message")[0].InnerText;
+                                    }
                                 }
                             }
 
